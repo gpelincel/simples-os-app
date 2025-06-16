@@ -1,0 +1,7 @@
+{
+  "name": "descarmed-os-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
