@@ -23,6 +23,8 @@
 <ion-content [fullscreen]="true">
 
   <div class="cards-list">
-    <app-cliente-card></app-cliente-card>
+    <div *ngFor="let cliente of clientes">
+      <app-cliente-card [cliente]="cliente"></app-cliente-card>
+    </div>
   </div>
 </ion-content>
