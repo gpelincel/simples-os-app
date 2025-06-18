@@ -1,0 +1,30 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>
+        Equipamentos
+      </ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar></ion-searchbar>
+  </ion-toolbar>
+  <ion-toolbar style="padding-left: 0.5em;">
+    <ion-buttons>
+      <ion-button fill="solid" color="primary">
+        <ion-icon size="small" slot="start" name="add-circle"></ion-icon>
+        Cadastrar
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <div class="cards-list">
+    <div *ngFor="let equipamento of equipamentos">
+      <app-equipamento-card [equipamento]="equipamento"></app-equipamento-card>
+    </div>
+  </div>
+</ion-content>

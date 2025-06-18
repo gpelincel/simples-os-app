@@ -1,0 +1,16 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>{{equipamento.nome}}</ion-card-title>
+    <ion-card-subtitle>{{equipamento.cliente.nome}}</ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-chip>
+      <ion-icon name="barcode"></ion-icon>
+      <ion-label>{{equipamento.numero_serie}}</ion-label>
+    </ion-chip>
+    <ion-chip>
+      <ion-icon name="pricetag"></ion-icon>
+      <ion-label>{{equipamento.numero_patrimonio}}</ion-label>
+    </ion-chip>
+  </ion-card-content>
+</ion-card>

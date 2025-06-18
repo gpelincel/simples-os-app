@@ -18,4 +18,8 @@ export const routes: Routes = [
     path: 'ordem-servico',
     loadComponent: () => import('./pages/ordem-servico/ordem-servico.page').then( m => m.OrdemServicoPage)
   },
+  {
+    path: 'equipamentos',
+    loadComponent: () => import('./pages/equipamentos/equipamentos.page').then( m => m.EquipamentosPage)
+  },
 ];
