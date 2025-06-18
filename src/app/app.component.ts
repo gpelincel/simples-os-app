@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { IonApp, IonSplitPane, IonMenu, IonContent, IonList, IonListHeader, IonNote, IonMenuToggle, IonItem, IonIcon, IonLabel, IonRouterOutlet, IonRouterLink } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { briefcase, briefcaseOutline, calendar, calendarOutline, checkmarkCircle, closeCircle, construct, constructOutline, logOut, logOutOutline, people, peopleOutline } from 'ionicons/icons';
+import { briefcase, briefcaseOutline, calendar, calendarOutline, checkmarkCircle, closeCircle, cog, construct, constructOutline, logOut, logOutOutline, people, peopleOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-root',
@@ -14,13 +14,13 @@ import { briefcase, briefcaseOutline, calendar, calendarOutline, checkmarkCircle
 export class AppComponent {
   public appPages = [
     { title: 'Clientes', url: '/clientes', icon: 'people' },
-    { title: 'OS', url: '/os', icon: 'construct' },
+    { title: 'OS', url: '/ordem-servico', icon: 'construct' },
     { title: 'Agenda', url: '/agenda', icon: 'calendar' },
     { title: 'Equipamentos', url: '/equipamentos', icon: 'briefcase' },
-    { title: 'Configurações', url: '/config', icon: 'warning' },
+    { title: 'Configurações', url: '/config', icon: 'cog' },
     { title: 'Logout', url: '/logout', icon: 'log-out' },
   ];
   constructor() {
-    addIcons({ peopleOutline, constructOutline, calendarOutline, briefcaseOutline, logOutOutline, people, construct, calendar, briefcase, logOut, checkmarkCircle, closeCircle });
+    addIcons({ peopleOutline, constructOutline, calendarOutline, briefcaseOutline, logOutOutline, people, construct, calendar, briefcase, logOut, checkmarkCircle, closeCircle, cog });
   }
 }
