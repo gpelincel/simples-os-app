@@ -5,7 +5,6 @@
 export const environment = {
   production: false,
   api_token: '123',
-  api_login: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3NTAxOTY5MDMuNTM3MjczLCJleHAiOjE3NTAyMDA1MDMuNTM3MjczLCJ1aWQiOjN9.TPYSErX1nTFcUs2ySQ_INPyGo4HPsGIHIlrBnqhOaPs',
   api_url: 'http://localhost:8000/api/'
 };
 

@@ -12,14 +12,11 @@ export class ClienteService {
     return fetch(environment.api_url+'cliente', {
       headers: {
         "Accept": "application/json",
-        "Authorization": `Bearer ${environment.api_login}`
+        "Authorization": `Bearer ${sessionStorage.getItem("token")}`
       }
     })
     .then(response => response.json())
     .then(response => {
-      if (!response.ok) {
-        console.error("Error", response.message);
-      }
       return response.data;
     })
     .catch(error => console.error("Error", error))

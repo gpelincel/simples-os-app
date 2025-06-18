@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { IonApp, IonSplitPane, IonMenu, IonContent, IonList, IonListHeader, IonNote, IonMenuToggle, IonItem, IonIcon, IonLabel, IonRouterOutlet, IonRouterLink } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { briefcase, briefcaseOutline, calendar, calendarOutline, construct, constructOutline, logOut, logOutOutline, people, peopleOutline } from 'ionicons/icons';
+import { briefcase, briefcaseOutline, calendar, calendarOutline, checkmarkCircle, closeCircle, construct, constructOutline, logOut, logOutOutline, people, peopleOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +21,6 @@ export class AppComponent {
     { title: 'Logout', url: '/logout', icon: 'log-out' },
   ];
   constructor() {
-    addIcons({ peopleOutline, constructOutline, calendarOutline, briefcaseOutline, logOutOutline, people, construct, calendar, briefcase, logOut });
+    addIcons({ peopleOutline, constructOutline, calendarOutline, briefcaseOutline, logOutOutline, people, construct, calendar, briefcase, logOut, checkmarkCircle, closeCircle });
   }
 }
