@@ -1,27 +1,28 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
-      </ion-buttons>
-      <ion-title>
-        Ordens de Serviço
-      </ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title> Ordens de Serviço </ion-title>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-searchbar></ion-searchbar>
+    <ion-searchbar placeholder="Buscar"></ion-searchbar>
   </ion-toolbar>
-  <ion-toolbar style="padding-left: 0.5em;">
-    <ion-buttons>
-      <ion-button fill="solid" color="primary">
-        <ion-icon size="small" slot="start" name="add-circle"></ion-icon>
-        Cadastrar
-      </ion-button>
+  <ion-toolbar style="padding: 0.5em">
+    <ion-buttons style="gap: 0.5em">
+      <div class="filters">
+        <app-status-select (selecionar)="searchOS($event)"></app-status-select>
+        <ion-select aria-label="Classificação" placeholder="Classificação">
+          <ion-select-option value="apple">Apple</ion-select-option>
+          <ion-select-option value="banana">Banana</ion-select-option>
+          <ion-select-option value="orange">Orange</ion-select-option>
+        </ion-select>
+      </div>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
   <div class="cards-list">
     <div *ngFor="let ordem of ordens">
       <app-ordem-servico-card [os]="ordem"></app-ordem-servico-card>

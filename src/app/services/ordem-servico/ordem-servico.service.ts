@@ -8,8 +8,14 @@ export class OrdemServicoService {
 
   constructor() { }
 
-  getOS(){
-      return fetch(environment.api_url+'ordem-servico', {
+  getOS(status:any = null){
+    let url_params = '?';
+
+    if (status) {
+      url_params += `id_status=${status}`;
+    }
+
+      return fetch(environment.api_url+'ordem-servico'+url_params, {
         headers: {
           "Accept": "application/json",
           "Authorization": `Bearer ${sessionStorage.getItem("token")}`

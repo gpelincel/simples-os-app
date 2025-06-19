@@ -1,0 +1,6 @@
+<ion-select aria-label="Status" placeholder="Status" (ionChange)="onSelecionar($event)">
+  <ion-select-option value="">Todos</ion-select-option>
+  @for(stat of status; track stat){
+    <ion-select-option value="{{stat.id}}">{{stat.descricao}}</ion-select-option>
+  }
+</ion-select>
