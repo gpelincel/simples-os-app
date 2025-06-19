@@ -22,6 +22,12 @@ export class ClientesPage implements OnInit {
     addIcons({ addCircle });
   }
 
+  async searchCliente(event: Event){
+    const target = event.target as HTMLIonSearchbarElement;
+    const query = target.value || '';
+    this.clientes = await this.clienteService.getClientes(query);
+  }
+
   async ngOnInit() {
     this.clientes = await this.clienteService.getClientes();
   }

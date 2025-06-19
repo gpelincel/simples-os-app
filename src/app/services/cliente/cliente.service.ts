@@ -8,8 +8,15 @@ export class ClienteService {
 
   constructor() { }
 
-  getClientes(){
-    return fetch(environment.api_url+'cliente', {
+  getClientes(params:any = null){
+
+    let url_params = '';
+
+    if (params) {
+      url_params = `?search=${params}`
+    }
+
+    return fetch(environment.api_url+'cliente'+url_params, {
       headers: {
         "Accept": "application/json",
         "Authorization": `Bearer ${sessionStorage.getItem("token")}`

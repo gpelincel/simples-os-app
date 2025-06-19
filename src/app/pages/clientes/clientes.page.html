@@ -8,7 +8,7 @@
       </ion-title>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-searchbar></ion-searchbar>
+    <ion-searchbar placeholder="Buscar" (ionInput)="searchCliente($event)" debounce="1000"></ion-searchbar>
   </ion-toolbar>
   <ion-toolbar style="padding-left: 0.5em;">
     <ion-buttons>
@@ -23,8 +23,8 @@
 <ion-content [fullscreen]="true">
 
   <div class="cards-list">
-    <div *ngFor="let cliente of clientes">
+    @for(cliente of clientes; track cliente){
       <app-cliente-card [cliente]="cliente"></app-cliente-card>
-    </div>
+    }
   </div>
 </ion-content>
