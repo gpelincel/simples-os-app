@@ -8,8 +8,15 @@ export class EquipamentoService {
 
   constructor() { }
 
-  getEquipamentos(){
-        return fetch(environment.api_url+'equipamento', {
+  getEquipamentos(params:any = null){
+
+    let url_params = '';
+
+    if (params) {
+      url_params = `?search=${params}`
+    }
+
+        return fetch(environment.api_url+'equipamento'+url_params, {
           headers: {
             "Accept": "application/json",
             "Authorization": `Bearer ${sessionStorage.getItem("token")}`

@@ -1,16 +1,19 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
-      </ion-buttons>
-      <ion-title>
-        Equipamentos
-      </ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title> Equipamentos </ion-title>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-searchbar></ion-searchbar>
+    <ion-searchbar
+      debounce="1000"
+      (ionInput)="searchEquipamento($event)"
+      show-clear-button="focus"
+      placeholder="Buscar"
+    ></ion-searchbar>
   </ion-toolbar>
-  <ion-toolbar style="padding-left: 0.5em;">
+  <ion-toolbar style="padding-left: 0.5em">
     <ion-buttons>
       <ion-button fill="solid" color="primary">
         <ion-icon size="small" slot="start" name="add-circle"></ion-icon>
@@ -21,10 +24,9 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
   <div class="cards-list">
-    <div *ngFor="let equipamento of equipamentos">
+    @for (equipamento of equipamentos; track equipamento){
       <app-equipamento-card [equipamento]="equipamento"></app-equipamento-card>
-    </div>
+    }
   </div>
 </ion-content>

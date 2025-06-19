@@ -44,6 +44,12 @@ export class EquipamentosPage implements OnInit {
     addIcons({ addCircle });
   }
 
+  async searchEquipamento(event: Event){
+    const target = event.target as HTMLIonSearchbarElement;
+    const query = target.value || '';
+    this.equipamentos = await this.equipamentoService.getEquipamentos(query);
+  }
+
   async ngOnInit() {
     this.equipamentos = await this.equipamentoService.getEquipamentos();
   }
