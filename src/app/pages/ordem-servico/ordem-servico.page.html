@@ -11,12 +11,8 @@
   <ion-toolbar style="padding: 0.5em">
     <ion-buttons style="gap: 0.5em">
       <div class="filters">
-        <app-status-select (selecionar)="searchOS($event)"></app-status-select>
-        <ion-select aria-label="Classificação" placeholder="Classificação">
-          <ion-select-option value="apple">Apple</ion-select-option>
-          <ion-select-option value="banana">Banana</ion-select-option>
-          <ion-select-option value="orange">Orange</ion-select-option>
-        </ion-select>
+        <app-status-select (selecionar)="searchStatus($event)"></app-status-select>
+        <app-classificacao-select (selecionar)="searchClassificacao($event)"></app-classificacao-select>
       </div>
     </ion-buttons>
   </ion-toolbar>

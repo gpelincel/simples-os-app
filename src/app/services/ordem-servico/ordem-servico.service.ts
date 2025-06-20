@@ -8,11 +8,13 @@ export class OrdemServicoService {
 
   constructor() { }
 
-  getOS(status:any = null){
+  getOS(params:any = null){
     let url_params = '?';
 
-    if (status) {
-      url_params += `id_status=${status}`;
+    if (params) {
+      params.forEach((param:any) => {
+        url_params+=`${param.label}=${param.value}&`
+      });
     }
 
       return fetch(environment.api_url+'ordem-servico'+url_params, {

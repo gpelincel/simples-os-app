@@ -28,6 +28,8 @@ export class UserService {
           this.toast.presentToast(response.status, response.message);
         }
       })
-      .catch(error => console.log("Error: ", error))
+      .catch(error => {
+        this.toast.presentToast('error', error);
+      })
     }
 }
