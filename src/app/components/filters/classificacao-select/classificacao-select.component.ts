@@ -17,6 +17,9 @@ export class ClassificacaoSelectComponent implements OnInit {
 
   onSelecionar(event: Event) {
     const target = event.target as HTMLIonSelectElement;
+    if (target.value == "") {
+      target.value = null;
+    }
     this.selecionar.emit(target.value);
   }
 

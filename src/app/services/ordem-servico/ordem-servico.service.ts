@@ -13,7 +13,7 @@ export class OrdemServicoService {
 
     if (params) {
       params.forEach((param:any) => {
-        url_params+=`${param.label}=${param.value}&`
+        url_params+=`${param.label}=${param.value ?? ''}&`
       });
     }
 
