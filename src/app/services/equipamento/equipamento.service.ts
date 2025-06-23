@@ -7,9 +7,15 @@ import { environment } from 'src/environments/environment';
 export class EquipamentoService {
   constructor() {}
 
-
-  getEquipamentos(page: any = 1) {
-    return fetch(environment.api_url + 'equipamento?page='+page, {
+  getEquipamentos(
+    next_page: string | null = null,
+    search: string | null = null
+  ) {
+    search = search ? '?search=' + search : '';
+    const url = next_page
+      ? next_page
+      : environment.api_url + 'equipamento' + search;
+    return fetch(url, {
       headers: {
         Accept: 'application/json',
         Authorization: `Bearer ${sessionStorage.getItem('token')}`,
@@ -17,29 +23,7 @@ export class EquipamentoService {
     })
       .then((response) => response.json())
       .then((response) => {
-        if (response.last_page >= page) {
-          return response.data;
-        }
-      })
-      .catch((error) => console.error('Error', error));
-  }
-
-  searchEquipamentos(params: any = null):any {
-    let url_params = '';
-
-    if (params) {
-      url_params = `search=${params}`;
-    }
-
-    return fetch(environment.api_url + 'equipamento?' + url_params, {
-      headers: {
-        Accept: 'application/json',
-        Authorization: `Bearer ${sessionStorage.getItem('token')}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        return response.data;
+        return response;
       })
       .catch((error) => console.error('Error', error));
   }

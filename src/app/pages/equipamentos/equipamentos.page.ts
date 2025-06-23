@@ -43,7 +43,7 @@ import { EquipamentoCardComponent } from 'src/app/components/equipamento/equipam
 })
 export class EquipamentosPage implements OnInit {
   equipamentos: any[] = [];
-  page = 1;
+  next_page: String | null = null;
   stopLoading = false;
 
   constructor(private equipamentoService: EquipamentoService) {
@@ -52,38 +52,37 @@ export class EquipamentosPage implements OnInit {
 
   async searchEquipamento(event: Event) {
     const target = event.target as HTMLIonSearchbarElement;
-    const query = target.value || '';
-    this.page = 1;
-    console.log(query);
-    if (query && query !== '') {
-      this.equipamentos = await this.equipamentoService.searchEquipamentos(
-        query
-      );
-      this.stopLoading = true;
-    } else {
-      this.loadEquipamentos(this.page);
-      this.stopLoading = false;
-    }
+    const query = target.value;
+    this.equipamentos = [];
+    this.next_page = null;
+    this.stopLoading = false;
+    this.loadEquipamentos(this.next_page, (query == '' ? null : query));
   }
 
   onIonInfinite(event: any) {
-    this.loadEquipamentos(this.page++);
+    this.loadEquipamentos(this.next_page);
     setTimeout(() => {
       event.target.complete();
     }, 500);
   }
 
-  async loadEquipamentos(page: any) {
-    const next_eqp = await this.equipamentoService.getEquipamentos(page);
-    if (next_eqp?.length) {
-      this.equipamentos =
-        page == 1 ? next_eqp : this.equipamentos.concat(next_eqp);
+  async loadEquipamentos(next_page:any = null, query:string|null = null) {
+    const response = await this.equipamentoService.getEquipamentos(next_page, query);
+    if (next_page == null) {
+      if(this.equipamentos.length == 0){
+        this.stopLoading = false;
+        this.equipamentos = response.data;
+      } else {
+        this.stopLoading = true;
+      }
     } else {
-      this.stopLoading = true;
+      this.equipamentos = [...this.equipamentos, ...response.data];
     }
+
+    this.next_page = response.next_page_url;
   }
 
   ngOnInit() {
-    this.loadEquipamentos(this.page);
+    this.loadEquipamentos();
   }
 }
