@@ -54,26 +54,36 @@ export class EquipamentosPage implements OnInit {
     const target = event.target as HTMLIonSearchbarElement;
     const query = target.value || '';
     this.page = 1;
-    this.equipamentos = await this.equipamentoService.searchEquipamentos(query);
+    console.log(query);
+    if (query && query !== '') {
+      this.equipamentos = await this.equipamentoService.searchEquipamentos(
+        query
+      );
+      this.stopLoading = true;
+    } else {
+      this.loadEquipamentos(this.page);
+      this.stopLoading = false;
+    }
   }
 
-  onIonInfinite(event: any){
-    this.renderEquipamentos(this.page++);
+  onIonInfinite(event: any) {
+    this.loadEquipamentos(this.page++);
     setTimeout(() => {
       event.target.complete();
     }, 500);
   }
 
-  async renderEquipamentos(page:any){
+  async loadEquipamentos(page: any) {
     const next_eqp = await this.equipamentoService.getEquipamentos(page);
-    if (next_eqp) {
-      this.equipamentos = this.equipamentos.concat(next_eqp);
+    if (next_eqp?.length) {
+      this.equipamentos =
+        page == 1 ? next_eqp : this.equipamentos.concat(next_eqp);
     } else {
       this.stopLoading = true;
     }
   }
 
   ngOnInit() {
-    this.renderEquipamentos(this.page);
+    this.loadEquipamentos(this.page);
   }
 }
