@@ -11,6 +11,8 @@ import {
   IonSearchbar,
   IonButton,
   IonIcon,
+  IonInfiniteScroll,
+  IonInfiniteScrollContent,
 } from '@ionic/angular/standalone';
 import { addCircle } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
@@ -34,23 +36,44 @@ import { EquipamentoCardComponent } from 'src/app/components/equipamento/equipam
     IonSearchbar,
     IonButton,
     IonIcon,
-    EquipamentoCardComponent
+    EquipamentoCardComponent,
+    IonInfiniteScroll,
+    IonInfiniteScrollContent,
   ],
 })
 export class EquipamentosPage implements OnInit {
   equipamentos: any[] = [];
+  page = 1;
+  stopLoading = false;
 
   constructor(private equipamentoService: EquipamentoService) {
     addIcons({ addCircle });
   }
 
-  async searchEquipamento(event: Event){
+  async searchEquipamento(event: Event) {
     const target = event.target as HTMLIonSearchbarElement;
     const query = target.value || '';
-    this.equipamentos = await this.equipamentoService.getEquipamentos(query);
+    this.page = 1;
+    this.equipamentos = await this.equipamentoService.searchEquipamentos(query);
   }
 
-  async ngOnInit() {
-    this.equipamentos = await this.equipamentoService.getEquipamentos();
+  onIonInfinite(event: any){
+    this.renderEquipamentos(this.page++);
+    setTimeout(() => {
+      event.target.complete();
+    }, 500);
+  }
+
+  async renderEquipamentos(page:any){
+    const next_eqp = await this.equipamentoService.getEquipamentos(page);
+    if (next_eqp) {
+      this.equipamentos = this.equipamentos.concat(next_eqp);
+    } else {
+      this.stopLoading = true;
+    }
+  }
+
+  ngOnInit() {
+    this.renderEquipamentos(this.page);
   }
 }

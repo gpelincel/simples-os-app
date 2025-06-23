@@ -7,14 +7,31 @@ import { environment } from 'src/environments/environment';
 export class EquipamentoService {
   constructor() {}
 
-  getEquipamentos(params: any = null) {
+
+  getEquipamentos(page: any = 1) {
+    return fetch(environment.api_url + 'equipamento?page='+page, {
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.last_page >= page) {
+          return response.data;
+        }
+      })
+      .catch((error) => console.error('Error', error));
+  }
+
+  searchEquipamentos(params: any = null):any {
     let url_params = '';
 
     if (params) {
-      url_params = `?search=${params}`;
+      url_params = `search=${params}`;
     }
 
-    return fetch(environment.api_url + 'equipamento' + url_params, {
+    return fetch(environment.api_url + 'equipamento?' + url_params, {
       headers: {
         Accept: 'application/json',
         Authorization: `Bearer ${sessionStorage.getItem('token')}`,
