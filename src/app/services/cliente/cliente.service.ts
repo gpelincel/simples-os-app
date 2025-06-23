@@ -8,24 +8,24 @@ export class ClienteService {
 
   constructor() { }
 
-  getClientes(params:any = null){
-
-    let url_params = '';
-
-    if (params) {
-      url_params = `?search=${params}`
-    }
-
-    return fetch(environment.api_url+'cliente'+url_params, {
+  getClientes(
+    next_page: string | null = null,
+    search: string | null = null
+  ) {
+    search = search ? '?search=' + search : '';
+    const url = next_page
+      ? next_page
+      : environment.api_url + 'cliente' + search;
+    return fetch(url, {
       headers: {
-        "Accept": "application/json",
-        "Authorization": `Bearer ${sessionStorage.getItem("token")}`
-      }
+        Accept: 'application/json',
+        Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+      },
     })
-    .then(response => response.json())
-    .then(response => {
-      return response.data;
-    })
-    .catch(error => console.error("Error", error))
+      .then((response) => response.json())
+      .then((response) => {
+        return response;
+      })
+      .catch((error) => console.error('Error', error));
   }
 }

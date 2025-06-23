@@ -17,19 +17,47 @@ import { ClienteService } from 'src/app/services/cliente/cliente.service';
 export class ClientesPage implements OnInit {
 
   clientes: any[] = [];
-
-  constructor(private clienteService: ClienteService) { 
-    addIcons({ addCircle });
-  }
-
-  async searchCliente(event: Event){
-    const target = event.target as HTMLIonSearchbarElement;
-    const query = target.value || '';
-    this.clientes = await this.clienteService.getClientes(query);
-  }
-
-  async ngOnInit() {
-    this.clientes = await this.clienteService.getClientes();
-  }
+    next_page: String | null = null;
+    stopLoading = false;
+  
+    constructor(private clienteService: ClienteService) {
+      addIcons({ addCircle });
+    }
+  
+    async searchCliente(event: Event) {
+      const target = event.target as HTMLIonSearchbarElement;
+      const query = target.value;
+      this.clientes = [];
+      this.next_page = null;
+      this.stopLoading = false;
+      this.loadClientes(this.next_page, (query == '' ? null : query));
+    }
+  
+    onIonInfinite(event: any) {
+      this.loadClientes(this.next_page);
+      setTimeout(() => {
+        event.target.complete();
+      }, 500);
+    }
+  
+    async loadClientes(next_page:any = null, query:string|null = null) {
+      const response = await this.clienteService.getClientes(next_page, query);
+      if (next_page == null) {
+        if(this.clientes.length == 0){
+          this.stopLoading = false;
+          this.clientes = response.data;
+        } else {
+          this.stopLoading = true;
+        }
+      } else {
+        this.clientes = [...this.clientes, ...response.data];
+      }
+  
+      this.next_page = response.next_page_url;
+    }
+  
+    ngOnInit() {
+      this.loadClientes();
+    }
 
 }
