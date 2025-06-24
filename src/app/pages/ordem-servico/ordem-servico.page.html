@@ -6,13 +6,22 @@
     <ion-title> Ordens de Serviço </ion-title>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-searchbar placeholder="Buscar"></ion-searchbar>
+    <ion-searchbar
+      debounce="1000"
+      (ionInput)="searchOS($event)"
+      show-clear-button="focus"
+      placeholder="Buscar"
+    ></ion-searchbar>
   </ion-toolbar>
   <ion-toolbar style="padding: 0.5em">
     <ion-buttons style="gap: 0.5em">
       <div class="filters">
-        <app-status-select (selecionar)="searchStatus($event)"></app-status-select>
-        <app-classificacao-select (selecionar)="searchClassificacao($event)"></app-classificacao-select>
+        <app-status-select
+          (selecionar)="addParam('id_status',$event)"
+        ></app-status-select>
+        <app-classificacao-select
+          (selecionar)="addParam('id_classificacao',$event)"
+        ></app-classificacao-select>
       </div>
     </ion-buttons>
   </ion-toolbar>
@@ -20,8 +29,13 @@
 
 <ion-content [fullscreen]="true">
   <div class="cards-list">
-    <div *ngFor="let ordem of ordens">
-      <app-ordem-servico-card [os]="ordem"></app-ordem-servico-card>
-    </div>
+    @for(ordem of ordens; track ordem){
+    <app-ordem-servico-card [os]="ordem"></app-ordem-servico-card>
+    }
+  </div>
+  <div [hidden]="stopLoading">
+    <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
   </div>
 </ion-content>

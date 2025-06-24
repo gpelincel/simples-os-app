@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, NgForOf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonMenuButton, IonButtons, IonSearchbar, IonButton, IonIcon } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonMenuButton, IonButtons, IonSearchbar, IonButton, IonIcon, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/angular/standalone';
 import { ClienteCardComponent } from 'src/app/components/cliente/cliente-card/cliente-card.component';
 import {addCircle} from 'ionicons/icons';
 import { addIcons } from 'ionicons';
@@ -12,7 +12,7 @@ import { ClienteService } from 'src/app/services/cliente/cliente.service';
   templateUrl: './clientes.page.html',
   styleUrls: ['./clientes.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonMenuButton, IonButtons, ClienteCardComponent, IonSearchbar, IonButton, IonIcon, NgForOf]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonMenuButton, IonButtons, ClienteCardComponent, IonSearchbar, IonButton, IonIcon, NgForOf, IonInfiniteScroll, IonInfiniteScrollContent]
 })
 export class ClientesPage implements OnInit {
 
@@ -34,7 +34,9 @@ export class ClientesPage implements OnInit {
     }
   
     onIonInfinite(event: any) {
-      this.loadClientes(this.next_page);
+      if (this.clientes.length > 0) {
+        this.loadClientes(this.next_page);
+      }
       setTimeout(() => {
         event.target.complete();
       }, 500);
@@ -42,8 +44,6 @@ export class ClientesPage implements OnInit {
   
     async loadClientes(next_page:any = null, query:string|null = null) {
       const response = await this.clienteService.getClientes(next_page, query);
-      console.log(response);
-      console.log(next_page);
       if (next_page == null) {
         if(this.clientes.length == 0){
           this.stopLoading = false;

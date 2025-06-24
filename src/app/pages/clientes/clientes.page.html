@@ -27,4 +27,9 @@
       <app-cliente-card [cliente]="cliente"></app-cliente-card>
     }
   </div>
+  <div [hidden]="stopLoading">
+    <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
 </ion-content>

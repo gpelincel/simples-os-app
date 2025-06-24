@@ -1,7 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, NgForOf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonSearchbar, IonButton, IonIcon, IonMenuButton, IonButtons, IonSelect, IonSelectOption, IonItem, IonList} from '@ionic/angular/standalone';
+import {
+  IonContent,
+  IonHeader,
+  IonTitle,
+  IonToolbar,
+  IonSearchbar,
+  IonButton,
+  IonIcon,
+  IonMenuButton,
+  IonButtons,
+  IonSelect,
+  IonSelectOption,
+  IonItem,
+  IonList,
+  IonInfiniteScroll,
+  IonInfiniteScrollContent,
+} from '@ionic/angular/standalone';
 import { OrdemServicoService } from 'src/app/services/ordem-servico/ordem-servico.service';
 import { addIcons } from 'ionicons';
 import { addCircle } from 'ionicons/icons';
@@ -14,40 +30,87 @@ import { ClassificacaoSelectComponent } from 'src/app/components/filters/classif
   templateUrl: './ordem-servico.page.html',
   styleUrls: ['./ordem-servico.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonMenuButton, IonButtons, IonSearchbar, IonButton, IonIcon, NgForOf, OrdemServicoCardComponent, IonSelect, IonSelectOption, IonItem, IonList, StatusSelectComponent, ClassificacaoSelectComponent]
+  imports: [
+    IonContent,
+    IonHeader,
+    IonTitle,
+    IonToolbar,
+    CommonModule,
+    FormsModule,
+    IonMenuButton,
+    IonButtons,
+    IonSearchbar,
+    IonButton,
+    IonIcon,
+    NgForOf,
+    OrdemServicoCardComponent,
+    IonSelect,
+    IonSelectOption,
+    IonItem,
+    IonList,
+    StatusSelectComponent,
+    ClassificacaoSelectComponent,
+    IonInfiniteScroll,
+    IonInfiniteScrollContent,
+  ],
 })
 export class OrdemServicoPage implements OnInit {
-
-  ordens:any[] = [];
-  params:any = [];
+  ordens: any[] = [];
+  next_page: String | null = null;
+  stopLoading = false;
+  params: any[] = [];
 
   constructor(private osService: OrdemServicoService) {
     addIcons({ addCircle });
   }
 
-  searchClassificacao(classificacao:any){
-    this.params.push({
-      label: "id_classificacao",
-      value: classificacao
-    });
+  addParam(label: any, value: any = '') {
+    this.ordens = [];
+    this.next_page = null;
+    this.stopLoading = false;
+    const verifyParam = this.params.findIndex((param) => param.label == label);
+    const obj = {
+      label: label,
+      value: value ?? '',
+    };
 
-    this.searchOS();
+    verifyParam < 0 ? this.params.push(obj) : (this.params[verifyParam] = obj);
+
+    this.loadOrdens(this.next_page, this.params);
   }
 
-  searchStatus(status:any){
-    this.params.push({
-      label: "id_status",
-      value: status
-    });
-
-    this.searchOS();
+  async searchOS(event: Event) {
+    const target = event.target as HTMLIonSearchbarElement;
+    const query = target.value;
+    this.addParam('search', query);
   }
 
-  async searchOS(){
-    this.ordens = await this.osService.getOS(this.params);
+  onIonInfinite(event: any) {
+    if (this.ordens.length > 0) {
+      this.loadOrdens(this.next_page);
+    }
+    setTimeout(() => {
+      event.target.complete();
+    }, 500);
   }
 
-  async ngOnInit() {
-    this.ordens = await this.osService.getOS();
+  async loadOrdens(next_page: any = null, params: any[] | null = null) {
+    const response = await this.osService.getOS(next_page, params);
+    if (next_page == null) {
+      if (this.ordens.length == 0) {
+        this.stopLoading = false;
+        this.ordens = response.data;
+      } else {
+        this.stopLoading = true;
+      }
+    } else {
+      this.ordens = [...this.ordens, ...response.data];
+    }
+
+    this.next_page = response.next_page_url;
+  }
+
+  ngOnInit() {
+    this.loadOrdens();
   }
 }

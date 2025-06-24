@@ -8,25 +8,31 @@ export class OrdemServicoService {
 
   constructor() { }
 
-  getOS(params:any = null){
-    let url_params = '?';
-
-    if (params) {
-      params.forEach((param:any) => {
-        url_params+=`${param.label}=${param.value ?? ''}&`
+  getOS(
+    next_page: string | null = null,
+    params: any[] | null = null
+  ) {
+    let url_params = '';
+    if (params && params.length > 0) {
+      url_params = '?';
+      params.map((param) => {
+        url_params += `${param.label}=${param.value}&`
       });
     }
 
-      return fetch(environment.api_url+'ordem-servico'+url_params, {
-        headers: {
-          "Accept": "application/json",
-          "Authorization": `Bearer ${sessionStorage.getItem("token")}`
-        }
+    const url = next_page
+      ? next_page
+      : environment.api_url + 'ordem-servico' + url_params;
+    return fetch(url, {
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        return response;
       })
-      .then(response => response.json())
-      .then(response => {
-        return response.data;
-      })
-      .catch(error => console.error("Error", error))
-    }
+      .catch((error) => console.error('Error', error));
+  }
 }
