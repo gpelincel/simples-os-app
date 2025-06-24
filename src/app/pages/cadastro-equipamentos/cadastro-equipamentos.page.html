@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button>
+      <ion-button [routerLink]="['/equipamentos']">
         <ion-icon size="large" name="arrow-back-circle-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -12,20 +12,22 @@
 <ion-content [fullscreen]="true">
   <form class="ion-padding">
     <ion-item>
-      <ion-input labelPlacement="floating" label="Nº de Série"></ion-input>
+      <ion-input labelPlacement="floating" label="Nº de Série" name="numero_serie" [(ngModel)]="equipamento.numero_serie"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input labelPlacement="floating" label="Nº de Patrimônio"></ion-input>
+      <ion-input labelPlacement="floating" label="Nº de Patrimônio" name="numero_patrimonio" [(ngModel)]="equipamento.numero_patrimonio"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input labelPlacement="floating" label="Nome"></ion-input>
+      <ion-input labelPlacement="floating" label="Nome" name="nome" [(ngModel)]="equipamento.nome"></ion-input>
     </ion-item>
     <ion-item lines="none">
-      <ion-select label="Cliente" labelPlacement="floating">
-        <ion-select-option value="1">Teste</ion-select-option>
+      <ion-select label="Cliente" labelPlacement="floating" name="id_cliente" [(ngModel)]="equipamento.id_cliente">
+        @for(cliente of clientes; track cliente){
+          <ion-select-option [value]="cliente.id">{{cliente.nome}}</ion-select-option>
+        }
       </ion-select>
     </ion-item>
-    <ion-button expand="block">Cadastrar</ion-button>
-    <ion-button expand="block" fill="outline">Cancelar</ion-button>
+    <ion-button (click)="onSubmit()" expand="block">Cadastrar</ion-button>
+    <ion-button [routerLink]="['/equipamentos']" expand="block" fill="outline">Cancelar</ion-button>
   </form>
 </ion-content>
