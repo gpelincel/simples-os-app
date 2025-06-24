@@ -60,7 +60,9 @@ export class EquipamentosPage implements OnInit {
   }
 
   onIonInfinite(event: any) {
-    this.loadEquipamentos(this.next_page);
+    if (this.equipamentos.length > 0) {
+      this.loadEquipamentos(this.next_page);
+    }
     setTimeout(() => {
       event.target.complete();
     }, 500);
@@ -70,8 +72,8 @@ export class EquipamentosPage implements OnInit {
     const response = await this.equipamentoService.getEquipamentos(next_page, query);
     if (next_page == null) {
       if(this.equipamentos.length == 0){
-        this.stopLoading = false;
         this.equipamentos = response.data;
+        this.stopLoading = false;
       } else {
         this.stopLoading = true;
       }

@@ -42,6 +42,8 @@ export class ClientesPage implements OnInit {
   
     async loadClientes(next_page:any = null, query:string|null = null) {
       const response = await this.clienteService.getClientes(next_page, query);
+      console.log(response);
+      console.log(next_page);
       if (next_page == null) {
         if(this.clientes.length == 0){
           this.stopLoading = false;
