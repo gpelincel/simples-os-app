@@ -9,12 +9,13 @@ import {
   IonMenuButton,
   IonButtons,
   IonSearchbar,
-  IonButton,
   IonIcon,
+  IonFab,
+  IonFabButton,
   IonInfiniteScroll,
   IonInfiniteScrollContent,
 } from '@ionic/angular/standalone';
-import { addCircle } from 'ionicons/icons';
+import { add } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 import { EquipamentoService } from 'src/app/services/equipamento/equipamento.service';
 import { EquipamentoCardComponent } from 'src/app/components/equipamento/equipamento-card/equipamento-card.component';
@@ -30,15 +31,16 @@ import { EquipamentoCardComponent } from 'src/app/components/equipamento/equipam
     IonTitle,
     IonToolbar,
     CommonModule,
+    IonButtons,
     FormsModule,
     IonMenuButton,
-    IonButtons,
     IonSearchbar,
-    IonButton,
     IonIcon,
     EquipamentoCardComponent,
     IonInfiniteScroll,
     IonInfiniteScrollContent,
+    IonFab,
+    IonFabButton,
   ],
 })
 export class EquipamentosPage implements OnInit {
@@ -47,7 +49,7 @@ export class EquipamentosPage implements OnInit {
   stopLoading = false;
 
   constructor(private equipamentoService: EquipamentoService) {
-    addIcons({ addCircle });
+    addIcons({ add });
   }
 
   async searchEquipamento(event: Event) {
@@ -56,7 +58,7 @@ export class EquipamentosPage implements OnInit {
     this.equipamentos = [];
     this.next_page = null;
     this.stopLoading = false;
-    this.loadEquipamentos(this.next_page, (query == '' ? null : query));
+    this.loadEquipamentos(this.next_page, query == '' ? null : query);
   }
 
   onIonInfinite(event: any) {
@@ -68,10 +70,13 @@ export class EquipamentosPage implements OnInit {
     }, 500);
   }
 
-  async loadEquipamentos(next_page:any = null, query:string|null = null) {
-    const response = await this.equipamentoService.getEquipamentos(next_page, query);
+  async loadEquipamentos(next_page: any = null, query: string | null = null) {
+    const response = await this.equipamentoService.getEquipamentos(
+      next_page,
+      query
+    );
     if (next_page == null) {
-      if(this.equipamentos.length == 0){
+      if (this.equipamentos.length == 0) {
         this.equipamentos = response.data;
         this.stopLoading = false;
       } else {

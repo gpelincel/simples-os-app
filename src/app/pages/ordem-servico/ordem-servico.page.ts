@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule, NgForOf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
   IonContent,
@@ -11,8 +11,8 @@ import {
   IonIcon,
   IonMenuButton,
   IonButtons,
-  IonSelect,
-  IonSelectOption,
+  IonFab,
+  IonFabButton,
   IonItem,
   IonList,
   IonInfiniteScroll,
@@ -20,7 +20,7 @@ import {
 } from '@ionic/angular/standalone';
 import { OrdemServicoService } from 'src/app/services/ordem-servico/ordem-servico.service';
 import { addIcons } from 'ionicons';
-import { addCircle } from 'ionicons/icons';
+import { add } from 'ionicons/icons';
 import { OrdemServicoCardComponent } from 'src/app/components/ordem-servico/ordem-servico-card/ordem-servico-card.component';
 import { StatusSelectComponent } from 'src/app/components/filters/status-select/status-select.component';
 import { ClassificacaoSelectComponent } from 'src/app/components/filters/classificacao-select/classificacao-select.component';
@@ -42,16 +42,15 @@ import { ClassificacaoSelectComponent } from 'src/app/components/filters/classif
     IonSearchbar,
     IonButton,
     IonIcon,
-    NgForOf,
     OrdemServicoCardComponent,
-    IonSelect,
-    IonSelectOption,
     IonItem,
     IonList,
     StatusSelectComponent,
     ClassificacaoSelectComponent,
     IonInfiniteScroll,
     IonInfiniteScrollContent,
+    IonFab,
+    IonFabButton,
   ],
 })
 export class OrdemServicoPage implements OnInit {
@@ -61,7 +60,7 @@ export class OrdemServicoPage implements OnInit {
   params: any[] = [];
 
   constructor(private osService: OrdemServicoService) {
-    addIcons({ addCircle });
+    addIcons({ add });
   }
 
   addParam(label: any, value: any = '') {

@@ -13,14 +13,6 @@
       placeholder="Buscar"
     ></ion-searchbar>
   </ion-toolbar>
-  <ion-toolbar style="padding-left: 0.5em">
-    <ion-buttons>
-      <ion-button fill="solid" color="primary">
-        <ion-icon size="small" slot="start" name="add-circle"></ion-icon>
-        Cadastrar
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
@@ -34,4 +26,9 @@
       <ion-infinite-scroll-content></ion-infinite-scroll-content>
     </ion-infinite-scroll>
   </div>
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
