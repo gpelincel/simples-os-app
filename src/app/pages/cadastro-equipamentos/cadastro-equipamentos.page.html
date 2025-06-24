@@ -1,0 +1,31 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-icon size="large" name="arrow-back-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title> CADASTRAR EQUIPAMENTO </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form class="ion-padding">
+    <ion-item>
+      <ion-input labelPlacement="floating" label="Nº de Série"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input labelPlacement="floating" label="Nº de Patrimônio"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input labelPlacement="floating" label="Nome"></ion-input>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-select label="Cliente" labelPlacement="floating">
+        <ion-select-option value="1">Teste</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-button expand="block">Cadastrar</ion-button>
+    <ion-button expand="block" fill="outline">Cancelar</ion-button>
+  </form>
+</ion-content>

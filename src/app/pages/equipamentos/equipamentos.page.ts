@@ -19,6 +19,8 @@ import { add } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 import { EquipamentoService } from 'src/app/services/equipamento/equipamento.service';
 import { EquipamentoCardComponent } from 'src/app/components/equipamento/equipamento-card/equipamento-card.component';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Equipamento } from 'src/app/models/equipamento/equipamento';
 
 @Component({
   selector: 'app-equipamentos',
@@ -41,10 +43,12 @@ import { EquipamentoCardComponent } from 'src/app/components/equipamento/equipam
     IonInfiniteScrollContent,
     IonFab,
     IonFabButton,
+    RouterLink,
+    RouterLinkActive
   ],
 })
 export class EquipamentosPage implements OnInit {
-  equipamentos: any[] = [];
+  equipamentos: Equipamento[] = [];
   next_page: String | null = null;
   stopLoading = false;
 
