@@ -6,13 +6,14 @@ import { ClienteCardComponent } from 'src/app/components/cliente/cliente-card/cl
 import {add} from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 import { ClienteService } from 'src/app/services/cliente/cliente.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-clientes',
   templateUrl: './clientes.page.html',
   styleUrls: ['./clientes.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonMenuButton, IonButtons, ClienteCardComponent, IonSearchbar, IonIcon, IonInfiniteScroll, IonInfiniteScrollContent, IonFab, IonFabButton]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonMenuButton, IonButtons, ClienteCardComponent, IonSearchbar, IonIcon, IonInfiniteScroll, IonInfiniteScrollContent, IonFab, IonFabButton, RouterLink]
 })
 export class ClientesPage implements OnInit {
 

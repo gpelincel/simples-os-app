@@ -1,0 +1,60 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button [routerLink]="['/clientes']">
+        <ion-icon size="large" name="arrow-back-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title> CADASTRAR CLIENTE </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form class="ion-padding">
+    <ion-item>
+      <ion-input
+        labelPlacement="floating"
+        label="Nome"
+        name="nome"
+        [(ngModel)]="cliente.nome"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input
+        labelPlacement="floating"
+        label="CNPJ"
+        name="cnpj"
+        [(ngModel)]="cliente.cnpj"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input
+        labelPlacement="floating"
+        label="Razão Social"
+        name="razao_social"
+        [(ngModel)]="cliente.razao_social"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input
+        labelPlacement="floating"
+        label="Email"
+        name="email"
+        [(ngModel)]="cliente.email"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input
+        labelPlacement="floating"
+        label="Telefone"
+        name="telefone"
+        [(ngModel)]="cliente.telefone"
+      ></ion-input>
+    </ion-item>
+
+    <ion-button (click)="onSubmit()" expand="block">Cadastrar</ion-button>
+    <ion-button [routerLink]="['/clientes']" expand="block" fill="outline"
+      >Cancelar</ion-button
+    >
+  </form>
+</ion-content>
