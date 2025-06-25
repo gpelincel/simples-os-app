@@ -12,22 +12,52 @@
 <ion-content [fullscreen]="true">
   <form class="ion-padding">
     <ion-item>
-      <ion-input labelPlacement="floating" label="Nº de Série" name="numero_serie" [(ngModel)]="equipamento.numero_serie"></ion-input>
+      <ion-input
+        labelPlacement="floating"
+        label="Nº de Série"
+        name="numero_serie"
+        [(ngModel)]="equipamento.numero_serie"
+      ></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input labelPlacement="floating" label="Nº de Patrimônio" name="numero_patrimonio" [(ngModel)]="equipamento.numero_patrimonio"></ion-input>
+      <ion-input
+        labelPlacement="floating"
+        label="Nº de Patrimônio"
+        name="numero_patrimonio"
+        [(ngModel)]="equipamento.numero_patrimonio"
+      ></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input labelPlacement="floating" label="Nome" name="nome" [(ngModel)]="equipamento.nome"></ion-input>
+      <ion-input
+        labelPlacement="floating"
+        label="Nome"
+        name="nome"
+        [(ngModel)]="equipamento.nome"
+      ></ion-input>
     </ion-item>
-    <ion-item lines="none">
-      <ion-select label="Cliente" labelPlacement="floating" name="id_cliente" [(ngModel)]="equipamento.id_cliente">
-        @for(cliente of clientes; track cliente){
-          <ion-select-option [value]="cliente.id">{{cliente.nome}}</ion-select-option>
-        }
-      </ion-select>
+    <ion-item>
+      <ion-searchbar
+        [debounce]="2000"
+        (ionInput)="filtrarClientes($event)"
+        placeholder="Buscar cliente pelo nome"
+      >
+      </ion-searchbar>
     </ion-item>
+
+    <ion-list>
+      @for(cliente of clientes; track cliente){
+      <ion-radio
+        class="ion-padding"
+        (click)="selecionarCliente(cliente.id)"
+        labelPlacement="end"
+        >{{ cliente.nome }}</ion-radio
+      >
+      }
+    </ion-list>
+
     <ion-button (click)="onSubmit()" expand="block">Cadastrar</ion-button>
-    <ion-button [routerLink]="['/equipamentos']" expand="block" fill="outline">Cancelar</ion-button>
+    <ion-button [routerLink]="['/equipamentos']" expand="block" fill="outline"
+      >Cancelar</ion-button
+    >
   </form>
 </ion-content>

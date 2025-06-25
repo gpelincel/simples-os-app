@@ -13,7 +13,9 @@ import {
   IonSelectOption,
   IonButton,
   IonIcon,
+  IonSearchbar,
   IonButtons,
+  IonRadio
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { arrowBackCircle, arrowBackCircleOutline } from 'ionicons/icons';
@@ -44,13 +46,16 @@ import { Cliente } from 'src/app/models/cliente/cliente';
     IonButton,
     IonIcon,
     IonButtons,
+    IonSearchbar,
     RouterLink,
+    IonRadio
   ],
 })
 export class CadastroEquipamentosPage implements OnInit {
   equipamento: Equipamento = new Equipamento('', '', '', 0);
   errors: any = {};
   clientes: Cliente[] = [];
+  query:any;
 
   constructor(
     private equipamentoService: EquipamentoService,
@@ -61,8 +66,16 @@ export class CadastroEquipamentosPage implements OnInit {
     addIcons({ arrowBackCircleOutline });
   }
 
-  async ngOnInit() {
-    this.clientes = (await this.clienteService.getClientes()).data;
+  ngOnInit() {
+  }
+
+  async filtrarClientes(event : Event){
+    const target = event.target as HTMLIonSearchbarElement;
+    this.clientes = target.value == '' ? [] : (await this.clienteService.getClientes(null, target.value)).data;
+  }
+
+  selecionarCliente(id_cliente: number | null){
+    this.equipamento.id_cliente = id_cliente;
   }
 
   async onSubmit() {
