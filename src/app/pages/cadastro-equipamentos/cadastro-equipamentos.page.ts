@@ -25,6 +25,7 @@ import { EquipamentoService } from 'src/app/services/equipamento/equipamento.ser
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { ClienteService } from 'src/app/services/cliente/cliente.service';
 import { Cliente } from 'src/app/models/cliente/cliente';
+import { ClientesSelectComponent } from 'src/app/components/filters/clientes-select/clientes-select.component';
 
 @Component({
   selector: 'app-cadastro-equipamentos',
@@ -48,30 +49,24 @@ import { Cliente } from 'src/app/models/cliente/cliente';
     IonButtons,
     IonSearchbar,
     RouterLink,
-    IonRadio
+    IonRadio,
+    ClientesSelectComponent
   ],
 })
 export class CadastroEquipamentosPage implements OnInit {
   equipamento: Equipamento = new Equipamento('', '', '', 0);
   errors: any = {};
-  clientes: Cliente[] = [];
   query:any;
 
   constructor(
     private equipamentoService: EquipamentoService,
     private toast: ToastService,
     private router: Router,
-    private clienteService: ClienteService
   ) {
     addIcons({ arrowBackCircleOutline });
   }
 
   ngOnInit() {
-  }
-
-  async filtrarClientes(event : Event){
-    const target = event.target as HTMLIonSearchbarElement;
-    this.clientes = target.value == '' ? [] : (await this.clienteService.getClientes(null, target.value)).data;
   }
 
   selecionarCliente(id_cliente: number | null){

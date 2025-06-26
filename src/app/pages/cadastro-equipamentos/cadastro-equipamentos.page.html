@@ -35,25 +35,8 @@
         [(ngModel)]="equipamento.nome"
       ></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-searchbar
-        [debounce]="2000"
-        (ionInput)="filtrarClientes($event)"
-        placeholder="Buscar cliente pelo nome"
-      >
-      </ion-searchbar>
-    </ion-item>
 
-    <ion-list>
-      @for(cliente of clientes; track cliente){
-      <ion-radio
-        class="ion-padding"
-        (click)="selecionarCliente(cliente.id)"
-        labelPlacement="end"
-        >{{ cliente.nome }}</ion-radio
-      >
-      }
-    </ion-list>
+    <app-clientes-select (selecionar)="selecionarCliente($event)"></app-clientes-select>
 
     <ion-button (click)="onSubmit()" expand="block">Cadastrar</ion-button>
     <ion-button [routerLink]="['/equipamentos']" expand="block" fill="outline"

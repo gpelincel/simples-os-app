@@ -1,0 +1,23 @@
+<ion-item>
+  <ion-searchbar
+    [debounce]="2000"
+    (ionInput)="filtrarClientes($event)"
+    placeholder="Buscar cliente pelo nome"
+  >
+  </ion-searchbar>
+</ion-item>
+
+<ion-list>
+  <ion-radio-group>
+    @for(cliente of clientes; track cliente){
+    <ion-radio
+      [id]="'cliente-'+cliente.id"
+      class="ion-padding"
+      (click)="selecionarCliente(cliente.id)"
+      labelPlacement="end"
+      >{{ cliente.nome }}</ion-radio
+    >
+    <br>
+    }
+  </ion-radio-group>
+</ion-list>
