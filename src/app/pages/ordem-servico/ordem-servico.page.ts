@@ -7,14 +7,11 @@ import {
   IonTitle,
   IonToolbar,
   IonSearchbar,
-  IonButton,
   IonIcon,
   IonMenuButton,
   IonButtons,
   IonFab,
   IonFabButton,
-  IonItem,
-  IonList,
   IonInfiniteScroll,
   IonInfiniteScrollContent,
 } from '@ionic/angular/standalone';
@@ -24,6 +21,7 @@ import { add } from 'ionicons/icons';
 import { OrdemServicoCardComponent } from 'src/app/components/ordem-servico/ordem-servico-card/ordem-servico-card.component';
 import { StatusSelectComponent } from 'src/app/components/filters/status-select/status-select.component';
 import { ClassificacaoSelectComponent } from 'src/app/components/filters/classificacao-select/classificacao-select.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-ordem-servico',
@@ -40,17 +38,15 @@ import { ClassificacaoSelectComponent } from 'src/app/components/filters/classif
     IonMenuButton,
     IonButtons,
     IonSearchbar,
-    IonButton,
     IonIcon,
     OrdemServicoCardComponent,
-    IonItem,
-    IonList,
     StatusSelectComponent,
     ClassificacaoSelectComponent,
     IonInfiniteScroll,
     IonInfiniteScrollContent,
     IonFab,
     IonFabButton,
+    RouterLink
   ],
 })
 export class OrdemServicoPage implements OnInit {

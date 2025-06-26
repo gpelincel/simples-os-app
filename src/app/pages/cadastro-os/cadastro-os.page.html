@@ -1,0 +1,77 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button [routerLink]="['/ordem-servico']">
+        <ion-icon size="large" name="arrow-back-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title> CADASTRAR ORDEM DE SERVIÇO </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form class="ion-padding">
+    <ion-item>
+      <ion-input
+        labelPlacement="floating"
+        label="Serviço"
+        name="titulo"
+        [(ngModel)]="ordem_servico.titulo"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <app-status-select (selecionar)="ordem_servico.setStatus($event)"></app-status-select>
+    </ion-item>
+    <ion-item>
+      <app-classificacao-select (selecionar)="ordem_servico.setClassificacao($event)"></app-classificacao-select>
+    </ion-item>
+    <ion-item>
+      <ion-input
+        labelPlacement="floating"
+        label="Cód. de Compra"
+        name="codigo_compra"
+        [(ngModel)]="ordem_servico.codigo_compra"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input
+        labelPlacement="floating"
+        label="Nota Fiscal"
+        name="nota_fiscal"
+        [(ngModel)]="ordem_servico.nota_fiscal"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input
+        labelPlacement="floating"
+        label="Data de Início"
+        name="data_inicio"
+        [(ngModel)]="ordem_servico.data_inicio"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input
+        labelPlacement="floating"
+        label="Data de Conclusão"
+        name="data_conclusao"
+        [(ngModel)]="ordem_servico.data_conclusao"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-textarea
+        labelPlacement="floating"
+        label="Descrição"
+        name="descricao"
+        [(ngModel)]="ordem_servico.descricao"
+      ></ion-textarea>
+    </ion-item>
+
+    <app-clientes-select (selecionar)="selecionarCliente($event)"></app-clientes-select>
+
+    <ion-button (click)="onSubmit()" expand="block">Cadastrar</ion-button>
+    <ion-button [routerLink]="['/ordem-servico']" expand="block" fill="outline"
+      >Cancelar</ion-button
+    >
+  </form>
+</ion-content>

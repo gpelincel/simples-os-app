@@ -6,25 +6,17 @@ import {
   IonHeader,
   IonTitle,
   IonToolbar,
-  IonList,
   IonItem,
   IonInput,
-  IonSelect,
-  IonSelectOption,
   IonButton,
   IonIcon,
-  IonSearchbar,
-  IonButtons,
-  IonRadio
-} from '@ionic/angular/standalone';
+  IonButtons} from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { arrowBackCircle, arrowBackCircleOutline } from 'ionicons/icons';
+import { arrowBackCircleOutline } from 'ionicons/icons';
 import { Equipamento } from 'src/app/models/equipamento/equipamento';
 import { Router, RouterLink } from '@angular/router';
 import { EquipamentoService } from 'src/app/services/equipamento/equipamento.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
-import { ClienteService } from 'src/app/services/cliente/cliente.service';
-import { Cliente } from 'src/app/models/cliente/cliente';
 import { ClientesSelectComponent } from 'src/app/components/filters/clientes-select/clientes-select.component';
 
 @Component({
@@ -39,17 +31,12 @@ import { ClientesSelectComponent } from 'src/app/components/filters/clientes-sel
     IonToolbar,
     CommonModule,
     FormsModule,
-    IonList,
     IonItem,
     IonInput,
-    IonSelect,
-    IonSelectOption,
     IonButton,
     IonIcon,
     IonButtons,
-    IonSearchbar,
     RouterLink,
-    IonRadio,
     ClientesSelectComponent
   ],
 })

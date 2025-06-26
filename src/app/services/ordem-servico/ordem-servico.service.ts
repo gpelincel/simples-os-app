@@ -8,6 +8,8 @@ export class OrdemServicoService {
 
   constructor() { }
 
+  api_url = environment.api_url + 'ordem-servico';
+
   getOS(
     next_page: string | null = null,
     params: any[] | null = null
@@ -22,7 +24,7 @@ export class OrdemServicoService {
 
     const url = next_page
       ? next_page
-      : environment.api_url + 'ordem-servico' + url_params;
+      : this.api_url + url_params;
     return fetch(url, {
       headers: {
         Accept: 'application/json',
@@ -35,4 +37,21 @@ export class OrdemServicoService {
       })
       .catch((error) => console.error('Error', error));
   }
+
+  storeOS(os: any) {
+      return fetch(this.api_url, {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+        },
+        method: 'POST',
+        body: JSON.stringify(os),
+      })
+        .then((response) => response.json())
+        .then((response) => {
+          return response;
+        })
+        .catch((error) => console.error('Error', error));
+    }
 }

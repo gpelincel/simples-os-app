@@ -6,16 +6,11 @@ import {
   IonHeader,
   IonTitle,
   IonToolbar,
-  IonList,
-    IonItem,
+  IonItem,
     IonInput,
-    IonSelect,
-    IonSelectOption,
     IonButton,
     IonIcon,
     IonButtons,
-    IonSearchbar,
-    IonRadio,
 } from '@ionic/angular/standalone';
 import { Router, RouterLink } from '@angular/router';
 import { ClienteService } from 'src/app/services/cliente/cliente.service';
@@ -34,17 +29,12 @@ import { Cliente } from 'src/app/models/cliente/cliente';
     IonToolbar,
     CommonModule,
     FormsModule,
-    IonList,
     IonItem,
     IonInput,
-    IonSelect,
-    IonSelectOption,
     IonButton,
     IonIcon,
     IonButtons,
-    IonSearchbar,
     RouterLink,
-    IonRadio,
   ],
 })
 export class CadastroClientesPage implements OnInit {

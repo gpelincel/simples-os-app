@@ -44,7 +44,6 @@ import { Equipamento } from 'src/app/models/equipamento/equipamento';
     IonFab,
     IonFabButton,
     RouterLink,
-    RouterLinkActive
   ],
 })
 export class EquipamentosPage implements OnInit {
