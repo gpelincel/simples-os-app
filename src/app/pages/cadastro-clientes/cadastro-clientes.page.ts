@@ -7,15 +7,19 @@ import {
   IonTitle,
   IonToolbar,
   IonItem,
-    IonInput,
-    IonButton,
-    IonIcon,
-    IonButtons,
+  IonInput,
+  IonButton,
+  IonIcon,
+  IonButtons,
+  IonItemDivider,
+  IonLabel,
 } from '@ionic/angular/standalone';
 import { Router, RouterLink } from '@angular/router';
 import { ClienteService } from 'src/app/services/cliente/cliente.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { Cliente } from 'src/app/models/cliente/cliente';
+import { addIcons } from 'ionicons';
+import { arrowBackCircleOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-cadastro-clientes',
@@ -35,18 +39,29 @@ import { Cliente } from 'src/app/models/cliente/cliente';
     IonIcon,
     IonButtons,
     RouterLink,
+    IonItemDivider,
+    IonLabel,
   ],
 })
 export class CadastroClientesPage implements OnInit {
-
   cliente = new Cliente('', '', '', '', '', 0);
+  endereco: any = {};
 
-  constructor(private clienteService: ClienteService, private toast : ToastService, private router: Router) {}
+  constructor(
+    private clienteService: ClienteService,
+    private toast: ToastService,
+    private router: Router
+  ) {
+    addIcons({arrowBackCircleOutline})
+  }
 
   ngOnInit() {}
 
   async onSubmit() {
-    const response = await this.clienteService.storeCliente(this.cliente);
+    const response = await this.clienteService.storeCliente({
+      ...this.cliente,
+      ...this.endereco,
+    });
 
     if (response.errors) {
       const primeiroCampo = Object.keys(response.errors)[0];

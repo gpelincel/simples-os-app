@@ -52,6 +52,67 @@
       ></ion-input>
     </ion-item>
 
+    <ion-item-divider>
+      <ion-label> Dados de Endereço </ion-label>
+    </ion-item-divider>
+
+    <ion-item>
+      <ion-input
+        labelPlacement="floating"
+        label="Logradouro"
+        name="logradouro"
+        [(ngModel)]="endereco.logradouro"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input
+        labelPlacement="floating"
+        label="CEP"
+        name="cep"
+        [(ngModel)]="endereco.cep"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input
+        labelPlacement="floating"
+        label="Número"
+        name="numero"
+        [(ngModel)]="endereco.numero"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input
+        labelPlacement="floating"
+        label="Complemento"
+        name="complemento"
+        [(ngModel)]="endereco.complemento"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input
+        labelPlacement="floating"
+        label="Bairro"
+        name="bairro"
+        [(ngModel)]="endereco.bairro"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input
+        labelPlacement="floating"
+        label="Cidade"
+        name="cidade"
+        [(ngModel)]="endereco.cidade"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input
+        labelPlacement="floating"
+        label="Estado"
+        name="estado"
+        [(ngModel)]="endereco.estado"
+      ></ion-input>
+    </ion-item>
+
     <ion-button (click)="onSubmit()" expand="block">Cadastrar</ion-button>
     <ion-button [routerLink]="['/clientes']" expand="block" fill="outline"
       >Cancelar</ion-button
