@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">DescarmedOS</string>
+    <string name="title_activity_main">DescarmedOS</string>
+    <string name="package_name">com.descarmed.os.app</string>
+    <string name="custom_url_scheme">com.descarmed.os.app</string>
+</resources>
