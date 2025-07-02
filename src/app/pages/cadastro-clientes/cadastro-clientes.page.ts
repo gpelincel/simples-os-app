@@ -67,7 +67,7 @@ export class CadastroClientesPage implements OnInit {
       const primeiroCampo = Object.keys(response.errors)[0];
       const primeiraMensagem = response.errors[primeiroCampo][0];
 
-      this.toast.presentToast('error', primeiraMensagem); // mostra só um toast
+      this.toast.presentToast('error', primeiraMensagem);
     } else {
       this.toast.presentToast('success', response.message);
       this.router.navigate(['/clientes']);

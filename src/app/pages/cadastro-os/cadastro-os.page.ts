@@ -11,6 +11,8 @@ import {
   IonButton,
   IonIcon,
   IonButtons,
+  IonLabel,
+  IonItemGroup,
 } from '@ionic/angular/standalone';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { Router, RouterLink } from '@angular/router';
@@ -21,6 +23,7 @@ import { OrdemServicoService } from 'src/app/services/ordem-servico/ordem-servic
 import { StatusSelectComponent } from 'src/app/components/filters/status-select/status-select.component';
 import { ClassificacaoSelectComponent } from 'src/app/components/filters/classificacao-select/classificacao-select.component';
 import { OrdemServico } from 'src/app/models/ordem-servico/ordem-servico';
+import { Item } from 'src/app/models/item';
 
 @Component({
   selector: 'app-cadastro-os',
@@ -43,49 +46,47 @@ import { OrdemServico } from 'src/app/models/ordem-servico/ordem-servico';
     ClientesSelectComponent,
     StatusSelectComponent,
     ClassificacaoSelectComponent,
+    IonLabel,
+    IonItemGroup,
   ],
 })
 export class CadastroOsPage implements OnInit {
-  ordem_servico = new OrdemServico(
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    null,
-    null,
-    null,
-    null
-  );
+  ordem_servico = new OrdemServico();
+  itens: Item[] = [];
+
+  recalculateValor() {
+    let total = 0;
+    this.itens.map((item: Item) => {
+      total += Number(item.quantidade) * Number(item.valor_unitario);
+    });
+
+    this.ordem_servico.valor_total = total;
+  }
 
   constructor(
     private toast: ToastService,
     private router: Router,
     private osService: OrdemServicoService
   ) {
-    this.ordem_servico = new OrdemServico(
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    null,
-    null,
-    null,
-    null
-  );
+    this.ordem_servico = new OrdemServico();
     addIcons({ arrowBackCircleOutline });
+    this.itens.push(new Item());
   }
 
   ngOnInit() {}
+
+  addItemInput() {
+    let id = this.itens.length + 1;
+    this.itens = [...this.itens, new Item(id)];
+  }
 
   selecionarCliente(id_cliente: number | null) {
     this.ordem_servico.id_cliente = id_cliente;
   }
 
   async onSubmit() {
+    this.ordem_servico.itens = this.itens;
+
     const response = await this.osService.storeOS(this.ordem_servico);
     let message = response.message;
 
@@ -96,7 +97,7 @@ export class CadastroOsPage implements OnInit {
 
     this.toast.presentToast(response.status, message);
 
-    if (response.status == "success") {
+    if (response.status == 'success') {
       this.router.navigate(['/ordem-servico']);
     }
   }

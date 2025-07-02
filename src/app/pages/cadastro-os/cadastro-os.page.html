@@ -20,10 +20,14 @@
       ></ion-input>
     </ion-item>
     <ion-item>
-      <app-status-select (selecionar)="ordem_servico.setStatus($event)"></app-status-select>
+      <app-status-select
+        (selecionar)="ordem_servico.setStatus($event)"
+      ></app-status-select>
     </ion-item>
     <ion-item>
-      <app-classificacao-select (selecionar)="ordem_servico.setClassificacao($event)"></app-classificacao-select>
+      <app-classificacao-select
+        (selecionar)="ordem_servico.setClassificacao($event)"
+      ></app-classificacao-select>
     </ion-item>
     <ion-item>
       <ion-input
@@ -67,7 +71,57 @@
       ></ion-textarea>
     </ion-item>
 
-    <app-clientes-select (selecionar)="selecionarCliente($event)"></app-clientes-select>
+    <app-clientes-select
+      (selecionar)="selecionarCliente($event)"
+    ></app-clientes-select>
+
+    <ion-item>
+      <ion-label>Itens</ion-label>
+      <ion-button (click)="addItemInput()">Adicionar</ion-button>
+    </ion-item>
+
+    <ion-item-group>
+      @for (item of itens; track item.id) {
+      <ion-item>
+        <div
+          style="
+            display: grid;
+            grid-template-columns: 0.5fr 1.5fr 1fr;
+            width: 100%;
+          "
+        >
+          <ion-input
+            [(ngModel)]="item.quantidade"
+            [ngModelOptions]="{ standalone: true }"
+            (ionChange)="recalculateValor()"
+            placeholder="0"
+            type="number"
+            min="0"
+          ></ion-input>
+          <ion-input
+            [(ngModel)]="item.nome"
+            [ngModelOptions]="{ standalone: true }"
+            placeholder="Nome Item"
+          ></ion-input>
+          <ion-input
+            [(ngModel)]="item.valor_unitario"
+            [ngModelOptions]="{ standalone: true }"
+            (ionChange)="recalculateValor()"
+            placeholder="R$ 0,00"
+          ></ion-input>
+        </div>
+      </ion-item>
+      }
+    </ion-item-group>
+    <ion-item>
+      <ion-input
+        label="Valor Total"
+        labelPlacement="floating"
+        placeholder="R$ 0,00"
+        name="valor_total"
+        [(ngModel)]="ordem_servico.valor_total"
+      ></ion-input>
+    </ion-item>
 
     <ion-button (click)="onSubmit()" expand="block">Cadastrar</ion-button>
     <ion-button [routerLink]="['/ordem-servico']" expand="block" fill="outline"
