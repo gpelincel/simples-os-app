@@ -1,0 +1,9 @@
+<ion-item>
+  <ion-select (ionChange)="selecionarEquipamento($event)" label="Equipamento" placeholder="- Selecione -">
+    @for(equipamento of equipamentos; track equipamento){
+    <ion-select-option [value]="equipamento.id">{{
+      equipamento.nome
+    }}</ion-select-option>
+    }
+  </ion-select>
+</ion-item>

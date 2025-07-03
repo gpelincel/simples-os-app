@@ -71,9 +71,15 @@
       ></ion-textarea>
     </ion-item>
 
+    <ion-item>
+      Cliente
+    </ion-item>
+
     <app-clientes-select
       (selecionar)="selecionarCliente($event)"
     ></app-clientes-select>
+
+    <app-equipamento-select [id_cliente]="ordem_servico.id_cliente" (selecionar)="selecionarEquipamento($event)"></app-equipamento-select>
 
     <ion-item>
       <ion-label>Itens</ion-label>

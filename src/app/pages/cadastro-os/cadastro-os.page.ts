@@ -23,7 +23,8 @@ import { OrdemServicoService } from 'src/app/services/ordem-servico/ordem-servic
 import { StatusSelectComponent } from 'src/app/components/filters/status-select/status-select.component';
 import { ClassificacaoSelectComponent } from 'src/app/components/filters/classificacao-select/classificacao-select.component';
 import { OrdemServico } from 'src/app/models/ordem-servico/ordem-servico';
-import { Item } from 'src/app/models/item';
+import { Item } from 'src/app/models/item/item';
+import { EquipamentoSelectComponent } from 'src/app/components/equipamento/equipamento-select/equipamento-select.component';
 
 @Component({
   selector: 'app-cadastro-os',
@@ -48,6 +49,7 @@ import { Item } from 'src/app/models/item';
     ClassificacaoSelectComponent,
     IonLabel,
     IonItemGroup,
+    EquipamentoSelectComponent,
   ],
 })
 export class CadastroOsPage implements OnInit {
@@ -84,8 +86,14 @@ export class CadastroOsPage implements OnInit {
     this.ordem_servico.id_cliente = id_cliente;
   }
 
+  selecionarEquipamento(id_equipamento: number | null) {
+    this.ordem_servico.id_equipamento = id_equipamento;
+  }
+
   async onSubmit() {
     this.ordem_servico.itens = this.itens;
+    console.log(this.ordem_servico);
+    return;
 
     const response = await this.osService.storeOS(this.ordem_servico);
     let message = response.message;

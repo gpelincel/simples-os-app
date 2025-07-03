@@ -41,7 +41,7 @@ import { ClientesSelectComponent } from 'src/app/components/filters/clientes-sel
   ],
 })
 export class CadastroEquipamentosPage implements OnInit {
-  equipamento: Equipamento = new Equipamento('', '', '', 0);
+  equipamento: Equipamento = new Equipamento();
   errors: any = {};
   query:any;
 

@@ -1,4 +1,4 @@
-import { Item } from "../item";
+import { Item } from "../item/item";
 
 export class OrdemServico {
   public titulo: string | null;

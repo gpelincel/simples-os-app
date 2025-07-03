@@ -30,6 +30,25 @@ export class EquipamentoService {
       .catch((error) => console.error('Error', error));
   }
 
+  getEquipamentoByCliente(
+    id_cliente:any
+  ) {
+    
+    const url = environment.api_url+'cliente/equipamento/'+id_cliente;
+    return fetch(url, {
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response);
+        return response.data;
+      })
+      .catch((error) => console.error('Error', error));
+  }
+
   storeEquipamento(equipamento: Equipamento) {
     return fetch(this.api_url, {
       headers: {
