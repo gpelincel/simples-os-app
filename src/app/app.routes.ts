@@ -34,4 +34,8 @@ export const routes: Routes = [
     path: 'ordem-servico/cadastro',
     loadComponent: () => import('./pages/cadastro-os/cadastro-os.page').then( m => m.CadastroOsPage)
   },
+  {
+    path: 'ordem-servico/:id',
+    loadComponent: () => import('./pages/info-ordem-servico/info-ordem-servico.page').then( m => m.InfoOrdemServicoPage)
+  },
 ];

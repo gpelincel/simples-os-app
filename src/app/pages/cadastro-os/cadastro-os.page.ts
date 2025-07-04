@@ -62,7 +62,7 @@ export class CadastroOsPage implements OnInit {
       total += Number(item.quantidade) * Number(item.valor_unitario);
     });
 
-    this.ordem_servico.valor_total = total;
+    this.ordem_servico.preco = total;
   }
 
   constructor(

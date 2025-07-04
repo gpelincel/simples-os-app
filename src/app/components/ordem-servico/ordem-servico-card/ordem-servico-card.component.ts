@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { addIcons } from 'ionicons';
-import { IonCard, IonCardHeader, IonCardContent, IonCardSubtitle, IonCardTitle, IonChip, IonLabel } from '@ionic/angular/standalone';
+import { IonCard, IonCardHeader, IonCardContent, IonCardSubtitle, IonCardTitle, IonChip, IonLabel, IonButton } from '@ionic/angular/standalone';
 import { call, mail } from 'ionicons/icons';
 
 @Component({
@@ -8,7 +8,7 @@ import { call, mail } from 'ionicons/icons';
   selector: 'app-ordem-servico-card',
   templateUrl: './ordem-servico-card.component.html',
   styleUrls: ['./ordem-servico-card.component.scss'],
-  imports: [IonCard, IonCardHeader, IonCardContent, IonCardSubtitle, IonCardTitle, IonChip, IonLabel]
+  imports: [IonCard, IonCardHeader, IonCardContent, IonCardSubtitle, IonCardTitle, IonChip, IonLabel, IonButton]
 })
 export class OrdemServicoCardComponent  implements OnInit {
 

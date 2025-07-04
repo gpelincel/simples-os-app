@@ -1,3 +1,5 @@
+import { Cliente } from "../cliente/cliente";
+import { Equipamento } from "../equipamento/equipamento";
 import { Item } from "../item/item";
 
 export class OrdemServico {
@@ -11,11 +13,16 @@ export class OrdemServico {
   public id_classificacao: number | null;
   public id_cliente: number | null;
   public id_equipamento: number | null;
-  public valor_total: number | null;
+  public preco: number | null;
   public itens: Item[];
+  public cliente: Cliente | null;
+  public equipamento: Equipamento | null;
+  public status: string | null;
+  public classificacao: string | null;
 
   constructor(
     titulo: string | null = null,
+    cliente: Cliente | null = null,
     codigo_compra: string | null = null,
     nota_fiscal: string | null = null,
     data_inicio: string | null = null,
@@ -25,8 +32,11 @@ export class OrdemServico {
     id_classificacao: number | null = null,
     id_cliente: number | null = null,
     id_equipamento: number | null = null,
-    valor_total: number | null = null,
-    itens: Item[] = []
+    equipamento: Equipamento | null = null,
+    preco: number | null = null,
+    itens: Item[] = [],
+    status:string|null = null,
+    classificacao:string|null = null,
   ) {
     this.titulo = titulo;
     this.codigo_compra = codigo_compra;
@@ -38,8 +48,12 @@ export class OrdemServico {
     this.id_classificacao = id_classificacao;
     this.id_cliente = id_cliente;
     this.id_equipamento = id_equipamento;
-    this.valor_total = valor_total;
+    this.preco = preco;
+    this.cliente = cliente;
     this.itens = itens;
+    this.equipamento = equipamento;
+    this.status = status;
+    this.classificacao = classificacao;
   }
 
   setStatus(id_status: number | null){

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { OrdemServico } from 'src/app/models/ordem-servico/ordem-servico';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -36,6 +37,22 @@ export class OrdemServicoService {
         return response;
       })
       .catch((error) => console.error('Error', error));
+  }
+
+  getOSByID(id:number){
+    return fetch(this.api_url+'/'+id, {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+        },
+      })
+        .then((response) => response.json())
+        .then((response) => {
+          console.log(response);
+          return response;
+        })
+        .catch((error) => console.error('Error', error));
   }
 
   storeOS(os: any) {

@@ -1,0 +1,147 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button [routerLink]="['/ordem-servico']">
+        <ion-icon size="large" name="arrow-back-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title *ngIf="ordem_servico"> {{ordem_servico.classificacao ?? "Carregando..."}} </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  
+  <div style="width: 100%; display: flex; justify-content: center;">
+    <ion-spinner *ngIf="!loaded" name="crescent"></ion-spinner>
+  </div>
+  <ion-list *ngIf="loaded">
+    <ion-item>{{ordem_servico.titulo}}</ion-item>
+    <ion-item>{{ordem_servico.cliente.nome}}</ion-item>
+
+    <ion-item-group>
+      <ion-item-divider>
+        <ion-label color="medium">Dados do Cliente</ion-label>
+      </ion-item-divider>
+
+      <ion-item>
+        <ion-checkbox [checked]="true" labelPlacement="end"
+          >CNPJ
+          <ion-label color="medium">{{ordem_servico.cliente!.cnpj}}</ion-label>
+        </ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-checkbox [checked]="true" labelPlacement="end"
+          >Telefone
+          <ion-label color="medium"
+            >{{ordem_servico.cliente!.telefone}}</ion-label
+          >
+        </ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-checkbox [checked]="true" labelPlacement="end"
+          >Email<ion-label color="medium"
+            >{{ordem_servico.cliente!.email}}</ion-label
+          ></ion-checkbox
+        >
+      </ion-item>
+      <ion-item>
+        <ion-checkbox [checked]="true" labelPlacement="end"
+          >Endereço<ion-label color="medium"
+            >{{`${ordem_servico.cliente!.endereco.cidade}-${ordem_servico.cliente!.endereco.estado}`}} <br> {{ordem_servico.cliente!.endereco.logradouro}}, {{ordem_servico.cliente!.endereco.numero}}</ion-label
+          ></ion-checkbox
+        >
+      </ion-item>
+    </ion-item-group>
+
+    <ion-item-group *ngIf="ordem_servico.equipamento">
+      <ion-item-divider>
+        <ion-label color="medium">Dados do Equipamento</ion-label>
+      </ion-item-divider>
+
+      <ion-item>
+        <ion-checkbox [checked]="true" labelPlacement="end"
+          >Equipamento<ion-label color="medium"
+            >{{ordem_servico.equipamento!.nome}}</ion-label
+          ></ion-checkbox
+        >
+      </ion-item>
+
+      <ion-item>
+        <ion-checkbox [checked]="true" labelPlacement="end"
+          >Número de Série<ion-label color="medium"
+            >{{ordem_servico.equipamento!.numero_serie}}</ion-label
+          ></ion-checkbox
+        >
+      </ion-item>
+      <ion-item>
+        <ion-checkbox [checked]="true" labelPlacement="end"
+          >Número de Patrimônio<ion-label color="medium"
+            >{{ordem_servico.equipamento!.numero_patrimonio}}</ion-label
+          ></ion-checkbox
+        >
+      </ion-item>
+      <ion-item>
+        <ion-checkbox [checked]="true" labelPlacement="end"
+          >Código Descarmed<ion-label color="medium"
+            >{{ordem_servico.equipamento!.id}}</ion-label
+          ></ion-checkbox
+        >
+      </ion-item>
+    </ion-item-group>
+
+    <ion-item-group>
+      <ion-item-divider>
+        <ion-label color="medium">Dados da OS</ion-label>
+      </ion-item-divider>
+
+      <ion-item>
+        <ion-checkbox [checked]="true" labelPlacement="end"
+          >Data Início</ion-checkbox
+        >
+        <ion-label color="medium">{{ordem_servico.data_inicio}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-checkbox [checked]="true" labelPlacement="end"
+          >Status</ion-checkbox
+        >
+        <ion-label color="medium">{{ordem_servico.status}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-checkbox [checked]="true" labelPlacement="end"
+          >Nota Fiscal</ion-checkbox
+        >
+        <ion-label color="medium">{{ordem_servico.nota_fiscal}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-checkbox [checked]="true" labelPlacement="end"
+          >Código de Compra</ion-checkbox
+        >
+        <ion-label color="medium">{{ordem_servico.codigo_compra}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-checkbox [checked]="true" labelPlacement="end"
+          >Observação</ion-checkbox
+        >
+        <ion-label color="medium">{{ordem_servico.descricao}}</ion-label>
+      </ion-item>
+    </ion-item-group>
+    <ion-item-group>
+      <ion-item-divider></ion-item-divider>
+      <ion-item>
+        <ion-checkbox [checked]="true" labelPlacement="end">Itens</ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-checkbox [checked]="true" labelPlacement="end"
+          >Valor Total</ion-checkbox
+        >
+        <ion-label color="medium">{{ordem_servico.preco}}</ion-label>
+      </ion-item>
+    </ion-item-group>
+    <div class="ion-padding">
+      <ion-button expand="block">Imprimir</ion-button>
+      <ion-button expand="block" color="danger" fill="outline"
+        >Excluir</ion-button
+      >
+    </div>
+  </ion-list>
+</ion-content>
