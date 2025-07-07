@@ -5,18 +5,19 @@
         <ion-icon size="large" name="arrow-back-circle-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title *ngIf="ordem_servico"> {{ordem_servico.classificacao ?? "Carregando..."}} </ion-title>
+    <ion-title *ngIf="ordem_servico">
+      {{ordem_servico.classificacao ?? "Carregando..."}}
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  
-  <div style="width: 100%; display: flex; justify-content: center;">
+  <div style="width: 100%; display: flex; justify-content: center">
     <ion-spinner *ngIf="!loaded" name="crescent"></ion-spinner>
   </div>
   <ion-list *ngIf="loaded">
     <ion-item>{{ordem_servico.titulo}}</ion-item>
-    <ion-item>{{ordem_servico.cliente.nome}}</ion-item>
+    <ion-item>{{ordem_servico.cliente!.nome}}</ion-item>
 
     <ion-item-group>
       <ion-item-divider>
@@ -24,66 +25,90 @@
       </ion-item-divider>
 
       <ion-item>
-        <ion-checkbox [checked]="true" labelPlacement="end"
+        <ion-checkbox
+          [(ngModel)]="impressao_fields.cnpj_cliente"
+          labelPlacement="end"
           >CNPJ
           <ion-label color="medium">{{ordem_servico.cliente!.cnpj}}</ion-label>
         </ion-checkbox>
       </ion-item>
       <ion-item>
-        <ion-checkbox [checked]="true" labelPlacement="end"
+        <ion-checkbox
+          [checked]="true"
+          [(ngModel)]="impressao_fields.telefone_cliente"
+          labelPlacement="end"
           >Telefone
           <ion-label color="medium"
-            >{{ordem_servico.cliente!.telefone}}</ion-label
+            >{{ordem_servico.cliente?.telefone ?? 'N/A'}}</ion-label
           >
         </ion-checkbox>
       </ion-item>
       <ion-item>
-        <ion-checkbox [checked]="true" labelPlacement="end"
+        <ion-checkbox
+          [checked]="true"
+          [(ngModel)]="impressao_fields.email_cliente"
+          labelPlacement="end"
           >Email<ion-label color="medium"
-            >{{ordem_servico.cliente!.email}}</ion-label
+            >{{ordem_servico.cliente?.email ?? "N/A"}}</ion-label
           ></ion-checkbox
         >
       </ion-item>
       <ion-item>
-        <ion-checkbox [checked]="true" labelPlacement="end"
+        <ion-checkbox
+          [checked]="true"
+          [(ngModel)]="impressao_fields.endereco_cliente"
+          labelPlacement="end"
           >Endereço<ion-label color="medium"
-            >{{`${ordem_servico.cliente!.endereco.cidade}-${ordem_servico.cliente!.endereco.estado}`}} <br> {{ordem_servico.cliente!.endereco.logradouro}}, {{ordem_servico.cliente!.endereco.numero}}</ion-label
+            >{{ordem_servico.cliente}}</ion-label
           ></ion-checkbox
         >
       </ion-item>
     </ion-item-group>
 
-    <ion-item-group *ngIf="ordem_servico.equipamento">
+    <ion-item-group>
       <ion-item-divider>
         <ion-label color="medium">Dados do Equipamento</ion-label>
       </ion-item-divider>
 
       <ion-item>
-        <ion-checkbox [checked]="true" labelPlacement="end"
+        <ion-checkbox
+          [checked]="true"
+          [(ngModel)]="impressao_fields.nome_equipamento"
+          labelPlacement="end"
           >Equipamento<ion-label color="medium"
-            >{{ordem_servico.equipamento!.nome}}</ion-label
+            >{{ordem_servico.equipamento?.nome ?? "N/A"}}</ion-label
           ></ion-checkbox
         >
       </ion-item>
 
       <ion-item>
-        <ion-checkbox [checked]="true" labelPlacement="end"
+        <ion-checkbox
+          [checked]="true"
+          [(ngModel)]="impressao_fields.numero_serie"
+          labelPlacement="end"
           >Número de Série<ion-label color="medium"
-            >{{ordem_servico.equipamento!.numero_serie}}</ion-label
+            >{{ordem_servico.equipamento?.numero_serie ?? "N/A"}}</ion-label
           ></ion-checkbox
         >
       </ion-item>
       <ion-item>
-        <ion-checkbox [checked]="true" labelPlacement="end"
+        <ion-checkbox
+          [checked]="true"
+          [(ngModel)]="impressao_fields.numero_patrimonio"
+          labelPlacement="end"
           >Número de Patrimônio<ion-label color="medium"
-            >{{ordem_servico.equipamento!.numero_patrimonio}}</ion-label
+            >{{ordem_servico.equipamento?.numero_patrimonio ??
+            "N/A"}}</ion-label
           ></ion-checkbox
         >
       </ion-item>
       <ion-item>
-        <ion-checkbox [checked]="true" labelPlacement="end"
+        <ion-checkbox
+          [checked]="true"
+          [(ngModel)]="impressao_fields.id_equipamento"
+          labelPlacement="end"
           >Código Descarmed<ion-label color="medium"
-            >{{ordem_servico.equipamento!.id}}</ion-label
+            >{{ordem_servico.equipamento?.id ?? "N/A"}}</ion-label
           ></ion-checkbox
         >
       </ion-item>
@@ -95,50 +120,110 @@
       </ion-item-divider>
 
       <ion-item>
-        <ion-checkbox [checked]="true" labelPlacement="end"
+        <ion-checkbox
+          [checked]="true"
+          [(ngModel)]="impressao_fields.data_inicio"
+          labelPlacement="end"
           >Data Início</ion-checkbox
         >
         <ion-label color="medium">{{ordem_servico.data_inicio}}</ion-label>
       </ion-item>
       <ion-item>
-        <ion-checkbox [checked]="true" labelPlacement="end"
+        <ion-checkbox
+          [checked]="true"
+          [(ngModel)]="impressao_fields.data_conclusao"
+          labelPlacement="end"
+          >Data Conclusão</ion-checkbox
+        >
+        <ion-label color="medium"
+          >{{ordem_servico.data_conclusao ?? "N/A"}}</ion-label
+        >
+      </ion-item>
+      <ion-item>
+        <ion-checkbox
+          [checked]="true"
+          [(ngModel)]="impressao_fields.status"
+          labelPlacement="end"
           >Status</ion-checkbox
         >
-        <ion-label color="medium">{{ordem_servico.status}}</ion-label>
+        <ion-label color="medium">{{ordem_servico.status ?? "N/A"}}</ion-label>
       </ion-item>
       <ion-item>
-        <ion-checkbox [checked]="true" labelPlacement="end"
+        <ion-checkbox
+          [checked]="true"
+          [(ngModel)]="impressao_fields.nota_fiscal"
+          labelPlacement="end"
           >Nota Fiscal</ion-checkbox
         >
-        <ion-label color="medium">{{ordem_servico.nota_fiscal}}</ion-label>
+        <ion-label color="medium"
+          >{{ordem_servico.nota_fiscal ?? "N/A"}}</ion-label
+        >
       </ion-item>
       <ion-item>
-        <ion-checkbox [checked]="true" labelPlacement="end"
+        <ion-checkbox
+          [checked]="true"
+          [(ngModel)]="impressao_fields.codigo_compra"
+          labelPlacement="end"
           >Código de Compra</ion-checkbox
         >
-        <ion-label color="medium">{{ordem_servico.codigo_compra}}</ion-label>
+        <ion-label color="medium"
+          >{{ordem_servico.codigo_compra ?? "N/A"}}</ion-label
+        >
       </ion-item>
       <ion-item>
-        <ion-checkbox [checked]="true" labelPlacement="end"
+        <ion-checkbox
+          [checked]="true"
+          [(ngModel)]="impressao_fields.descricao"
+          labelPlacement="end"
           >Observação</ion-checkbox
         >
-        <ion-label color="medium">{{ordem_servico.descricao}}</ion-label>
+        <ion-label color="medium"
+          >{{ordem_servico.descricao ?? "N/A"}}</ion-label
+        >
       </ion-item>
     </ion-item-group>
     <ion-item-group>
       <ion-item-divider></ion-item-divider>
       <ion-item>
-        <ion-checkbox [checked]="true" labelPlacement="end">Itens</ion-checkbox>
+        <ion-checkbox
+          [checked]="true"
+          [(ngModel)]="impressao_fields.items"
+          labelPlacement="end"
+          >Itens</ion-checkbox
+        >
       </ion-item>
       <ion-item>
-        <ion-checkbox [checked]="true" labelPlacement="end"
+        <ion-grid>
+          <ion-row>
+            <ion-col size="2">Qtd.</ion-col>
+            <ion-col size="2.5">Unidade</ion-col>
+            <ion-col size="4">Nome</ion-col>
+            <ion-col>Valor</ion-col>
+          </ion-row>
+          <ion-row *ngFor="let item of ordem_servico.itens">
+            <ion-col size="2"> {{item.quantidade}} </ion-col>
+            <ion-col size="2.5"
+              >{{item.unidade ? item.unidade.descricao : "N/A"}}
+            </ion-col>
+            <ion-col size="4"> {{item.nome}} </ion-col>
+            <ion-col> {{formatToBRL(item.valor_unitario)}} </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <ion-item>
+        <ion-checkbox
+          [checked]="true"
+          [(ngModel)]="impressao_fields.valor"
+          labelPlacement="end"
           >Valor Total</ion-checkbox
         >
-        <ion-label color="medium">{{ordem_servico.preco}}</ion-label>
+        <ion-label color="medium"
+          >{{formatToBRL(ordem_servico.valor_total) ?? "N/A"}}</ion-label
+        >
       </ion-item>
     </ion-item-group>
     <div class="ion-padding">
-      <ion-button expand="block">Imprimir</ion-button>
+      <ion-button (click)="imprimirOS()" expand="block">Gerar PDF</ion-button>
       <ion-button expand="block" color="danger" fill="outline"
         >Excluir</ion-button
       >

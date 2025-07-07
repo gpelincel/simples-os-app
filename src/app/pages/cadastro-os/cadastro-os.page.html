@@ -92,7 +92,7 @@
         <div
           style="
             display: grid;
-            grid-template-columns: 0.5fr 1.5fr 1fr;
+            grid-template-columns: 0.5fr 1fr 1.5fr 1fr;
             width: 100%;
           "
         >
@@ -104,6 +104,7 @@
             type="number"
             min="0"
           ></ion-input>
+          <app-unidade-select (selecionar)="selecionarUnidade($event, item)"></app-unidade-select>
           <ion-input
             [(ngModel)]="item.nome"
             [ngModelOptions]="{ standalone: true }"
@@ -125,7 +126,7 @@
         labelPlacement="floating"
         placeholder="R$ 0,00"
         name="valor_total"
-        [(ngModel)]="ordem_servico.preco"
+        [(ngModel)]="ordem_servico.valor_total"
       ></ion-input>
     </ion-item>
 

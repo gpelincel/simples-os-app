@@ -44,7 +44,7 @@ import { arrowBackCircleOutline } from 'ionicons/icons';
   ],
 })
 export class CadastroClientesPage implements OnInit {
-  cliente = new Cliente('', '', '', '', '', 0);
+  cliente = new Cliente();
   endereco: any = {};
 
   constructor(

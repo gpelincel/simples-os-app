@@ -13,7 +13,7 @@ export class OrdemServico {
   public id_classificacao: number | null;
   public id_cliente: number | null;
   public id_equipamento: number | null;
-  public preco: number | null;
+  public valor_total: number;
   public itens: Item[];
   public cliente: Cliente | null;
   public equipamento: Equipamento | null;
@@ -33,7 +33,7 @@ export class OrdemServico {
     id_cliente: number | null = null,
     id_equipamento: number | null = null,
     equipamento: Equipamento | null = null,
-    preco: number | null = null,
+    valor_total: number = 0,
     itens: Item[] = [],
     status:string|null = null,
     classificacao:string|null = null,
@@ -48,7 +48,7 @@ export class OrdemServico {
     this.id_classificacao = id_classificacao;
     this.id_cliente = id_cliente;
     this.id_equipamento = id_equipamento;
-    this.preco = preco;
+    this.valor_total = valor_total;
     this.cliente = cliente;
     this.itens = itens;
     this.equipamento = equipamento;

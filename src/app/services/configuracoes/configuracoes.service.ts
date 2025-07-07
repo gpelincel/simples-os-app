@@ -34,4 +34,18 @@ export class ConfiguracoesService {
       })
       .catch((error) => console.error('Error', error));
   }
+
+  getUnidades() {
+    return fetch(environment.api_url + 'configuracao/unidade', {
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => console.error('Error', error));
+  }
 }

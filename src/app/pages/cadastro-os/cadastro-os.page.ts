@@ -13,6 +13,8 @@ import {
   IonButtons,
   IonLabel,
   IonItemGroup,
+  IonSelect,
+  IonSelectOption,
 } from '@ionic/angular/standalone';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { Router, RouterLink } from '@angular/router';
@@ -25,6 +27,7 @@ import { ClassificacaoSelectComponent } from 'src/app/components/filters/classif
 import { OrdemServico } from 'src/app/models/ordem-servico/ordem-servico';
 import { Item } from 'src/app/models/item/item';
 import { EquipamentoSelectComponent } from 'src/app/components/equipamento/equipamento-select/equipamento-select.component';
+import { UnidadeSelectComponent } from 'src/app/components/filters/unidade-select/unidade-select.component';
 
 @Component({
   selector: 'app-cadastro-os',
@@ -49,7 +52,10 @@ import { EquipamentoSelectComponent } from 'src/app/components/equipamento/equip
     ClassificacaoSelectComponent,
     IonLabel,
     IonItemGroup,
+    IonSelect,
+    IonSelectOption,
     EquipamentoSelectComponent,
+    UnidadeSelectComponent
   ],
 })
 export class CadastroOsPage implements OnInit {
@@ -62,7 +68,7 @@ export class CadastroOsPage implements OnInit {
       total += Number(item.quantidade) * Number(item.valor_unitario);
     });
 
-    this.ordem_servico.preco = total;
+    this.ordem_servico.valor_total = total;
   }
 
   constructor(
@@ -90,9 +96,14 @@ export class CadastroOsPage implements OnInit {
     this.ordem_servico.id_equipamento = id_equipamento;
   }
 
+  selecionarUnidade(id_unidade:any, item:any){
+    item.id_unidade = id_unidade;
+  }
+
   async onSubmit() {
     this.ordem_servico.itens = this.itens;
-    console.log(this.ordem_servico);
+
+    console.log(this.itens);
     return;
 
     const response = await this.osService.storeOS(this.ordem_servico);

@@ -1,3 +1,5 @@
+import { Endereco } from '../endereco/endereco';
+
 export class Cliente {
   public id: number | null;
   public nome: string | null;
@@ -5,14 +7,16 @@ export class Cliente {
   public razao_social: string | null;
   public telefone: string | null;
   public email: string | null;
+  public endereco: Endereco | null;
 
   constructor(
-    nome: string | null,
-    cnpj: string | null,
-    razao_social: string | null,
-    telefone: string | null,
-    email: string | null,
-    id: number
+    nome: string | null = null,
+    cnpj: string | null = null,
+    razao_social: string | null = null,
+    telefone: string | null = null,
+    email: string | null = null,
+    id: number = 0,
+    endereco: Endereco | null = null
   ) {
     this.nome = nome;
     this.cnpj = cnpj;
@@ -20,5 +24,17 @@ export class Cliente {
     this.telefone = telefone;
     this.email = email;
     this.id = id;
+    this.endereco = endereco;
+  }
+
+  public getEndereco(){
+    let endereco = '';
+    if (this.endereco?.cidade && this.endereco.estado) {
+      endereco += `${this.endereco?.cidade ?? "N/A"} - ${this.endereco?.estado ?? "N/A"}`;
+    }
+    if (this.endereco?.logradouro) {
+      endereco += ` | ${this.endereco?.logradouro} Nº ${this.endereco?.numero}`;
+    }
+    return endereco;
   }
 }
