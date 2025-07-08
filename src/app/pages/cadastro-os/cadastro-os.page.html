@@ -47,20 +47,18 @@
     </ion-item>
 
     <ion-item>
-      <ion-input
+      <!-- <ion-input
         labelPlacement="floating"
         label="Data de Início"
         name="data_inicio"
         [(ngModel)]="ordem_servico.data_inicio"
-      ></ion-input>
+      ></ion-input> -->
+      <ion-label>Data Início</ion-label>
+      <ion-datetime-button datetime="datetime"></ion-datetime-button>
     </ion-item>
     <ion-item>
-      <ion-input
-        labelPlacement="floating"
-        label="Data de Conclusão"
-        name="data_conclusao"
-        [(ngModel)]="ordem_servico.data_conclusao"
-      ></ion-input>
+      <ion-label>Data Conclusão</ion-label>
+      <ion-datetime-button datetime="data-conclusao"></ion-datetime-button>
     </ion-item>
     <ion-item>
       <ion-textarea
@@ -71,15 +69,16 @@
       ></ion-textarea>
     </ion-item>
 
-    <ion-item>
-      Cliente
-    </ion-item>
+    <ion-item> Cliente </ion-item>
 
     <app-clientes-select
       (selecionar)="selecionarCliente($event)"
     ></app-clientes-select>
 
-    <app-equipamento-select [id_cliente]="ordem_servico.id_cliente" (selecionar)="selecionarEquipamento($event)"></app-equipamento-select>
+    <app-equipamento-select
+      [id_cliente]="ordem_servico.id_cliente"
+      (selecionar)="selecionarEquipamento($event)"
+    ></app-equipamento-select>
 
     <ion-item>
       <ion-label>Itens</ion-label>
@@ -104,16 +103,20 @@
             type="number"
             min="0"
           ></ion-input>
-          <app-unidade-select (selecionar)="selecionarUnidade($event, item)"></app-unidade-select>
+          <app-unidade-select
+            (selecionar)="selecionarUnidade($event, item)"
+          ></app-unidade-select>
           <ion-input
             [(ngModel)]="item.nome"
             [ngModelOptions]="{ standalone: true }"
             placeholder="Nome Item"
           ></ion-input>
           <ion-input
-            [(ngModel)]="item.valor_unitario"
+            [(ngModel)]="item.valor_unitario_rs"
             [ngModelOptions]="{ standalone: true }"
             (ionChange)="recalculateValor()"
+            [maskito]="mask"
+            [maskitoElement]="maskPredicate"
             placeholder="R$ 0,00"
           ></ion-input>
         </div>
@@ -125,8 +128,10 @@
         label="Valor Total"
         labelPlacement="floating"
         placeholder="R$ 0,00"
+        [maskito]="mask"
+        [maskitoElement]="maskPredicate"
         name="valor_total"
-        [(ngModel)]="ordem_servico.valor_total"
+        [(ngModel)]="valor_total"
       ></ion-input>
     </ion-item>
 
@@ -135,4 +140,46 @@
       >Cancelar</ion-button
     >
   </form>
+  <ion-modal [keepContentsMounted]="true">
+    <ng-template>
+      <ion-datetime
+        (ionChange)="setData($event, 'inicio')"
+        [(ngModel)]="ordem_servico.data_inicio"
+        presentation="date"
+        [showDefaultButtons]="true"
+        doneText="OK"
+        cancelText="Cancelar"
+        [formatOptions]="{
+        date: {
+          month: '2-digit',
+          day: '2-digit',
+          year: 'numeric'
+        }
+      }"
+        id="datetime"
+        locale="pt-BR"
+      ></ion-datetime>
+    </ng-template>
+  </ion-modal>
+  <ion-modal [keepContentsMounted]="true">
+    <ng-template>
+      <ion-datetime
+        (ionChange)="setData($event, 'conclusao')"
+        [(ngModel)]="ordem_servico.data_conclusao"
+        [showDefaultButtons]="true"
+        doneText="OK"
+        cancelText="Cancelar"
+        presentation="date"
+        locale="pt-BR"
+        [formatOptions]="{
+        date: {
+          month: '2-digit',
+          day: '2-digit',
+          year: 'numeric'
+        }
+      }"
+        id="data-conclusao"
+      ></ion-datetime>
+    </ng-template>
+  </ion-modal>
 </ion-content>

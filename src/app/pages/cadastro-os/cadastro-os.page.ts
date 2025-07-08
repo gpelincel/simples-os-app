@@ -13,8 +13,9 @@ import {
   IonButtons,
   IonLabel,
   IonItemGroup,
-  IonSelect,
-  IonSelectOption,
+  IonDatetime,
+  IonModal,
+  IonDatetimeButton,
 } from '@ionic/angular/standalone';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { Router, RouterLink } from '@angular/router';
@@ -28,6 +29,10 @@ import { OrdemServico } from 'src/app/models/ordem-servico/ordem-servico';
 import { Item } from 'src/app/models/item/item';
 import { EquipamentoSelectComponent } from 'src/app/components/equipamento/equipamento-select/equipamento-select.component';
 import { UnidadeSelectComponent } from 'src/app/components/filters/unidade-select/unidade-select.component';
+import { MaskitoDirective } from '@maskito/angular';
+import { MaskitoElementPredicate } from '@maskito/core';
+import { BRLMaskParams, maskitoBrlNormalMask } from 'src/app/utils/masks';
+import { maskitoParseNumber, maskitoStringifyNumber } from '@maskito/kit';
 
 @Component({
   selector: 'app-cadastro-os',
@@ -52,23 +57,35 @@ import { UnidadeSelectComponent } from 'src/app/components/filters/unidade-selec
     ClassificacaoSelectComponent,
     IonLabel,
     IonItemGroup,
-    IonSelect,
-    IonSelectOption,
+    IonDatetime,
+    IonModal,
+    IonDatetimeButton,
     EquipamentoSelectComponent,
-    UnidadeSelectComponent
+    UnidadeSelectComponent,
+    MaskitoDirective,
   ],
 })
 export class CadastroOsPage implements OnInit {
   ordem_servico = new OrdemServico();
   itens: Item[] = [];
+  valor_total: any = '';
+
+  readonly mask = maskitoBrlNormalMask;
+  readonly maskPredicate: MaskitoElementPredicate = async (el) =>
+    (el as HTMLIonInputElement).getInputElement();
 
   recalculateValor() {
     let total = 0;
     this.itens.map((item: Item) => {
-      total += Number(item.quantidade) * Number(item.valor_unitario);
+      item.valor_unitario = maskitoParseNumber(
+        String(item.valor_unitario_rs),
+        BRLMaskParams
+      );
+      total += Number(item.quantidade) * item.valor_unitario;
     });
 
     this.ordem_servico.valor_total = total;
+    this.valor_total = maskitoStringifyNumber(total, BRLMaskParams);
   }
 
   constructor(
@@ -81,7 +98,9 @@ export class CadastroOsPage implements OnInit {
     this.itens.push(new Item());
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.ordem_servico = new OrdemServico();
+  }
 
   addItemInput() {
     let id = this.itens.length + 1;
@@ -96,15 +115,26 @@ export class CadastroOsPage implements OnInit {
     this.ordem_servico.id_equipamento = id_equipamento;
   }
 
-  selecionarUnidade(id_unidade:any, item:any){
+  selecionarUnidade(id_unidade: any, item: any) {
     item.id_unidade = id_unidade;
+  }
+
+  setData(event:Event, prop:string){
+    let target = event.target as HTMLIonDatetimeElement;
+    let date = new Date(String(target.value));
+    if (prop == 'inicio') {
+      this.ordem_servico.data_inicio = date.toLocaleDateString("pt-BR");
+    } else {
+      this.ordem_servico.data_conclusao = date.toLocaleDateString("pt-BR");
+    }
   }
 
   async onSubmit() {
     this.ordem_servico.itens = this.itens;
-
-    console.log(this.itens);
-    return;
+    this.ordem_servico.valor_total = maskitoParseNumber(
+      this.valor_total,
+      BRLMaskParams
+    );
 
     const response = await this.osService.storeOS(this.ordem_servico);
     let message = response.message;

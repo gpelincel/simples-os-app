@@ -13,7 +13,7 @@ export class OrdemServico {
   public id_classificacao: number | null;
   public id_cliente: number | null;
   public id_equipamento: number | null;
-  public valor_total: number;
+  public valor_total: number | null;
   public itens: Item[];
   public cliente: Cliente | null;
   public equipamento: Equipamento | null;
@@ -33,7 +33,7 @@ export class OrdemServico {
     id_cliente: number | null = null,
     id_equipamento: number | null = null,
     equipamento: Equipamento | null = null,
-    valor_total: number = 0,
+    valor_total: number | null = null,
     itens: Item[] = [],
     status:string|null = null,
     classificacao:string|null = null,

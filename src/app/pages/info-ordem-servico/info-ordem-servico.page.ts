@@ -7,7 +7,6 @@ import {
   IonTitle,
   IonToolbar,
   IonButtons,
-  IonMenuButton,
   IonList,
   IonItemGroup,
   IonItemDivider,
@@ -40,7 +39,6 @@ import { arrowBackCircleOutline } from 'ionicons/icons';
     CommonModule,
     FormsModule,
     IonButtons,
-    IonMenuButton,
     IonList,
     IonItemGroup,
     IonItemDivider,
@@ -95,10 +93,14 @@ export class InfoOrdemServicoPage implements OnInit {
     this.osService.imprimirOS(this.impressao_fields, this.id_os);
   }
 
-  formatToBRL(value: number): string {
-    return new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL',
-    }).format(value);
+  formatToBRL(value: number | null): string {
+    if (value) {
+      return new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL',
+      }).format(value);
+    } else {
+      return '';
+    }
   }
 }
