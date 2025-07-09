@@ -20,4 +20,8 @@ export class ToastService {
     await toast.present();
   }
 
+  async loadingToast(message:any){
+    
+  }
+
 }

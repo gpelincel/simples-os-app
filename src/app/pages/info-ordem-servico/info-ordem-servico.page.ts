@@ -90,7 +90,7 @@ export class InfoOrdemServicoPage implements OnInit {
 
   async imprimirOS(){
     console.log(this.impressao_fields, this.id_os);
-    this.osService.imprimirOS(this.impressao_fields, this.id_os);
+    await this.osService.imprimirOS(this.impressao_fields, this.id_os);
   }
 
   formatToBRL(value: number | null): string {

@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import { OrdemServico } from 'src/app/models/ordem-servico/ordem-servico';
 import { environment } from 'src/environments/environment';
-import {Filesystem, Directory} from '@capacitor/filesystem';
+import { Filesystem, Directory } from '@capacitor/filesystem';
 import { FileViewer } from '@capacitor/file-viewer';
+import {ToastController} from '@ionic/angular/standalone';
+import { ToastService } from '../toast/toast.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OrdemServicoService {
-  constructor() {}
+  constructor(private toastController: ToastController, private toastService: ToastService) {}
 
   api_url = environment.api_url + 'ordem-servico';
 
@@ -72,7 +74,16 @@ export class OrdemServicoService {
     return btoa(String.fromCharCode(...new Uint8Array(buffer)));
   }
 
-  imprimirOS(fields: any, id: any) {
+  async imprimirOS(fields: any, id: any) {
+    const toast = await this.toastController.create({
+      message: 'Baixando PDF...',
+      icon: 'download-outline',
+      position: 'middle',
+      color: 'tertiary',
+    });
+
+    toast.isOpen = true;
+
     fetch(this.api_url + '/imprimir/' + id, {
       headers: {
         'Content-Type': 'application/json',
@@ -91,13 +102,15 @@ export class OrdemServicoService {
         const writeResponse = await Filesystem.writeFile({
           path: fileName,
           data: base64,
-          directory: Directory.Documents
+          directory: Directory.Documents,
         });
 
+        toast.isOpen = false;
+
         await FileViewer.openDocumentFromLocalPath({
-          path: writeResponse.uri
+          path: writeResponse.uri,
         });
       })
-      .catch((error) => console.error('Error', error));
+      .catch((error) => this.toastService.presentToast('error', `Erro: ${error}`));
   }
 }
