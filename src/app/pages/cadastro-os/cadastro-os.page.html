@@ -21,11 +21,13 @@
     </ion-item>
     <ion-item>
       <app-status-select
+        [isFilter]="false"
         (selecionar)="ordem_servico.setStatus($event)"
       ></app-status-select>
     </ion-item>
     <ion-item>
       <app-classificacao-select
+        [isFilter]="false"
         (selecionar)="ordem_servico.setClassificacao($event)"
       ></app-classificacao-select>
     </ion-item>
@@ -47,12 +49,6 @@
     </ion-item>
 
     <ion-item>
-      <!-- <ion-input
-        labelPlacement="floating"
-        label="Data de Início"
-        name="data_inicio"
-        [(ngModel)]="ordem_servico.data_inicio"
-      ></ion-input> -->
       <ion-label>Data Início</ion-label>
       <ion-datetime-button datetime="datetime"></ion-datetime-button>
     </ion-item>

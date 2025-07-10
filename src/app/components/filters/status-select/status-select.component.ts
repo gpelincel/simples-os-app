@@ -1,5 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IonSelect, IonSelectOption } from '@ionic/angular/standalone';
+import { NgIf } from '@angular/common';
 import { ConfiguracoesService } from 'src/app/services/configuracoes/configuracoes.service';
 
 @Component({
@@ -10,6 +11,7 @@ import { ConfiguracoesService } from 'src/app/services/configuracoes/configuraco
   styleUrls: ['./status-select.component.scss'],
 })
 export class StatusSelectComponent implements OnInit {
+  @Input() isFilter:boolean = true;
   @Output() selecionar = new EventEmitter();
   status: any[] = [];
 

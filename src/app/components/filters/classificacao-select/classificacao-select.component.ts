@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IonSelect, IonSelectOption } from '@ionic/angular/standalone';
 import { ConfiguracoesService } from 'src/app/services/configuracoes/configuracoes.service';
 
@@ -11,6 +11,7 @@ import { ConfiguracoesService } from 'src/app/services/configuracoes/configuraco
 })
 export class ClassificacaoSelectComponent implements OnInit {
   @Output() selecionar = new EventEmitter();
+  @Input() isFilter:boolean = true;
   classificacoes: any[] = [];
 
   constructor(private configService: ConfiguracoesService) {}
