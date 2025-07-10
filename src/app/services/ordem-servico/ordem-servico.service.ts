@@ -113,4 +113,20 @@ export class OrdemServicoService {
       })
       .catch((error) => this.toastService.presentToast('error', `Erro: ${error}`));
   }
+
+  async excluirOS(id:number){
+    return fetch(this.api_url+'/'+id, {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+      },
+      method: 'DELETE',
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        return response;
+      })
+      .catch((error) => console.error('Error', error));
+  }
 }
