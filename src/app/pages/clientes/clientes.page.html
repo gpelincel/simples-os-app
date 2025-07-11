@@ -19,6 +19,8 @@
     @for(cliente of clientes; track cliente){
     <app-cliente-card [cliente]="cliente"></app-cliente-card>
     }
+
+    <h1 *ngIf="clientes.length == 0" style="text-align: center;padding-top: 4em;">Não há clientes cadastrados</h1>
   </div>
   <div [hidden]="stopLoading">
     <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">

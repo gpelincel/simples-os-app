@@ -32,6 +32,8 @@
     @for(ordem of ordens; track ordem){
     <app-ordem-servico-card [os]="ordem"></app-ordem-servico-card>
     }
+
+    <h1 *ngIf="ordens.length == 0" style="text-align: center;padding-top: 4em;">Não há ordens de serviço cadastradas</h1>
   </div>
   <div [hidden]="stopLoading">
     <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">

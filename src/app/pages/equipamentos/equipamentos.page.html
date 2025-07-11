@@ -20,6 +20,8 @@
     @for (equipamento of equipamentos; track equipamento){
       <app-equipamento-card [equipamento]="equipamento"></app-equipamento-card>
     }
+
+    <h1 *ngIf="equipamentos.length == 0" style="text-align: center;padding-top: 4em;">Não há equipamentos cadastrados</h1>
   </div>
   <div [hidden]="stopLoading">
     <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
