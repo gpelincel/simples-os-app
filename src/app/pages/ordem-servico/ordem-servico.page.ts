@@ -54,6 +54,7 @@ export class OrdemServicoPage implements OnInit {
   next_page: String | null = null;
   stopLoading = false;
   params: any[] = [];
+  loaded = false;
 
   constructor(private osService: OrdemServicoService) {
     addIcons({ add });
@@ -105,8 +106,9 @@ export class OrdemServicoPage implements OnInit {
     this.next_page = response.next_page_url;
   }
 
-  ionViewWillEnter(){
-    this.loadOrdens();
+  async ionViewWillEnter(){
+    await this.loadOrdens();
+    this.loaded = true;
   }
 
   ngOnInit() {

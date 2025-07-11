@@ -49,7 +49,7 @@ export class ClientesPage implements OnInit {
   clientes: any[] = [];
   next_page: String | null = null;
   stopLoading = false;
-
+  loaded = false;
   
 
   constructor(private clienteService: ClienteService) {
@@ -90,8 +90,9 @@ export class ClientesPage implements OnInit {
     this.next_page = response.next_page_url;
   }
 
-  ionViewWillEnter() {
-    this.loadClientes();
+  async ionViewWillEnter() {
+    await this.loadClientes();
+    this.loaded = true;
   }
 
   ngOnInit() {

@@ -8,7 +8,10 @@
 </ion-item>
 
 <ion-list>
-  <ion-radio-group>
+  <div style="text-align: center;">
+    <ion-spinner *ngIf="!loaded && !searching"></ion-spinner>
+  </div>
+  <ion-radio-group *ngIf="clientes.length > 0 && loaded">
     @for(cliente of clientes; track cliente){
     <ion-radio
       [id]="'cliente-'+cliente.id"
@@ -20,4 +23,5 @@
     <br>
     }
   </ion-radio-group>
+  <h1 style="text-align: center;" *ngIf="clientes.length == 0 && loaded">Cliente não encontrado</h1>
 </ion-list>

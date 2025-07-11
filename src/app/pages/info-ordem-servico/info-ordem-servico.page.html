@@ -59,7 +59,7 @@
           [(ngModel)]="impressao_fields.endereco_cliente"
           labelPlacement="end"
           >Endereço<ion-label color="medium"
-            >{{ordem_servico.cliente}}</ion-label
+            >{{ordem_servico.cliente!.endereco!.cidade ?? "N/A"}} - {{ordem_servico.cliente!.endereco!.estado ?? "N/A"}}</ion-label
           ></ion-checkbox
         >
       </ion-item>

@@ -50,6 +50,7 @@ export class EquipamentosPage implements OnInit {
   equipamentos: Equipamento[] = [];
   next_page: String | null = null;
   stopLoading = false;
+  loaded = false;
 
   constructor(private equipamentoService: EquipamentoService) {
     addIcons({ add });
@@ -92,8 +93,9 @@ export class EquipamentosPage implements OnInit {
     this.next_page = response.next_page_url;
   }
 
-  ionViewWillEnter(){
-    this.loadEquipamentos();
+  async ionViewWillEnter(){
+    await this.loadEquipamentos();
+    this.loaded = true;
   }
 
   ngOnInit() {
