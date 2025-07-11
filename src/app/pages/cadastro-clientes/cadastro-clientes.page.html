@@ -24,6 +24,8 @@
         labelPlacement="floating"
         label="CNPJ"
         name="cnpj"
+        [maskito]="cnpjMask"
+        [maskitoElement]="maskPredicate"
         [(ngModel)]="cliente.cnpj"
       ></ion-input>
     </ion-item>
@@ -48,6 +50,8 @@
         labelPlacement="floating"
         label="Telefone"
         name="telefone"
+        [maskito]="telefoneMask"
+        [maskitoElement]="maskPredicate"
         [(ngModel)]="cliente.telefone"
       ></ion-input>
     </ion-item>
@@ -69,6 +73,8 @@
         labelPlacement="floating"
         label="CEP"
         name="cep"
+        [maskito]="cepMask"
+        [maskitoElement]="maskPredicate"
         [(ngModel)]="endereco.cep"
       ></ion-input>
     </ion-item>

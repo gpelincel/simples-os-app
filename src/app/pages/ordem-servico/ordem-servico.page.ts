@@ -105,6 +105,10 @@ export class OrdemServicoPage implements OnInit {
     this.next_page = response.next_page_url;
   }
 
+  ionViewWillEnter(){
+    this.loadOrdens();
+  }
+
   ngOnInit() {
     this.loadOrdens();
   }

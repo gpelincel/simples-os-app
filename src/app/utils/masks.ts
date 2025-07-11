@@ -31,3 +31,51 @@ export const maskitoUsdMask: MaskitoOptions = maskitoNumberOptionsGenerator({
   prefix: '$ ',
   min: 0,
 });
+
+export const TELEFONE_MASK: MaskitoOptions = {
+  mask: [
+    '(',
+    /\d/,
+    /\d/,
+    ')',
+    ' ',
+    /\d/,
+    /\d/,
+    /\d/,
+    /\d?/,
+    /\d?/,
+    '-',
+    /\d/,
+    /\d/,
+    /\d/,
+    /\d/,
+  ],
+};
+
+export const CEP_MASK: MaskitoOptions = {
+  mask: [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/],
+};
+
+export const CNPJ_MASK: MaskitoOptions = {
+  mask: [
+    /\d/,
+    /\d/,
+    '.',
+    /\d/,
+    /\d/,
+    /\d/,
+    '.',
+    /\d/,
+    /\d/,
+    /\d/,
+    '/',
+    /\d/,
+    /\d/,
+    /\d/,
+    /\d/,
+    '-',
+    /\d/,
+    /\d/,
+  ],
+};
+

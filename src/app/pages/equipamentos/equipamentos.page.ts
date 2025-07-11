@@ -92,6 +92,10 @@ export class EquipamentosPage implements OnInit {
     this.next_page = response.next_page_url;
   }
 
+  ionViewWillEnter(){
+    this.loadEquipamentos();
+  }
+
   ngOnInit() {
     this.loadEquipamentos();
   }

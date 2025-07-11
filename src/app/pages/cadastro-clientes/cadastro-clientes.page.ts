@@ -20,6 +20,9 @@ import { ToastService } from 'src/app/services/toast/toast.service';
 import { Cliente } from 'src/app/models/cliente/cliente';
 import { addIcons } from 'ionicons';
 import { arrowBackCircleOutline } from 'ionicons/icons';
+import { CEP_MASK, CNPJ_MASK, TELEFONE_MASK } from 'src/app/utils/masks';
+import { MaskitoDirective } from '@maskito/angular';
+import { MaskitoElementPredicate } from '@maskito/core';
 
 @Component({
   selector: 'app-cadastro-clientes',
@@ -41,18 +44,24 @@ import { arrowBackCircleOutline } from 'ionicons/icons';
     RouterLink,
     IonItemDivider,
     IonLabel,
+    MaskitoDirective
   ],
 })
 export class CadastroClientesPage implements OnInit {
   cliente = new Cliente();
   endereco: any = {};
 
+  cnpjMask = CNPJ_MASK;
+  telefoneMask = TELEFONE_MASK;
+  cepMask = CEP_MASK;
+  readonly maskPredicate: MaskitoElementPredicate = async (el) => (el as HTMLIonInputElement).getInputElement();
+
   constructor(
     private clienteService: ClienteService,
     private toast: ToastService,
     private router: Router
   ) {
-    addIcons({arrowBackCircleOutline})
+    addIcons({arrowBackCircleOutline});
   }
 
   ngOnInit() {}
