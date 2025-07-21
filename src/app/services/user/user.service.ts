@@ -23,14 +23,13 @@ export class UserService {
     })
       .then((response) => response.json())
       .then((response) => {
-        console.log("Erro:",JSON.stringify(response));
         if (response.status == "success") {
-          let primeiro_nome = String(response.user.nome).split(" ")[0];
+          let primeiro_nome = String(response.user.nome).split(' ')[0];
           sessionStorage.setItem('token', response.user.token);
           sessionStorage.setItem('username', primeiro_nome);
+          return response;
         }
-        this.toast.presentToast(response.status, response.message);
-        return response;
-      });
+      })
+      .catch((error) => {this.toast.presentToast('error', error);});
   }
 }

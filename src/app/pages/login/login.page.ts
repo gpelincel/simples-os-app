@@ -48,7 +48,7 @@ export class LoginPage implements OnInit {
   async onSubmit() {
     const response = await this.userService.login(this.user);
 
-    if (sessionStorage.getItem('token') && response.status == "success") {
+    if (response.status == "success") {
       this.router.navigate(['/clientes']);
     }
   }

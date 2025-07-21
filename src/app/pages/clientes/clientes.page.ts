@@ -82,7 +82,7 @@ export class ClientesPage implements OnInit {
         this.clientes = response.data;
       } else {
         this.stopLoading = true;
-      }
+      }1
     } else {
       this.clientes = [...this.clientes, ...response.data];
     }

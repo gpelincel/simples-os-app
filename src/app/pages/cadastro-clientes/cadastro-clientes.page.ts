@@ -44,7 +44,7 @@ import { MaskitoElementPredicate } from '@maskito/core';
     RouterLink,
     IonItemDivider,
     IonLabel,
-    MaskitoDirective
+    MaskitoDirective,
   ],
 })
 export class CadastroClientesPage implements OnInit {
@@ -54,14 +54,15 @@ export class CadastroClientesPage implements OnInit {
   cnpjMask = CNPJ_MASK;
   telefoneMask = TELEFONE_MASK;
   cepMask = CEP_MASK;
-  readonly maskPredicate: MaskitoElementPredicate = async (el) => (el as HTMLIonInputElement).getInputElement();
+  readonly maskPredicate: MaskitoElementPredicate = async (el) =>
+    (el as HTMLIonInputElement).getInputElement();
 
   constructor(
     private clienteService: ClienteService,
     private toast: ToastService,
     private router: Router
   ) {
-    addIcons({arrowBackCircleOutline});
+    addIcons({ arrowBackCircleOutline });
   }
 
   ngOnInit() {}
@@ -81,5 +82,41 @@ export class CadastroClientesPage implements OnInit {
       this.toast.presentToast('success', response.message);
       this.router.navigate(['/clientes']);
     }
+  }
+
+  async fillAddress(cep: string) {
+    const data = await this.clienteService.getCEP(cep);
+
+    if (!data.erro) {
+      this.endereco.logradouro = data.logradouro;
+      this.endereco.cidade = data.localidade;
+      this.endereco.estado = data.uf;
+      this.endereco.bairro = data.bairro;
+    }
+
+  }
+
+  async searchCEP(event: Event) {
+    const target = event.target as HTMLIonInputElement;
+    const cep = String(target.value).replace(/\D/g, '');
+
+    this.fillAddress(cep);
+  }
+
+  async searchCNPJ(event: Event) {
+    const target = event.target as HTMLIonInputElement;
+    const cnpj = String(target.value).replace(/\D/g, '');
+    const data = await this.clienteService.getByCNPJ(cnpj);
+
+    this.cliente.razao_social = data.company.name;
+    this.endereco.cidade = data.address.city;
+    this.endereco.estado = data.address.state;
+    this.endereco.cep = data.address.zip;
+
+    if (data.emails.length > 0) {
+      this.cliente.email = data.emails[0].address;
+    }
+
+    this.fillAddress(data.address.zip);
   }
 }

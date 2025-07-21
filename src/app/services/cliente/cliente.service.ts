@@ -32,6 +32,26 @@ export class ClienteService {
       .catch((error) => console.error('Error', error));
   }
 
+  getByCNPJ(cnpj:string){
+    const url = "https://open.cnpja.com/office/"+cnpj;
+
+    return fetch(url)
+    .then((response) => response.json())
+    .then(response => {
+      return response;
+    })
+  }
+
+  getCEP(cep:string){
+    const url = `https://viacep.com.br/ws/${cep}/json/`;
+
+    return fetch(url)
+    .then((response) => response.json())
+    .then(response => {
+      return response;
+    })
+  }
+
   storeCliente(cliente: Cliente) {
       return fetch(this.api_url, {
         headers: {

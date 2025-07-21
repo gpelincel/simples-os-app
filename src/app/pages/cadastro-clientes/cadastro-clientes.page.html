@@ -24,6 +24,7 @@
         labelPlacement="floating"
         label="CNPJ"
         name="cnpj"
+        (ionInput)="searchCNPJ($event)"
         [maskito]="cnpjMask"
         [maskitoElement]="maskPredicate"
         [(ngModel)]="cliente.cnpj"
@@ -73,6 +74,8 @@
         labelPlacement="floating"
         label="CEP"
         name="cep"
+        [debounce]="2000"
+        (ionInput)="searchCEP($event)"
         [maskito]="cepMask"
         [maskitoElement]="maskPredicate"
         [(ngModel)]="endereco.cep"
@@ -83,6 +86,8 @@
         labelPlacement="floating"
         label="Número"
         name="numero"
+        type="number"
+        min="0"
         [(ngModel)]="endereco.numero"
       ></ion-input>
     </ion-item>
@@ -116,6 +121,7 @@
         label="Estado"
         name="estado"
         [(ngModel)]="endereco.estado"
+        maxLength="2"
       ></ion-input>
     </ion-item>
 
