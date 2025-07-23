@@ -43,7 +43,6 @@ export class EquipamentoService {
     })
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
         return response.data;
       })
       .catch((error) => console.error('Error', error));

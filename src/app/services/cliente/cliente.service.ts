@@ -52,6 +52,20 @@ export class ClienteService {
     })
   }
 
+  getByID(id:number){
+    return fetch(this.api_url+'/'+id, {
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        return response;
+      })
+      .catch((error) => console.error('Error', error));
+  }
+
   storeCliente(cliente: Cliente) {
       return fetch(this.api_url, {
         headers: {

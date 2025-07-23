@@ -12,6 +12,7 @@ import { ConfiguracoesService } from 'src/app/services/configuracoes/configuraco
 export class ClassificacaoSelectComponent implements OnInit {
   @Output() selecionar = new EventEmitter();
   @Input() isFilter:boolean = true;
+  @Input() selected: number|null = null;
   classificacoes: any[] = [];
 
   constructor(private configService: ConfiguracoesService) {}

@@ -1,5 +1,5 @@
-<ion-select (ionChange)="onSelecionar($event)" aria-label="unidade" placeholder="Und.">
+<ion-select value="{{selected}}" name="selected" (ionChange)="onSelecionar($event)" aria-label="unidade" placeholder="Und.">
   @for(und of unidades; track und){
-    <ion-select-option value="{{und.id}}">{{und.descricao}}</ion-select-option>
+      <ion-select-option value="{{und.id}}">{{und.descricao}}</ion-select-option>
   }
 </ion-select>

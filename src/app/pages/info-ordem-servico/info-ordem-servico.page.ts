@@ -117,14 +117,5 @@ export class InfoOrdemServicoPage implements OnInit {
     );
   }
 
-  formatToBRL(value: number | null): string {
-    if (value) {
-      return new Intl.NumberFormat('pt-BR', {
-        style: 'currency',
-        currency: 'BRL',
-      }).format(value);
-    } else {
-      return '';
-    }
-  }
+  
 }

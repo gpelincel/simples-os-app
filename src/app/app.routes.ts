@@ -38,4 +38,8 @@ export const routes: Routes = [
     path: 'ordem-servico/:id',
     loadComponent: () => import('./pages/info-ordem-servico/info-ordem-servico.page').then( m => m.InfoOrdemServicoPage)
   },
+  {
+    path: 'ordem-servico/update/:id',
+    loadComponent: () => import('./pages/edit-os/edit-os.page').then( m => m.EditOsPage)
+  },
 ];

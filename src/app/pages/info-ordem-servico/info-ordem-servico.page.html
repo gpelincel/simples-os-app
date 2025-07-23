@@ -206,7 +206,7 @@
               >{{item.unidade ? item.unidade.descricao : "N/A"}}
             </ion-col>
             <ion-col size="4"> {{item.nome}} </ion-col>
-            <ion-col> {{formatToBRL(item.valor_unitario)}} </ion-col>
+            <ion-col> {{item.valor_unitario_rs}} </ion-col>
           </ion-row>
         </ion-grid>
       </ion-item>
@@ -218,12 +218,13 @@
           >Valor Total</ion-checkbox
         >
         <ion-label color="medium"
-          >{{formatToBRL(ordem_servico.valor_total)}}</ion-label
+          >{{ordem_servico.valor_total}}</ion-label
         >
       </ion-item>
     </ion-item-group>
     <div class="ion-padding">
       <ion-button (click)="imprimirOS()" expand="block">Gerar PDF</ion-button>
+      <ion-button [routerLink]="['/ordem-servico/update/'+id_os]" expand="block">Editar</ion-button>
       <ion-button (click)="excluirOS()" expand="block" color="danger" fill="outline"
         >Excluir</ion-button
       >

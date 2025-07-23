@@ -11,15 +11,16 @@ import { ConfiguracoesService } from 'src/app/services/configuracoes/configuraco
   styleUrls: ['./status-select.component.scss'],
 })
 export class StatusSelectComponent implements OnInit {
-  @Input() isFilter:boolean = true;
+  @Input() isFilter: boolean = true;
   @Output() selecionar = new EventEmitter();
+  @Input() selected: number | null = null;
   status: any[] = [];
 
   constructor(private configService: ConfiguracoesService) {}
 
   onSelecionar(event: Event) {
     const target = event.target as HTMLIonSelectElement;
-    if (target.value == "") {
+    if (target.value == '') {
       target.value = null;
     }
     this.selecionar.emit(target.value);

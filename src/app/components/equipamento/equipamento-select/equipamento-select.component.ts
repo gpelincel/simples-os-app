@@ -20,10 +20,19 @@ import { EquipamentoService } from 'src/app/services/equipamento/equipamento.ser
 })
 export class EquipamentoSelectComponent implements OnChanges {
   @Input() id_cliente: number | null = null;
+  @Input() selected: number | null = null;
   @Output() selecionar = new EventEmitter();
   equipamentos: Equipamento[] = [];
 
   constructor(private equipamentoService: EquipamentoService) {}
+
+  async ngOnInit() {
+    if (this.id_cliente) {
+      this.equipamentos = await this.equipamentoService.getEquipamentoByCliente(
+        this.id_cliente
+      );
+    }
+  }
 
   async ngOnChanges(changes: SimpleChanges) {
     if (

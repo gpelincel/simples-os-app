@@ -1,3 +1,4 @@
+import { formatToBRL } from "src/app/utils/masks";
 import { Cliente } from "../cliente/cliente";
 import { Equipamento } from "../equipamento/equipamento";
 import { Item } from "../item/item";
@@ -28,7 +29,6 @@ export class OrdemServico {
     data_inicio: string | null = null,
     data_conclusao: string | null = null,
     descricao: string | null = null,
-    id_status: number | null = null,
     id_classificacao: number | null = null,
     id_cliente: number | null = null,
     id_equipamento: number | null = null,
@@ -37,6 +37,7 @@ export class OrdemServico {
     itens: Item[] = [],
     status:string|null = null,
     classificacao:string|null = null,
+    id_status:number|null = null,
   ) {
     this.titulo = titulo;
     this.codigo_compra = codigo_compra;
@@ -54,6 +55,10 @@ export class OrdemServico {
     this.equipamento = equipamento;
     this.status = status;
     this.classificacao = classificacao;
+  }
+
+  getValorTotal(){
+    return formatToBRL(this.valor_total);
   }
 
   setStatus(id_status: number | null){

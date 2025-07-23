@@ -1,0 +1,24 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button [routerLink]="['/ordem-servico']">
+        <ion-icon size="large" name="arrow-back-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title> ATUALIZAR ORDEM DE SERVIÇO </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  @if(loaded){
+  <app-form-os
+    [itens]="ordem_servico.itens"
+    [ordem_servico]="ordem_servico"
+    (submit)="updateOS($event)"
+  ></app-form-os>
+  } @else {
+  <div style="width: 100%; display: flex; justify-content: center">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+  }
+</ion-content>

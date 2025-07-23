@@ -47,7 +47,6 @@ export class OrdemServicoService {
     })
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
         return response;
       })
       .catch((error) => console.error('Error', error));
@@ -61,6 +60,23 @@ export class OrdemServicoService {
         Authorization: `Bearer ${sessionStorage.getItem('token')}`,
       },
       method: 'POST',
+      body: JSON.stringify(os),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        return response;
+      })
+      .catch((error) => console.error('Error', error));
+  }
+
+  editOS(os: any, id:any) {
+    return fetch(this.api_url + `/${id}`, {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+      },
+      method: 'PUT',
       body: JSON.stringify(os),
     })
       .then((response) => response.json())
