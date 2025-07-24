@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import {
   IonContent,
   IonHeader,
@@ -18,6 +18,7 @@ import { ToastService } from 'src/app/services/toast/toast.service';
 import { FormOsComponent } from 'src/app/components/ordem-servico/form-os/form-os.component';
 import { addIcons } from 'ionicons';
 import { arrowBackCircleOutline } from 'ionicons/icons';
+import { OrdemServicoEntity } from 'src/app/domain/OrdemServicoEntity';
 
 @Component({
   selector: 'app-edit-os',
@@ -42,13 +43,15 @@ import { arrowBackCircleOutline } from 'ionicons/icons';
 export class EditOsPage implements OnInit {
   id_os: string | null = null;
   route = inject(ActivatedRoute);
-  ordem_servico: OrdemServico = new OrdemServico();
+  os_form!: FormGroup;
   loaded = false;
+  ordem_servico!:OrdemServicoEntity;
 
   constructor(
     private osService: OrdemServicoService,
     private toast: ToastService,
-    private router: Router
+    private router: Router,
+    private fb: FormBuilder
   ) {
     this.id_os = this.route.snapshot.paramMap.get('id');
     addIcons({ arrowBackCircleOutline });
@@ -58,10 +61,27 @@ export class EditOsPage implements OnInit {
   async getOS() {
     const response = await this.osService.getOSByID(Number(this.id_os));
     this.ordem_servico = response;
-    this.loaded = true;
   }
 
-  ngOnInit() {}
+  async ngOnInit() {
+    await this.getOS();
+    this.os_form = this.fb.group({
+      titulo: [this.ordem_servico.titulo],
+      observacao: [this.ordem_servico.descricao],
+      codigo_compra: [this.ordem_servico.codigo_compra],
+      nota_fiscal: [this.ordem_servico.nota_fiscal],
+      data_inicio: [this.ordem_servico.data_inicio],
+      data_conclusao: [this.ordem_servico.data_conclusao],
+      valor_total: [this.ordem_servico.valor_total],
+      id_classificacao: [this.ordem_servico.id_classificacao],
+      id_cliente: [this.ordem_servico.id_cliente],
+      id_status: [this.ordem_servico.id_status],
+      id_equipamento: [this.ordem_servico.id_equipamento],
+      itens: this.fb.array([])
+    })
+
+    this.loaded = true;
+  }
 
   async updateOS(ordem_servico: any) {
     const response = await this.osService.editOS(ordem_servico, this.id_os);

@@ -12,8 +12,7 @@
 <ion-content [fullscreen]="true">
   @if(loaded){
   <app-form-os
-    [itens]="ordem_servico.itens"
-    [ordem_servico]="ordem_servico"
+    [os_form]="os_form"
     (submit)="updateOS($event)"
   ></app-form-os>
   } @else {

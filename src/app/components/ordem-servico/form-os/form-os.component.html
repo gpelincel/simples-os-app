@@ -1,40 +1,35 @@
-<form class="ion-padding">
+<form [formGroup]="os_form" class="ion-padding">
   <ion-item>
     <ion-input
       labelPlacement="floating"
       label="Serviço"
-      name="titulo"
-      [(ngModel)]="ordem_servico.titulo"
+      formControlName="titulo"
     ></ion-input>
   </ion-item>
   <ion-item>
     <app-status-select
+      formControlName="id_status"
       [isFilter]="false"
-      [selected]="ordem_servico.id_status"
-      (selecionar)="ordem_servico.setStatus($event)"
     ></app-status-select>
   </ion-item>
   <ion-item>
     <app-classificacao-select
+      formControlName="id_classificacao"
       [isFilter]="false"
-      [selected]="ordem_servico.id_classificacao"
-      (selecionar)="ordem_servico.setClassificacao($event)"
     ></app-classificacao-select>
   </ion-item>
   <ion-item>
     <ion-input
       labelPlacement="floating"
       label="Cód. de Compra"
-      name="codigo_compra"
-      [(ngModel)]="ordem_servico.codigo_compra"
+      formControlName="codigo_compra"
     ></ion-input>
   </ion-item>
   <ion-item>
     <ion-input
       labelPlacement="floating"
       label="Nota Fiscal"
-      name="nota_fiscal"
-      [(ngModel)]="ordem_servico.nota_fiscal"
+      formControlName="nota_fiscal"
     ></ion-input>
   </ion-item>
 
@@ -50,23 +45,17 @@
     <ion-textarea
       labelPlacement="floating"
       label="Observação"
-      name="observacao"
-      [(ngModel)]="ordem_servico.descricao"
+      formControlName="observacao"
     ></ion-textarea>
   </ion-item>
 
   <ion-item> Cliente </ion-item>
 
-  <app-clientes-select
-    [selected]="ordem_servico.cliente ? ordem_servico.cliente!.id : null"
-    (selecionar)="selecionarCliente($event)"
-  ></app-clientes-select>
+  <app-clientes-select (selecionar)="setCliente($event)"></app-clientes-select>
 
   <app-equipamento-select
-    [selected]="
-      ordem_servico.equipamento ? ordem_servico.equipamento!.id : null
-    "
-    (selecionar)="selecionarEquipamento($event)"
+    formControlName="id_equipamento"
+    [id_cliente]="os_form.value.id_cliente"
   ></app-equipamento-select>
 
   <ion-item>
@@ -74,9 +63,9 @@
     <ion-button (click)="addItemInput()">Adicionar</ion-button>
   </ion-item>
 
-  <ion-item-group>
-    @for (item of itens; track item.id) {
-    <ion-item>
+  <ion-item-group formArrayName="itens">
+    @for (item of ItemsFormArray.controls; track $index) {
+    <ion-item [formGroupName]="$index">
       <div
         style="
           display: grid;
@@ -85,29 +74,20 @@
         "
       >
         <ion-input
-          [(ngModel)]="item.quantidade"
-          [ngModelOptions]="{ standalone: true }"
           (ionChange)="recalculateValor()"
           placeholder="0"
           type="number"
           min="0"
+          formControlName="quantidade"
         ></ion-input>
-        <app-unidade-select
-          [selected]="item.unidade.id"
-          (selecionar)="selecionarUnidade($event, item)"
-        ></app-unidade-select>
+        <app-unidade-select></app-unidade-select>
+        <ion-input placeholder="Nome Item" formControlName="nome"></ion-input>
         <ion-input
-          [(ngModel)]="item.nome"
-          [ngModelOptions]="{ standalone: true }"
-          placeholder="Nome Item"
-        ></ion-input>
-        <ion-input
-          [(ngModel)]="item.valor_unitario"
-          [ngModelOptions]="{ standalone: true }"
           (ionChange)="recalculateValor()"
           [maskito]="mask"
           [maskitoElement]="maskPredicate"
           placeholder="R$ 0,00"
+          formControlName="valor_unitario"
         ></ion-input>
       </div>
     </ion-item>
@@ -120,8 +100,7 @@
       placeholder="R$ 0,00"
       [maskito]="mask"
       [maskitoElement]="maskPredicate"
-      name="valor_total"
-      [(ngModel)]="ordem_servico.valor_total"
+      formControlName="valor_total"
     ></ion-input>
   </ion-item>
 
@@ -133,8 +112,7 @@
 <ion-modal [keepContentsMounted]="true">
   <ng-template>
     <ion-datetime
-      (ionChange)="setData($event, 'inicio')"
-      [(ngModel)]="ordem_servico.data_inicio"
+      (ionChange)="setDataInicio($event)"
       presentation="date"
       [showDefaultButtons]="true"
       doneText="OK"
@@ -154,8 +132,8 @@
 <ion-modal [keepContentsMounted]="true">
   <ng-template>
     <ion-datetime
-      (ionChange)="setData($event, 'conclusao')"
-      [(ngModel)]="ordem_servico.data_conclusao"
+      (ionChange)="setDataConclusao($event)"
+      id="data-conclusao"
       [showDefaultButtons]="true"
       doneText="OK"
       cancelText="Cancelar"
@@ -168,7 +146,6 @@
           year: 'numeric'
         }
       }"
-      id="data-conclusao"
     ></ion-datetime>
   </ng-template>
 </ion-modal>

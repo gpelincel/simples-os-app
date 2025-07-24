@@ -1,6 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import {
   IonItem,
   IonInput,
@@ -25,6 +31,7 @@ import { MaskitoElementPredicate } from '@maskito/core';
 import { BRLMaskParams, maskitoBrlNormalMask } from 'src/app/utils/masks';
 import { maskitoParseNumber, maskitoStringifyNumber } from '@maskito/kit';
 import { OrdemServicoService } from 'src/app/services/ordem-servico/ordem-servico.service';
+import { OrdemServicoEntity } from 'src/app/domain/OrdemServicoEntity';
 
 @Component({
   standalone: true,
@@ -47,6 +54,7 @@ import { OrdemServicoService } from 'src/app/services/ordem-servico/ordem-servic
     UnidadeSelectComponent,
     MaskitoDirective,
     IonTextarea,
+    ReactiveFormsModule,
   ],
   selector: 'app-form-os',
   templateUrl: './form-os.component.html',
@@ -54,9 +62,8 @@ import { OrdemServicoService } from 'src/app/services/ordem-servico/ordem-servic
 })
 export class FormOsComponent implements OnInit {
   @Output() submit = new EventEmitter();
-  @Input() ordem_servico: OrdemServico = new OrdemServico();
-  @Input() itens: Item[] = [];
-  valor_total: any = '';
+  @Input() os_form!: FormGroup;
+  @Input() ordem_servico: OrdemServicoEntity | null = null;
 
   readonly mask = maskitoBrlNormalMask;
   readonly maskPredicate: MaskitoElementPredicate = async (el) =>
@@ -64,55 +71,68 @@ export class FormOsComponent implements OnInit {
 
   recalculateValor() {
     let total = 0;
-    this.itens.map((item: Item) => {
-      total += Number(item.quantidade) * maskitoParseNumber(String(item.valor_unitario), BRLMaskParams);
+    const itens = this.os_form.value.itens;
+
+    itens.map((item: any) => {
+      total +=
+        Number(item.quantidade) *
+        maskitoParseNumber(String(item.valor_unitario), BRLMaskParams);
     });
 
-    this.ordem_servico.valor_total = total;
-    maskitoStringifyNumber(Number(this.ordem_servico.valor_total), BRLMaskParams);
+    this.os_form.patchValue({
+      valor_total: maskitoStringifyNumber(total, BRLMaskParams),
+    });
   }
 
-  constructor() {
-    this.itens.push(new Item());
+  get ItemsFormArray() {
+    return this.os_form.get('itens') as FormArray;
   }
+
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
+    this.addItemInput();
   }
 
   addItemInput() {
-    let id = this.itens.length + 1;
-    this.itens = [...this.itens, new Item(id)];
+    const novoItem = this.fb.group({
+      id: [''],
+      quantidade: [''],
+      id_unidade: [''],
+      nome: [''],
+      valor_unitario: [''],
+    });
+
+    this.ItemsFormArray.push(novoItem);
   }
 
-  selecionarCliente(id_cliente: number | null) {
-    this.ordem_servico.id_cliente = id_cliente;
+  setCliente(id_cliente: number | null) {
+    this.os_form.patchValue({
+      id_cliente: id_cliente,
+    });
   }
 
-  selecionarEquipamento(id_equipamento: number | null) {
-    this.ordem_servico.id_equipamento = id_equipamento;
-  }
-
-  selecionarUnidade(id_unidade: any, item: any) {
-    item.id_unidade = id_unidade;
-  }
-
-  setData(event: Event, prop: string) {
+  setDataInicio(event: Event) {
     let target = event.target as HTMLIonDatetimeElement;
     let date = new Date(String(target.value));
-    if (prop == 'inicio') {
-      this.ordem_servico.data_inicio = date.toLocaleDateString('pt-BR');
-    } else {
-      this.ordem_servico.data_conclusao = date.toLocaleDateString('pt-BR');
-    }
+    this.os_form.patchValue({
+      data_inicio: date.toLocaleDateString('pt-BR'),
+    });
+  }
+
+  setDataConclusao(event: Event) {
+    let target = event.target as HTMLIonDatetimeElement;
+    let date = new Date(String(target.value));
+    this.os_form.patchValue({
+      data_conclusao: date.toLocaleDateString('pt-BR'),
+    });
   }
 
   async onSubmit() {
-    this.ordem_servico.itens = this.itens;
-    this.ordem_servico.valor_total = maskitoParseNumber(
-      this.valor_total,
-      BRLMaskParams
-    );
+    this.os_form.patchValue({
+      valor_total: maskitoParseNumber(this.os_form.value.valor_total, BRLMaskParams),
+    });
 
-    this.submit.emit(this.ordem_servico);
+    this.submit.emit(this.os_form);
   }
 }

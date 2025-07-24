@@ -1,9 +1,10 @@
 <ion-item>
   <ion-select
-    (ionChange)="selecionarEquipamento($event)"
+    (ionChange)="onIonChange($event)"
+    (ionBlur)="onIonBlur()"
     label="Equipamento"
     placeholder="- Selecione -"
-    value="{{ selected }}"
+    [value]="_value"
   >
     @for(equipamento of equipamentos; track equipamento){
     <ion-select-option value="{{ equipamento.id }}">{{

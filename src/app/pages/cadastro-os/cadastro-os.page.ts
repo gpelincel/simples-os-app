@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import {
   IonContent,
   IonHeader,
@@ -17,6 +17,7 @@ import { FormOsComponent } from 'src/app/components/ordem-servico/form-os/form-o
 import { Router, RouterLink } from '@angular/router';
 import { OrdemServicoService } from 'src/app/services/ordem-servico/ordem-servico.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
+import { OrdemServicoEntity } from 'src/app/domain/OrdemServicoEntity';
 
 @Component({
   selector: 'app-cadastro-os',
@@ -38,15 +39,32 @@ import { ToastService } from 'src/app/services/toast/toast.service';
   ],
 })
 export class CadastroOsPage implements OnInit {
-  constructor(private osService: OrdemServicoService, private toast: ToastService, private router: Router) {
+
+  os_form!: FormGroup;
+
+  constructor(private osService: OrdemServicoService, private toast: ToastService, private router: Router, private fb: FormBuilder) {
     addIcons({ arrowBackCircleOutline });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.os_form = this.fb.group({
+      titulo: [''],
+      observacao: [''],
+      codigo_compra: [''],
+      nota_fiscal: [''],
+      data_inicio: [''],
+      data_conclusao: [''],
+      valor_total: [''],
+      id_classificacao: [0],
+      id_cliente: [0],
+      id_status: [0],
+      id_equipamento: [0],
+      itens: this.fb.array([])
+    })
+  }
 
-  async storeOS(ordem_servico: OrdemServico) {
-
-    const response = await this.osService.storeOS(ordem_servico);
+  async storeOS(ordem_servico: FormGroup) {
+    const response = await this.osService.storeOS(ordem_servico.value);
     let message = response.message;
 
     if (response.errors) {
