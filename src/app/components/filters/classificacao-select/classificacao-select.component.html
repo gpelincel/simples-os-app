@@ -6,7 +6,7 @@
   (ionChange)="onSelecionar($event)"
 >
   @if(isFilter){
-  <ion-select-option selected>Todos</ion-select-option>
+  <ion-select-option value="" selected>Todos</ion-select-option>
   } @for(class of classificacoes; track class){
   <ion-select-option [value]="class.id">{{
     class.descricao
