@@ -1,71 +1,126 @@
-import { formatToBRL } from "src/app/utils/masks";
-import { Cliente } from "../cliente/cliente";
-import { Equipamento } from "../equipamento/equipamento";
-import { Item } from "../item/item";
+import { OrdemServicoDTO } from 'src/app/domain/OrdemServicoDTO';
+import { Money } from '../money/money';
+import { ItemDTO } from 'src/app/domain/ItemDTO';
+import { Item } from '../item/item';
 
 export class OrdemServico {
-  public titulo: string | null;
-  public codigo_compra: string | null;
-  public nota_fiscal: string | null;
-  public data_inicio: string | null;
-  public data_conclusao: string | null;
-  public descricao: string | null;
-  public id_status: number | null;
-  public id_classificacao: number | null;
-  public id_cliente: number | null;
-  public id_equipamento: number | null;
-  public valor_total: number | null;
-  public itens: Item[];
-  public cliente: Cliente | null;
-  public equipamento: Equipamento | null;
-  public status: string | null;
-  public classificacao: string | null;
+  id?: number;
+  titulo: string;
+  descricao?: string;
+  codigo_compra?: string;
+  nota_fiscal?: string;
+  data_inicio: Date;
+  data_conclusao?: Date;
+  valor_total: Money;
 
-  constructor(
-    titulo: string | null = null,
-    cliente: Cliente | null = null,
-    codigo_compra: string | null = null,
-    nota_fiscal: string | null = null,
-    data_inicio: string | null = null,
-    data_conclusao: string | null = null,
-    descricao: string | null = null,
-    id_classificacao: number | null = null,
-    id_cliente: number | null = null,
-    id_equipamento: number | null = null,
-    equipamento: Equipamento | null = null,
-    valor_total: number | null = null,
-    itens: Item[] = [],
-    status:string|null = null,
-    classificacao:string|null = null,
-    id_status:number|null = null,
-  ) {
-    this.titulo = titulo;
-    this.codigo_compra = codigo_compra;
-    this.nota_fiscal = nota_fiscal;
-    this.data_inicio = data_inicio;
-    this.data_conclusao = data_conclusao;
-    this.descricao = descricao;
-    this.id_status = id_status;
-    this.id_classificacao = id_classificacao;
-    this.id_cliente = id_cliente;
-    this.id_equipamento = id_equipamento;
-    this.valor_total = valor_total;
-    this.cliente = cliente;
-    this.itens = itens;
-    this.equipamento = equipamento;
-    this.status = status;
-    this.classificacao = classificacao;
+  cliente: any;
+  equipamento?: any;
+  status?: any;
+  classificacao?: any;
+  itens: Item[];
+
+  constructor(ordemDTO: OrdemServicoDTO) {
+    this.id = ordemDTO.id;
+    this.titulo = ordemDTO.titulo;
+    this.codigo_compra = ordemDTO.codigo_compra;
+    this.nota_fiscal = ordemDTO.nota_fiscal;
+    this.data_inicio = new Date(ordemDTO.data_inicio);
+    this.data_conclusao = ordemDTO.data_conclusao ? new Date(ordemDTO.data_conclusao) : undefined;
+    this.descricao = ordemDTO.descricao;
+    this.valor_total = new Money(ordemDTO.valor_total);
+
+    this.cliente = ordemDTO.cliente;
+    this.equipamento = ordemDTO.equipamento;
+    this.status = ordemDTO.status;
+    this.classificacao = ordemDTO.classificacao;
+
+    this.itens = ordemDTO.itens.map((item) => new Item(item));
   }
 
-  getValorTotal(){
-    return formatToBRL(this.valor_total);
+  get data_inicio_formated():string{
+    return this.data_inicio.toLocaleDateString("pt-br");
   }
 
-  setStatus(id_status: number | null){
-    this.id_status = id_status;
+  get data_conclusao_formated():string{
+    return this.data_conclusao ? this.data_conclusao.toLocaleDateString("pt-br") : "N/A";
   }
 
-  setClassificacao(id_classificacao: number | null){
-    this.id_classificacao = id_classificacao;
+  get id_cliente(): number | null {
+    return this.cliente?.id ?? null;
+  }
+
+  set id_cliente(value: number | null) {
+    if (!value) {
+      this.cliente = null;
+      return;
+    }
+
+    if (!this.cliente || this.cliente.id !== value) {
+      this.cliente = { id: value };
+    }
+  }
+
+  get id_equipamento(): number | null {
+    return this.equipamento?.id ?? null;
+  }
+
+  set id_equipamento(value: number | null) {
+    if (!value) {
+      this.equipamento = null;
+      return;
+    }
+
+    if (!this.equipamento || this.equipamento.id !== value) {
+      this.equipamento = { id: value };
+    }
+  }
+
+  get id_status(): number | null {
+    return this.status?.id ?? null;
+  }
+
+  set id_status(value: number | null) {
+    if (!value) {
+      this.status = null;
+      return;
+    }
+
+    if (!this.status || this.status.id !== value) {
+      this.status = { id: value };
+    }
+  }
+
+  get id_classificacao(): number | null {
+    return this.classificacao?.id ?? null;
+  }
+
+  set id_classificacao(value: number | null) {
+    if (!value) {
+      this.classificacao = null;
+      return;
+    }
+
+    if (!this.classificacao || this.classificacao.id !== value) {
+      this.classificacao = { id: value };
+    }
+  }
+
+  toDTO(): OrdemServicoDTO {
+    return {
+      id: this.id ?? 0,
+      titulo: this.titulo,
+      descricao: this.descricao,
+      codigo_compra: this.codigo_compra,
+      nota_fiscal: this.nota_fiscal,
+      data_inicio: this.data_inicio,
+      data_conclusao: this.data_conclusao,
+      valor_total: this.valor_total.valorRaw,
+      cliente: this.cliente,
+      equipamento: this.equipamento,
+      status: this.status,
+      classificacao: this.classificacao,
+      itens: this.itens.map((item) => item.toDTO()),
+    };
   }
 }
+

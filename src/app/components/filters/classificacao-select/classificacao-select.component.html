@@ -2,14 +2,13 @@
   [attr.aria-label]="isFilter ? 'Classificação' : null"
   [attr.label]="!isFilter ? 'Classificação' : null"
   [attr.placeholder]="!isFilter ? '- Selecione -' : 'Classificação'"
-  [value]="_value"
-  (ionChange)="onIonChange($event)"
-  (ionBlur)="onIonBlur()"
+  [value]="selected"
+  (ionChange)="onSelecionar($event)"
 >
   @if(isFilter){
   <ion-select-option selected>Todos</ion-select-option>
   } @for(class of classificacoes; track class){
-  <ion-select-option value="{{ class.id }}">{{
+  <ion-select-option [value]="class.id">{{
     class.descricao
   }}</ion-select-option>
   }

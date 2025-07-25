@@ -11,14 +11,16 @@ import {
   IonIcon,
   IonSpinner,
 } from '@ionic/angular/standalone';
-import { OrdemServico } from 'src/app/models/ordem-servico/ordem-servico';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { OrdemServicoService } from 'src/app/services/ordem-servico/ordem-servico.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { FormOsComponent } from 'src/app/components/ordem-servico/form-os/form-os.component';
 import { addIcons } from 'ionicons';
 import { arrowBackCircleOutline } from 'ionicons/icons';
-import { OrdemServicoEntity } from 'src/app/domain/OrdemServicoEntity';
+import { Item } from 'src/app/models/item/item';
+import { OrdemServico } from 'src/app/models/ordem-servico/ordem-servico';
+import { ItemDTO } from 'src/app/domain/ItemDTO';
+import { Money } from 'src/app/models/money/money';
 
 @Component({
   selector: 'app-edit-os',
@@ -45,7 +47,7 @@ export class EditOsPage implements OnInit {
   route = inject(ActivatedRoute);
   os_form!: FormGroup;
   loaded = false;
-  ordem_servico!:OrdemServicoEntity;
+  ordem_servico!: OrdemServico;
 
   constructor(
     private osService: OrdemServicoService,
@@ -60,7 +62,7 @@ export class EditOsPage implements OnInit {
 
   async getOS() {
     const response = await this.osService.getOSByID(Number(this.id_os));
-    this.ordem_servico = response;
+    this.ordem_servico = response!;
   }
 
   async ngOnInit() {
@@ -70,21 +72,36 @@ export class EditOsPage implements OnInit {
       observacao: [this.ordem_servico.descricao],
       codigo_compra: [this.ordem_servico.codigo_compra],
       nota_fiscal: [this.ordem_servico.nota_fiscal],
-      data_inicio: [this.ordem_servico.data_inicio],
-      data_conclusao: [this.ordem_servico.data_conclusao],
-      valor_total: [this.ordem_servico.valor_total],
+      data_inicio: [new Date(this.ordem_servico.data_inicio).toISOString()],
+      data_conclusao: [this.ordem_servico.data_conclusao?.toISOString()],
+      valor_total: [this.ordem_servico.valor_total.valorFormated],
       id_classificacao: [this.ordem_servico.id_classificacao],
       id_cliente: [this.ordem_servico.id_cliente],
       id_status: [this.ordem_servico.id_status],
       id_equipamento: [this.ordem_servico.id_equipamento],
-      itens: this.fb.array([])
-    })
+      itens: this.fb.array(
+        this.ordem_servico.itens.map((item) => this.createItemGroup(item))
+      ),
+    });
 
     this.loaded = true;
   }
 
+  createItemGroup(item: Item): FormGroup {
+    return this.fb.group({
+      id: [item.id],
+      quantidade: [item.quantidade],
+      id_unidade: [item.id_unidade],
+      nome: [item.nome],
+      valor_unitario: [item.valor_unitario.valorFormated],
+    });
+  }
+
   async updateOS(ordem_servico: any) {
-    const response = await this.osService.editOS(ordem_servico, this.id_os);
+    const response = await this.osService.editOS(
+      ordem_servico,
+      this.id_os
+    );
     let message = response.message;
 
     if (response.errors) {

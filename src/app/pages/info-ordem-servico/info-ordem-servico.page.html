@@ -6,7 +6,7 @@
       </ion-button>
     </ion-buttons>
     <ion-title *ngIf="ordem_servico">
-      {{ordem_servico.classificacao ?? "Carregando..."}}
+      {{ordem_servico.classificacao.descricao ?? "Carregando..."}}
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -126,7 +126,7 @@
           labelPlacement="end"
           >Data Início</ion-checkbox
         >
-        <ion-label color="medium">{{ordem_servico.data_inicio}}</ion-label>
+        <ion-label color="medium">{{ordem_servico.data_inicio_formated}}</ion-label>
       </ion-item>
       <ion-item>
         <ion-checkbox
@@ -136,7 +136,7 @@
           >Data Conclusão</ion-checkbox
         >
         <ion-label color="medium"
-          >{{ordem_servico.data_conclusao ?? "N/A"}}</ion-label
+          >{{ordem_servico.data_conclusao_formated}}</ion-label
         >
       </ion-item>
       <ion-item>
@@ -146,7 +146,7 @@
           labelPlacement="end"
           >Status</ion-checkbox
         >
-        <ion-label color="medium">{{ordem_servico.status ?? "N/A"}}</ion-label>
+        <ion-label color="medium">{{ordem_servico.status?.descricao ?? "N/A"}}</ion-label>
       </ion-item>
       <ion-item>
         <ion-checkbox
@@ -206,7 +206,7 @@
               >{{item.unidade ? item.unidade.descricao : "N/A"}}
             </ion-col>
             <ion-col size="4"> {{item.nome}} </ion-col>
-            <ion-col> {{item.valor_unitario}} </ion-col>
+            <ion-col> {{item.valor_unitario.valorFormated}} </ion-col>
           </ion-row>
         </ion-grid>
       </ion-item>
@@ -218,7 +218,7 @@
           >Valor Total</ion-checkbox
         >
         <ion-label color="medium"
-          >{{ordem_servico.valor_total}}</ion-label
+          >{{ordem_servico.valor_total.valorFormated}}</ion-label
         >
       </ion-item>
     </ion-item-group>

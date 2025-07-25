@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import {IonSelect, IonSelectOption} from '@ionic/angular/standalone';
+import { IonSelect, IonSelectOption } from '@ionic/angular/standalone';
 import { ConfiguracoesService } from 'src/app/services/configuracoes/configuracoes.service';
 
 @Component({
@@ -10,17 +10,16 @@ import { ConfiguracoesService } from 'src/app/services/configuracoes/configuraco
   templateUrl: './unidade-select.component.html',
   styleUrls: ['./unidade-select.component.scss'],
 })
-export class UnidadeSelectComponent  implements OnInit {
-
+export class UnidadeSelectComponent implements OnInit {
   @Output() selecionar = new EventEmitter();
-  @Input() selected = null;
-  unidades:any = [];
+  @Input() selected: number | null = null;
+  unidades: any = [];
 
   constructor(private configService: ConfiguracoesService) {}
 
   onSelecionar(event: Event) {
     const target = event.target as HTMLIonSelectElement;
-    if (target.value == "") {
+    if (target.value == '') {
       target.value = null;
     }
     this.selecionar.emit(target.value);
@@ -29,5 +28,4 @@ export class UnidadeSelectComponent  implements OnInit {
   async ngOnInit() {
     this.unidades = await this.configService.getUnidades();
   }
-
 }

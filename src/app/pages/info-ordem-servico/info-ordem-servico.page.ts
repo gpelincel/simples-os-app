@@ -77,7 +77,7 @@ export class InfoOrdemServicoPage implements OnInit {
   };
   id_os: any;
   private route = inject(ActivatedRoute);
-  ordem_servico: OrdemServico = new OrdemServico();
+  ordem_servico!: OrdemServico;
   loaded = false;
 
   constructor(
@@ -91,7 +91,8 @@ export class InfoOrdemServicoPage implements OnInit {
   }
 
   async ngOnInit() {
-    this.ordem_servico = await this.osService.getOSByID(this.id_os);
+    const response = await this.osService.getOSByID(this.id_os);
+    this.ordem_servico = response!;
     this.loaded = true;
   }
 

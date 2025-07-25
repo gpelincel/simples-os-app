@@ -22,6 +22,8 @@ import { OrdemServicoCardComponent } from 'src/app/components/ordem-servico/orde
 import { StatusSelectComponent } from 'src/app/components/filters/status-select/status-select.component';
 import { ClassificacaoSelectComponent } from 'src/app/components/filters/classificacao-select/classificacao-select.component';
 import { RouterLink } from '@angular/router';
+import { OrdemServico } from 'src/app/models/ordem-servico/ordem-servico';
+import { OrdemServicoDTO } from 'src/app/domain/OrdemServicoDTO';
 
 @Component({
   selector: 'app-ordem-servico',
@@ -46,11 +48,11 @@ import { RouterLink } from '@angular/router';
     IonInfiniteScrollContent,
     IonFab,
     IonFabButton,
-    RouterLink
+    RouterLink,
   ],
 })
 export class OrdemServicoPage implements OnInit {
-  ordens: any[] = [];
+  ordens: OrdemServico[] = [];
   next_page: String | null = null;
   stopLoading = false;
   params: any[] = [];
@@ -92,21 +94,27 @@ export class OrdemServicoPage implements OnInit {
 
   async loadOrdens(next_page: any = null, params: any[] | null = null) {
     const response = await this.osService.getOS(next_page, params);
+
+    // Converte todos os dados em instâncias da classe OrdemServico
+    const ordensConvertidas: OrdemServico[] = response.data.map(
+      (dto: OrdemServicoDTO) => new OrdemServico(dto)
+    );
+
     if (next_page == null) {
       if (this.ordens.length == 0) {
         this.stopLoading = false;
-        this.ordens = response.data;
+        this.ordens = ordensConvertidas;
       } else {
         this.stopLoading = true;
       }
     } else {
-      this.ordens = [...this.ordens, ...response.data];
+      this.ordens = [...this.ordens, ...ordensConvertidas];
     }
 
     this.next_page = response.next_page_url;
   }
 
-  async ionViewWillEnter(){
+  async ionViewWillEnter() {
     await this.loadOrdens();
     this.loaded = true;
   }

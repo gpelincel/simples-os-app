@@ -78,13 +78,3 @@ export const CNPJ_MASK: MaskitoOptions = {
     /\d/,
   ],
 };
-
-export function formatToBRL(value: number | null): string {
-  if (!value) {
-    return 'N/A';
-  }
-  return new Intl.NumberFormat('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
-  }).format(value);
-}

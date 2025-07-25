@@ -5,13 +5,13 @@
   </ion-card-header>
   <ion-card-content>
     <ion-chip>
-      <ion-label>{{os.status ?? "N/A"}}</ion-label>
+      <ion-label>{{os.status ? os.status.descricao : "N/A"}}</ion-label>
     </ion-chip>
     <ion-chip>
-      <ion-label>{{os.classificacao ?? "N/A"}}</ion-label>
+      <ion-label>{{os.classificacao ? os.classificacao.descricao : "N/A"}}</ion-label>
     </ion-chip>
     <ion-chip>
-      <ion-label>{{os.data_inicio_formated ?? "N/A"}}</ion-label>
+      <ion-label>{{os.data_inicio_formated}}</ion-label>
     </ion-chip>
   </ion-card-content>
 </ion-card>

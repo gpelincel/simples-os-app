@@ -16,22 +16,25 @@ import {
   IonDatetime,
   IonModal,
   IonDatetimeButton,
+  IonSelect,
+  IonSelectOption,
   IonTextarea,
 } from '@ionic/angular/standalone';
 import { RouterLink } from '@angular/router';
 import { ClientesSelectComponent } from 'src/app/components/filters/clientes-select/clientes-select.component';
 import { StatusSelectComponent } from 'src/app/components/filters/status-select/status-select.component';
 import { ClassificacaoSelectComponent } from 'src/app/components/filters/classificacao-select/classificacao-select.component';
-import { OrdemServico } from 'src/app/models/ordem-servico/ordem-servico';
-import { Item } from 'src/app/models/item/item';
 import { EquipamentoSelectComponent } from 'src/app/components/equipamento/equipamento-select/equipamento-select.component';
 import { UnidadeSelectComponent } from 'src/app/components/filters/unidade-select/unidade-select.component';
 import { MaskitoDirective } from '@maskito/angular';
 import { MaskitoElementPredicate } from '@maskito/core';
 import { BRLMaskParams, maskitoBrlNormalMask } from 'src/app/utils/masks';
 import { maskitoParseNumber, maskitoStringifyNumber } from '@maskito/kit';
-import { OrdemServicoService } from 'src/app/services/ordem-servico/ordem-servico.service';
-import { OrdemServicoEntity } from 'src/app/domain/OrdemServicoEntity';
+import { OrdemServicoDTO } from 'src/app/domain/OrdemServicoDTO';
+import { Item } from 'src/app/models/item/item';
+import { Money } from 'src/app/models/money/money';
+import { OrdemServico } from 'src/app/models/ordem-servico/ordem-servico';
+import { ConfiguracoesService } from 'src/app/services/configuracoes/configuracoes.service';
 
 @Component({
   standalone: true,
@@ -55,6 +58,8 @@ import { OrdemServicoEntity } from 'src/app/domain/OrdemServicoEntity';
     MaskitoDirective,
     IonTextarea,
     ReactiveFormsModule,
+    IonSelect,
+    IonSelectOption,
   ],
   selector: 'app-form-os',
   templateUrl: './form-os.component.html',
@@ -63,7 +68,8 @@ import { OrdemServicoEntity } from 'src/app/domain/OrdemServicoEntity';
 export class FormOsComponent implements OnInit {
   @Output() submit = new EventEmitter();
   @Input() os_form!: FormGroup;
-  @Input() ordem_servico: OrdemServicoEntity | null = null;
+  @Input() ordem_servico?: OrdemServicoDTO;
+  unidades: any = [];
 
   readonly mask = maskitoBrlNormalMask;
   readonly maskPredicate: MaskitoElementPredicate = async (el) =>
@@ -74,13 +80,12 @@ export class FormOsComponent implements OnInit {
     const itens = this.os_form.value.itens;
 
     itens.map((item: any) => {
-      total +=
-        Number(item.quantidade) *
-        maskitoParseNumber(String(item.valor_unitario), BRLMaskParams);
+      let valor_unitario = new Money(item.valor_unitario);
+      total += item.quantidade * valor_unitario.valorRaw;
     });
 
     this.os_form.patchValue({
-      valor_total: maskitoStringifyNumber(total, BRLMaskParams),
+      valor_total: new Money(total).valorFormated,
     });
   }
 
@@ -88,16 +93,23 @@ export class FormOsComponent implements OnInit {
     return this.os_form.get('itens') as FormArray;
   }
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private configService: ConfiguracoesService
+  ) {}
 
-  ngOnInit() {
-    this.addItemInput();
+  async ngOnInit() {
+    this.unidades = await this.configService.getUnidades();
+
+    if (this.ItemsFormArray.length <= 0) {
+      this.addItemInput();
+    }
   }
 
   addItemInput() {
     const novoItem = this.fb.group({
       id: [''],
-      quantidade: [''],
+      quantidade: [null],
       id_unidade: [''],
       nome: [''],
       valor_unitario: [''],
@@ -109,6 +121,24 @@ export class FormOsComponent implements OnInit {
   setCliente(id_cliente: number | null) {
     this.os_form.patchValue({
       id_cliente: id_cliente,
+    });
+  }
+
+  setStatus(id_status: number | null) {
+    this.os_form.patchValue({
+      id_status: id_status,
+    });
+  }
+
+  setEquipamento(id_equipamento: number | null) {
+    this.os_form.patchValue({
+      id_equipamento: id_equipamento,
+    });
+  }
+
+  setClassificacao(id_classificacao: number | null) {
+    this.os_form.patchValue({
+      id_classificacao: id_classificacao,
     });
   }
 
@@ -129,10 +159,20 @@ export class FormOsComponent implements OnInit {
   }
 
   async onSubmit() {
-    this.os_form.patchValue({
-      valor_total: maskitoParseNumber(this.os_form.value.valor_total, BRLMaskParams),
+    const ordem_servico = this.os_form.value;
+    console.log(this.os_form.value);
+
+    ordem_servico.data_inicio = ordem_servico.data_inicio.split('T')[0];
+
+    if (ordem_servico.data_conclusao) {
+      ordem_servico.data_conclusao = ordem_servico.data_conclusao.split('T')[0];
+    }
+
+    ordem_servico.valor_total = new Money(ordem_servico.valor_total).valorRaw;
+    ordem_servico.itens.map((item: any) => {
+      item.valor_unitario = new Money(item.valor_unitario).valorRaw;
     });
 
-    this.submit.emit(this.os_form);
+    this.submit.emit(ordem_servico);
   }
 }

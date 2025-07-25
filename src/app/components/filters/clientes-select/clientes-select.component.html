@@ -11,11 +11,11 @@
   <div style="text-align: center;">
     <ion-spinner *ngIf="!loaded && !searching"></ion-spinner>
   </div>
-  <ion-radio-group [allowEmptySelection]="true" *ngIf="clientes.length > 0 && loaded" value="{{selected}}">
+  <ion-radio-group [allowEmptySelection]="true" *ngIf="clientes.length > 0 && loaded" [value]="selected">
     @for(cliente of clientes; track cliente){
     <ion-radio
       [id]="'cliente-'+cliente.id"
-      value="{{cliente.id}}"
+      [value]="cliente.id"
       class="ion-padding"
       (click)="selecionarCliente(cliente.id)"
       labelPlacement="end"

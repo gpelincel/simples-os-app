@@ -47,7 +47,8 @@ export class OrdemServicoService {
     })
       .then((response) => response.json())
       .then((response) => {
-        return response;
+        const ordem_servico = new OrdemServico(response);
+        return ordem_servico;
       })
       .catch((error) => console.error('Error', error));
   }

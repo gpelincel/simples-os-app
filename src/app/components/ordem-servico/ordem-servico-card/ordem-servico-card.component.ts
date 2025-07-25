@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { addIcons } from 'ionicons';
 import { IonCard, IonCardHeader, IonCardContent, IonCardSubtitle, IonCardTitle, IonChip, IonLabel } from '@ionic/angular/standalone';
 import { call, mail } from 'ionicons/icons';
+import { OrdemServico } from 'src/app/models/ordem-servico/ordem-servico';
 
 @Component({
   standalone: true,
@@ -12,12 +13,13 @@ import { call, mail } from 'ionicons/icons';
 })
 export class OrdemServicoCardComponent  implements OnInit {
 
-  @Input() os:any = {};
+  @Input() os!:OrdemServico;
 
   constructor() {
     addIcons({call, mail});
    }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
 }

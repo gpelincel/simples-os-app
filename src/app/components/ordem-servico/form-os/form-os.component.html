@@ -8,13 +8,15 @@
   </ion-item>
   <ion-item>
     <app-status-select
-      formControlName="id_status"
+      [selected]="os_form.value.id_status"
+      (selecionar)="setStatus($event)"
       [isFilter]="false"
     ></app-status-select>
   </ion-item>
   <ion-item>
     <app-classificacao-select
-      formControlName="id_classificacao"
+      [selected]="os_form.value.id_classificacao"
+      (selecionar)="setClassificacao($event)"
       [isFilter]="false"
     ></app-classificacao-select>
   </ion-item>
@@ -51,11 +53,15 @@
 
   <ion-item> Cliente </ion-item>
 
-  <app-clientes-select (selecionar)="setCliente($event)"></app-clientes-select>
+  <app-clientes-select
+    [selected]="os_form.value.id_cliente"
+    (selecionar)="setCliente($event)"
+  ></app-clientes-select>
 
   <app-equipamento-select
-    formControlName="id_equipamento"
+    [selected]="os_form.value.id_equipamento"
     [id_cliente]="os_form.value.id_cliente"
+    (selecionar)="setEquipamento($event)"
   ></app-equipamento-select>
 
   <ion-item>
@@ -80,7 +86,17 @@
           min="0"
           formControlName="quantidade"
         ></ion-input>
-        <app-unidade-select></app-unidade-select>
+        <ion-select
+          aria-label="unidade"
+          placeholder="Und."
+          formControlName="id_unidade"
+        >
+          @for(und of unidades; track und){
+          <ion-select-option [value]="und.id">{{
+            und.descricao
+          }}</ion-select-option>
+          }
+        </ion-select>
         <ion-input placeholder="Nome Item" formControlName="nome"></ion-input>
         <ion-input
           (ionChange)="recalculateValor()"
@@ -112,6 +128,7 @@
 <ion-modal [keepContentsMounted]="true">
   <ng-template>
     <ion-datetime
+      [value]="os_form.value.data_inicio"
       (ionChange)="setDataInicio($event)"
       presentation="date"
       [showDefaultButtons]="true"
@@ -132,6 +149,7 @@
 <ion-modal [keepContentsMounted]="true">
   <ng-template>
     <ion-datetime
+      [value]="os_form.value.data_conclusao"
       (ionChange)="setDataConclusao($event)"
       id="data-conclusao"
       [showDefaultButtons]="true"

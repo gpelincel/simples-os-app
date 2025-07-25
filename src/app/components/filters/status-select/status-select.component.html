@@ -2,14 +2,13 @@
   [attr.aria-label]="isFilter ? 'Status' : null"
   [attr.label]="!isFilter ? 'Status' : null"
   [attr.placeholder]="!isFilter ? '- Selecione -' : 'Status'"
-  [value]="_value"
-  (ionChange)="onIonChange($event)"
-  (ionBlur)="onIonBlur()"
+  [value]="selected"
+  (ionChange)="onSelecionar($event)"
 >
   @if(isFilter){
   <ion-select-option selected>Todos</ion-select-option>
   } @for(stat of status; track stat){
-  <ion-select-option value="{{ stat.id }}">{{
+  <ion-select-option [value]="stat.id">{{
     stat.descricao
   }}</ion-select-option>
   }
