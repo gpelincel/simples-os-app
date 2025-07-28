@@ -25,15 +25,11 @@ import { ClientesSelectComponent } from 'src/app/components/filters/clientes-sel
 import { StatusSelectComponent } from 'src/app/components/filters/status-select/status-select.component';
 import { ClassificacaoSelectComponent } from 'src/app/components/filters/classificacao-select/classificacao-select.component';
 import { EquipamentoSelectComponent } from 'src/app/components/equipamento/equipamento-select/equipamento-select.component';
-import { UnidadeSelectComponent } from 'src/app/components/filters/unidade-select/unidade-select.component';
 import { MaskitoDirective } from '@maskito/angular';
 import { MaskitoElementPredicate } from '@maskito/core';
-import { BRLMaskParams, maskitoBrlNormalMask } from 'src/app/utils/masks';
-import { maskitoParseNumber, maskitoStringifyNumber } from '@maskito/kit';
+import { maskitoBrlNormalMask } from 'src/app/utils/masks';
 import { OrdemServicoDTO } from 'src/app/domain/OrdemServicoDTO';
-import { Item } from 'src/app/models/item/item';
 import { Money } from 'src/app/models/money/money';
-import { OrdemServico } from 'src/app/models/ordem-servico/ordem-servico';
 import { ConfiguracoesService } from 'src/app/services/configuracoes/configuracoes.service';
 
 @Component({
@@ -54,7 +50,6 @@ import { ConfiguracoesService } from 'src/app/services/configuracoes/configuraco
     IonModal,
     IonDatetimeButton,
     EquipamentoSelectComponent,
-    UnidadeSelectComponent,
     MaskitoDirective,
     IonTextarea,
     ReactiveFormsModule,

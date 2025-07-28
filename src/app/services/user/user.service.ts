@@ -10,8 +10,6 @@ export class UserService {
   constructor(private toast: ToastService) {}
 
   login(user: User) {
-    console.log(JSON.stringify(user));
-    console.log(environment.api_url + 'login');
     return fetch(environment.api_url + 'login', {
       method: 'POST',
       body: JSON.stringify(user),
@@ -23,6 +21,7 @@ export class UserService {
     })
       .then((response) => response.json())
       .then((response) => {
+        console.log(response);
         if (response.status == "success") {
           let primeiro_nome = String(response.user.nome).split(' ')[0];
           sessionStorage.setItem('token', response.user.token);
@@ -30,6 +29,6 @@ export class UserService {
           return response;
         }
       })
-      .catch((error) => {this.toast.presentToast('error', error);});
+      // .catch((error) => {this.toast.presentToast('error', error);});
   }
 }

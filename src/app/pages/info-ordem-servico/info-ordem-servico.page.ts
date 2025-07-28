@@ -19,12 +19,13 @@ import {
   IonGrid,
   IonRow,
   IonCol,
+  IonPopover,
 } from '@ionic/angular/standalone';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { OrdemServico } from 'src/app/models/ordem-servico/ordem-servico';
 import { OrdemServicoService } from 'src/app/services/ordem-servico/ordem-servico.service';
 import { addIcons } from 'ionicons';
-import { arrowBackCircleOutline } from 'ionicons/icons';
+import { arrowBackCircleOutline, createOutline, ellipsisVertical, pencilOutline, printOutline, trashBinOutline, trashOutline } from 'ionicons/icons';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
 
@@ -54,6 +55,7 @@ import { ToastService } from 'src/app/services/toast/toast.service';
     IonGrid,
     IonRow,
     IonCol,
+    IonPopover,
   ],
 })
 export class InfoOrdemServicoPage implements OnInit {
@@ -79,6 +81,7 @@ export class InfoOrdemServicoPage implements OnInit {
   private route = inject(ActivatedRoute);
   ordem_servico!: OrdemServico;
   loaded = false;
+  popoverOpen = false;
 
   constructor(
     private osService: OrdemServicoService,
@@ -87,7 +90,7 @@ export class InfoOrdemServicoPage implements OnInit {
     private router: Router
   ) {
     this.id_os = this.route.snapshot.paramMap.get('id');
-    addIcons({ arrowBackCircleOutline });
+    addIcons({ arrowBackCircleOutline, ellipsisVertical, createOutline, printOutline, trashOutline });
   }
 
   async ngOnInit() {
@@ -100,23 +103,28 @@ export class InfoOrdemServicoPage implements OnInit {
     await this.osService.imprimirOS(this.impressao_fields, this.id_os);
   }
 
+  async editOS(id_os:any){
+    this.popoverOpen = false;
+    this.router.navigate(['/ordem-servico/update/'+id_os]);
+  }
+
   async excluirOS() {
     await this.alertService.presentAlert(
       'Deseja mesmo excluir essa OS?',
       'Ao excluir a OS, ela não poderá ser recuperada!',
       async () => {
-
         const response = await this.osService.excluirOS(this.id_os);
 
-        if (response.status == "success") {
+        if (response.status == 'success') {
           this.toastService.presentToast(response.status, response.message);
           this.router.navigate(['/ordem-servico']);
         } else {
-          this.toastService.presentToast("Error", "Houve um erro ao tentar excluir a OS");
+          this.toastService.presentToast(
+            'Error',
+            'Houve um erro ao tentar excluir a OS'
+          );
         }
       }
     );
   }
-
-  
 }

@@ -7,23 +7,20 @@ import {
   IonTitle,
   IonToolbar,
   IonButton,
-  IonIcon,
   IonButtons,
+  IonIcon
 } from '@ionic/angular/standalone';
 import { Router, RouterLink } from '@angular/router';
-import { ClienteService } from 'src/app/services/cliente/cliente.service';
-import { ToastService } from 'src/app/services/toast/toast.service';
-import { Cliente } from 'src/app/models/cliente/cliente';
 import { addIcons } from 'ionicons';
 import { arrowBackCircleOutline } from 'ionicons/icons';
-import { CEP_MASK, CNPJ_MASK, TELEFONE_MASK } from 'src/app/utils/masks';
-import { MaskitoElementPredicate } from '@maskito/core';
+import { ClienteService } from 'src/app/services/cliente/cliente.service';
+import { ToastService } from 'src/app/services/toast/toast.service';
 import { ClienteFormComponent } from 'src/app/components/cliente/cliente-form/cliente-form.component';
 
 @Component({
-  selector: 'app-cadastro-clientes',
-  templateUrl: './cadastro-clientes.page.html',
-  styleUrls: ['./cadastro-clientes.page.scss'],
+  selector: 'app-edit-cliente',
+  templateUrl: './edit-cliente.page.html',
+  styleUrls: ['./edit-cliente.page.scss'],
   standalone: true,
   imports: [
     IonContent,
@@ -39,7 +36,7 @@ import { ClienteFormComponent } from 'src/app/components/cliente/cliente-form/cl
     ClienteFormComponent
   ],
 })
-export class CadastroClientesPage implements OnInit {
+export class EditClientePage implements OnInit {
   constructor(
     private clienteService: ClienteService,
     private toast: ToastService,
@@ -50,8 +47,8 @@ export class CadastroClientesPage implements OnInit {
 
   ngOnInit() {}
 
-  async onSubmit(cliente:any) {
-    const response = await this.clienteService.storeCliente(cliente);
+  async onSubmit(cliente: any) {
+    const response = await this.clienteService.updateCliente(cliente);
 
     if (response.errors) {
       const primeiroCampo = Object.keys(response.errors)[0];

@@ -8,6 +8,43 @@
     <ion-title *ngIf="ordem_servico">
       {{ordem_servico.classificacao.descricao ?? "Carregando..."}}
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button id="popover-trigger">
+        <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
+      </ion-button>
+      <ion-popover trigger="popover-trigger" triggerAction="click">
+        <ng-template>
+          <ion-content>
+            <ion-list>
+              <ion-item id="popover-trigger" button [routerLink]="['/ordem-servico/update/'+id_os]">
+                <ion-icon
+                  aria-hidden="true"
+                  slot="start"
+                  name="create-outline"
+                ></ion-icon>
+                <ion-label>Editar</ion-label>
+              </ion-item>
+              <ion-item button (click)="imprimirOS()">
+                <ion-icon
+                  aria-hidden="true"
+                  slot="start"
+                  name="print-outline"
+                ></ion-icon>
+                <ion-label>Imprimir</ion-label>
+              </ion-item>
+              <ion-item button (click)="excluirOS()">
+                <ion-icon
+                  aria-hidden="true"
+                  slot="start"
+                  name="trash-outline"
+                ></ion-icon>
+                <ion-label color="danger">Excluir</ion-label>
+              </ion-item>
+            </ion-list>
+          </ion-content>
+        </ng-template>
+      </ion-popover>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -59,7 +96,8 @@
           [(ngModel)]="impressao_fields.endereco_cliente"
           labelPlacement="end"
           >Endereço<ion-label color="medium"
-            >{{ordem_servico.cliente!.endereco!.cidade ?? "N/A"}} - {{ordem_servico.cliente!.endereco!.estado ?? "N/A"}}</ion-label
+            >{{ordem_servico.cliente!.endereco!.cidade ?? "N/A"}} -
+            {{ordem_servico.cliente!.endereco!.estado ?? "N/A"}}</ion-label
           ></ion-checkbox
         >
       </ion-item>
@@ -126,7 +164,9 @@
           labelPlacement="end"
           >Data Início</ion-checkbox
         >
-        <ion-label color="medium">{{ordem_servico.data_inicio_formated}}</ion-label>
+        <ion-label color="medium"
+          >{{ordem_servico.data_inicio_formated}}</ion-label
+        >
       </ion-item>
       <ion-item>
         <ion-checkbox
@@ -146,7 +186,9 @@
           labelPlacement="end"
           >Status</ion-checkbox
         >
-        <ion-label color="medium">{{ordem_servico.status?.descricao ?? "N/A"}}</ion-label>
+        <ion-label color="medium"
+          >{{ordem_servico.status?.descricao ?? "N/A"}}</ion-label
+        >
       </ion-item>
       <ion-item>
         <ion-checkbox
@@ -222,12 +264,23 @@
         >
       </ion-item>
     </ion-item-group>
-    <div class="ion-padding">
-      <ion-button (click)="imprimirOS()" expand="block">Gerar PDF</ion-button>
-      <ion-button [routerLink]="['/ordem-servico/update/'+id_os]" expand="block">Editar</ion-button>
-      <ion-button (click)="excluirOS()" expand="block" color="danger" fill="outline"
+    <!-- <div class="ion-padding">
+      <ion-button
+        color="primary"
+        [routerLink]="['/ordem-servico/update/'+id_os]"
+        expand="block"
+        >Editar</ion-button
+      >
+      <ion-button color="medium" (click)="imprimirOS()" expand="block"
+        >Gerar PDF</ion-button
+      >
+      <ion-button
+        (click)="excluirOS()"
+        expand="block"
+        color="danger"
+        fill="outline"
         >Excluir</ion-button
       >
-    </div>
+    </div> -->
   </ion-list>
 </ion-content>

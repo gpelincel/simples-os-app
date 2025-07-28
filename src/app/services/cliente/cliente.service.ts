@@ -40,6 +40,7 @@ export class ClienteService {
     .then(response => {
       return response;
     })
+    .catch((error) => console.log(error));
   }
 
   getCEP(cep:string){
@@ -52,7 +53,7 @@ export class ClienteService {
     })
   }
 
-  getByID(id:number){
+  getByID(id:number|string){
     return fetch(this.api_url+'/'+id, {
       headers: {
         Accept: 'application/json',
@@ -74,6 +75,23 @@ export class ClienteService {
           Authorization: `Bearer ${sessionStorage.getItem('token')}`,
         },
         method: 'POST',
+        body: JSON.stringify(cliente),
+      })
+        .then((response) => response.json())
+        .then((response) => {
+          return response;
+        })
+        .catch((error) => console.error('Error', error));
+    }
+
+  updateCliente(cliente: Cliente) {
+      return fetch(this.api_url+'/'+cliente.id, {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+        },
+        method: 'PUT',
         body: JSON.stringify(cliente),
       })
         .then((response) => response.json())

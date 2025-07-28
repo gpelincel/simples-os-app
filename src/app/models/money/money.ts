@@ -5,7 +5,7 @@ export class Money {
     this.valor =
       typeof valor === 'string'
         ? parseFloat(valor.replace(/[^\d,.-]/g, '').replace(',', '.'))
-        : valor;
+        : valor || 0;
   }
 
   public get valorFormated(): string {

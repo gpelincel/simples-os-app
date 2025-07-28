@@ -71,7 +71,7 @@ export class OrdemServicoService {
   }
 
   editOS(os: any, id:any) {
-    return fetch(this.api_url + `/${id}`, {
+    return fetch(`${this.api_url}/${id}`, {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
