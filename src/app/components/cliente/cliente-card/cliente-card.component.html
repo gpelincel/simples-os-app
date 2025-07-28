@@ -1,4 +1,4 @@
-<ion-card>
+<ion-card [href]="'/clientes/'+cliente.id">
   <ion-card-header>
     <ion-card-title>{{cliente.nome}}</ion-card-title>
     <ion-card-subtitle>{{cliente.cnpj ?? "N/A"}}</ion-card-subtitle>

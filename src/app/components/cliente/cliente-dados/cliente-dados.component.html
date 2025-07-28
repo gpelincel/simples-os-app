@@ -1,0 +1,35 @@
+<ion-item-group>
+  <ion-item>
+    <ion-input label="CNPJ" readonly [value]="cliente.cnpj"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-input label="Telefone" readonly [value]="cliente.telefone"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-input label="Email" readonly [value]="cliente.email"></ion-input>
+  </ion-item>
+</ion-item-group>
+<ion-item-group>
+  <ion-item-divider> Dados de Endereço </ion-item-divider>
+  <ion-item>
+    <ion-input label="CEP" readonly [value]="cliente.endereco!.cep"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-input label="Cidade" readonly [value]="cliente.endereco!.cidade"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-input label="Estado" readonly [value]="cliente.endereco!.estado"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-input label="Logradouro" readonly [value]="cliente.endereco!.logradouro"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-input label="Número" readonly [value]="cliente.endereco!.numero"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-input label="Bairro" readonly [value]="cliente.endereco!.bairro"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-input label="Complmento" readonly [value]="cliente.endereco!.complemento"></ion-input>
+  </ion-item>
+</ion-item-group>

@@ -1,0 +1,82 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button [routerLink]="['/clientes']">
+        <ion-icon size="large" name="arrow-back-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title *ngIf="cliente">
+      {{cliente.nome ?? "Carregando..."}}
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button id="popover-trigger">
+        <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
+      </ion-button>
+      <ion-popover trigger="popover-trigger" triggerAction="click">
+        <ng-template>
+          <ion-content>
+            <ion-list>
+              <ion-item id="popover-trigger" button [routerLink]="['/clientes/update/'+id_cliente]">
+                <ion-icon
+                  aria-hidden="true"
+                  slot="start"
+                  name="create-outline"
+                ></ion-icon>
+                <ion-label>Editar</ion-label>
+              </ion-item>
+              <ion-item button (click)="excluirCliente()">
+                <ion-icon
+                  aria-hidden="true"
+                  slot="start"
+                  name="trash-outline"
+                ></ion-icon>
+                <ion-label color="danger">Excluir</ion-label>
+              </ion-item>
+            </ion-list>
+          </ion-content>
+        </ng-template>
+      </ion-popover>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment [scrollable]="true" value="dados" (ionChange)="onChange($event)">
+      <ion-segment-button value="dados" content-id="dados">
+        <ion-label>Dados</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="os" content-id="os">
+        <ion-label>OS</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="equipamento" content-id="equipamento">
+        <ion-label>Equipamentos</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="agenda" content-id="agenda">
+        <ion-label>Agenda</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-segment-view>
+    <ion-segment-content id="dados">
+      @if(cliente){
+        <ion-list>
+          <app-cliente-dados [cliente]="cliente"></app-cliente-dados>
+        </ion-list>
+      } @else {
+        <div style="display: flex; justify-content: center;" class="ion-padding">
+          <ion-spinner></ion-spinner>
+        </div>
+      }
+    </ion-segment-content>
+    <ion-segment-content id="os">
+      <h1>Ordens de serviço do cliente</h1>
+    </ion-segment-content>
+    <ion-segment-content id="equipamento">
+      <h1>Equipamentos do cliente</h1>
+    </ion-segment-content>
+    <ion-segment-content id="agenda">
+      <h1>Agenda do cliente</h1>
+    </ion-segment-content>
+  </ion-segment-view>
+</ion-content>

@@ -46,4 +46,8 @@ export const routes: Routes = [
     path: 'clientes/update/:id',
     loadComponent: () => import('./pages/edit-cliente/edit-cliente.page').then( m => m.EditClientePage)
   },
+  {
+    path: 'clientes/:id',
+    loadComponent: () => import('./pages/info-cliente/info-cliente.page').then( m => m.InfoClientePage)
+  },
 ];
