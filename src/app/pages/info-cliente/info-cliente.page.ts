@@ -19,13 +19,15 @@ import {
   IonSegmentContent,
   IonSpinner
 } from '@ionic/angular/standalone';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Cliente } from 'src/app/models/cliente/cliente';
 import { addIcons } from 'ionicons';
 import { arrowBackCircleOutline, ellipsisVertical, ellipsisVerticalOutline, createOutline, trashOutline } from 'ionicons/icons';
 import { ClienteService } from 'src/app/services/cliente/cliente.service';
 import { ClienteDadosComponent } from 'src/app/components/cliente/cliente-dados/cliente-dados.component';
 import { OrdemServico } from 'src/app/models/ordem-servico/ordem-servico';
+import { ToastService } from 'src/app/services/toast/toast.service';
+import { AlertService } from 'src/app/services/alert/alert.service';
 
 @Component({
   selector: 'app-info-cliente',
@@ -61,7 +63,7 @@ export class InfoClientePage implements OnInit {
   route = inject(ActivatedRoute);
   ordens: OrdemServico[] = [];
 
-  constructor(private clienteService: ClienteService) {
+  constructor(private clienteService: ClienteService, private toastService: ToastService, private router: Router, private alertService: AlertService) {
     addIcons({arrowBackCircleOutline,ellipsisVertical,createOutline,trashOutline});
   }
 
@@ -82,5 +84,23 @@ export class InfoClientePage implements OnInit {
     this.cliente = await this.clienteService.getByID(this.id_cliente);
   }
 
-  async excluirCliente(){}
+  async excluirCliente(){
+    await this.alertService.presentAlert(
+      'Deseja mesmo excluir esse cliente?',
+      'Ao excluir o cliente, ele não poderá ser recuperado!',
+      async () => {
+        const response = await this.clienteService.excluirCliente(this.id_cliente);
+
+        if (response.status == 'success') {
+          this.toastService.presentToast(response.status, response.message);
+          this.router.navigate(['/clientes']);
+        } else {
+          this.toastService.presentToast(
+            'Error',
+            'Houve um erro ao tentar excluir o cliente'
+          );
+        }
+      }
+    );
+  }
 }

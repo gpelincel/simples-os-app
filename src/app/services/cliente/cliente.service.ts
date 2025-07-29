@@ -90,6 +90,22 @@ export class ClienteService {
       .catch((error) => console.error('Error', error));
   }
 
+  async excluirCliente(id:number|string){
+    return fetch(this.api_url+'/'+id, {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+      },
+      method: 'DELETE',
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        return response;
+      })
+      .catch((error) => console.error('Error', error));
+  }
+
   storeCliente(cliente: Cliente) {
       return fetch(this.api_url, {
         headers: {

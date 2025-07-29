@@ -1,35 +1,65 @@
 <ion-item-group>
   <ion-item>
-    <ion-input label="CNPJ" readonly [value]="cliente.cnpj"></ion-input>
+    <ion-label>
+      <h2>CNPJ</h2>
+      <p color="medium">{{cliente.cnpj}}</p>
+    </ion-label>
   </ion-item>
   <ion-item>
-    <ion-input label="Telefone" readonly [value]="cliente.telefone"></ion-input>
+    <ion-label>
+      <h2>Telefone</h2>
+      <p color="medium">{{cliente.telefone}}</p>
+    </ion-label>
   </ion-item>
   <ion-item>
-    <ion-input label="Email" readonly [value]="cliente.email"></ion-input>
+    <ion-label>
+      <h2>Email</h2>
+      <p color="medium">{{cliente.email}}</p>
+    </ion-label>
   </ion-item>
 </ion-item-group>
 <ion-item-group>
   <ion-item-divider> Dados de Endereço </ion-item-divider>
   <ion-item>
-    <ion-input label="CEP" readonly [value]="cliente.endereco!.cep"></ion-input>
+    <ion-label>
+      <h2>CEP</h2>
+      <p color="medium">{{cliente.endereco!.cep}}</p>
+    </ion-label>
   </ion-item>
   <ion-item>
-    <ion-input label="Cidade" readonly [value]="cliente.endereco!.cidade"></ion-input>
+    <ion-label>
+      <h2>Cidade</h2>
+      <p color="medium">{{cliente.endereco!.cidade}}</p>
+    </ion-label>
   </ion-item>
   <ion-item>
-    <ion-input label="Estado" readonly [value]="cliente.endereco!.estado"></ion-input>
+    <ion-label>
+      <h2>Estado</h2>
+      <p color="medium">{{cliente.endereco!.estado}}</p>
+    </ion-label>
   </ion-item>
   <ion-item>
-    <ion-input label="Logradouro" readonly [value]="cliente.endereco!.logradouro"></ion-input>
+    <ion-label>
+      <h2>Logradouro</h2>
+      <p color="medium">{{cliente.endereco!.logradouro}}</p>
+    </ion-label>
   </ion-item>
   <ion-item>
-    <ion-input label="Número" readonly [value]="cliente.endereco!.numero"></ion-input>
+    <ion-label>
+      <h2>Número</h2>
+      <p color="medium">{{cliente.endereco!.numero}}</p>
+    </ion-label>
   </ion-item>
   <ion-item>
-    <ion-input label="Bairro" readonly [value]="cliente.endereco!.bairro"></ion-input>
+    <ion-label>
+      <h2>Bairro</h2>
+      <p color="medium">{{cliente.endereco!.bairro}}</p>
+    </ion-label>
   </ion-item>
   <ion-item>
-    <ion-input label="Complmento" readonly [value]="cliente.endereco!.complemento"></ion-input>
+    <ion-label>
+      <h2>Complemento</h2>
+      <p color="medium">{{cliente.endereco!.complemento}}</p>
+    </ion-label>
   </ion-item>
 </ion-item-group>
