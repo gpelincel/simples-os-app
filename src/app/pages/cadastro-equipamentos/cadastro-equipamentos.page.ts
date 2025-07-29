@@ -9,10 +9,9 @@ import {
   IonItem,
   IonInput,
   IonButton,
-  IonIcon,
-  IonButtons} from '@ionic/angular/standalone';
-import { addIcons } from 'ionicons';
-import { arrowBackCircleOutline } from 'ionicons/icons';
+  IonButtons,
+  IonBackButton,
+} from '@ionic/angular/standalone';
 import { Equipamento } from 'src/app/models/equipamento/equipamento';
 import { Router, RouterLink } from '@angular/router';
 import { EquipamentoService } from 'src/app/services/equipamento/equipamento.service';
@@ -34,34 +33,34 @@ import { ClientesSelectComponent } from 'src/app/components/filters/clientes-sel
     IonItem,
     IonInput,
     IonButton,
-    IonIcon,
     IonButtons,
     RouterLink,
-    ClientesSelectComponent
+    ClientesSelectComponent,
+    IonBackButton,
   ],
 })
 export class CadastroEquipamentosPage implements OnInit {
   equipamento: Equipamento = new Equipamento();
   errors: any = {};
-  query:any;
+  query: any;
 
   constructor(
     private equipamentoService: EquipamentoService,
     private toast: ToastService,
-    private router: Router,
+    private router: Router
   ) {
-    addIcons({ arrowBackCircleOutline });
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  selecionarCliente(id_cliente: number | null){
+  selecionarCliente(id_cliente: number | null) {
     this.equipamento.id_cliente = id_cliente;
   }
 
   async onSubmit() {
-    const response = await this.equipamentoService.storeEquipamento(this.equipamento);
+    const response = await this.equipamentoService.storeEquipamento(
+      this.equipamento
+    );
 
     if (response.errors) {
       const primeiroCampo = Object.keys(response.errors)[0];

@@ -7,17 +7,12 @@ import {
   IonTitle,
   IonToolbar,
   IonButtons,
-  IonButton,
-  IonIcon,
+  IonBackButton
 } from '@ionic/angular/standalone';
-import { arrowBackCircleOutline } from 'ionicons/icons';
-import { addIcons } from 'ionicons';
-import { OrdemServico } from 'src/app/models/ordem-servico/ordem-servico';
 import { FormOsComponent } from 'src/app/components/ordem-servico/form-os/form-os.component';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { OrdemServicoService } from 'src/app/services/ordem-servico/ordem-servico.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
-import { Money } from 'src/app/models/money/money';
 
 @Component({
   selector: 'app-cadastro-os',
@@ -33,9 +28,7 @@ import { Money } from 'src/app/models/money/money';
     FormsModule,
     IonButtons,
     FormOsComponent,
-    IonButton,
-    IonIcon,
-    RouterLink,
+    IonBackButton
   ],
 })
 export class CadastroOsPage implements OnInit {
@@ -47,7 +40,6 @@ export class CadastroOsPage implements OnInit {
     private router: Router,
     private fb: FormBuilder
   ) {
-    addIcons({ arrowBackCircleOutline });
   }
 
   ngOnInit() {

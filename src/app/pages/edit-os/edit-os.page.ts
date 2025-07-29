@@ -7,11 +7,10 @@ import {
   IonTitle,
   IonToolbar,
   IonButtons,
-  IonButton,
-  IonIcon,
   IonSpinner,
+  IonBackButton
 } from '@ionic/angular/standalone';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { OrdemServicoService } from 'src/app/services/ordem-servico/ordem-servico.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { FormOsComponent } from 'src/app/components/ordem-servico/form-os/form-os.component';
@@ -19,8 +18,6 @@ import { addIcons } from 'ionicons';
 import { arrowBackCircleOutline } from 'ionicons/icons';
 import { Item } from 'src/app/models/item/item';
 import { OrdemServico } from 'src/app/models/ordem-servico/ordem-servico';
-import { ItemDTO } from 'src/app/domain/ItemDTO';
-import { Money } from 'src/app/models/money/money';
 
 @Component({
   selector: 'app-edit-os',
@@ -36,10 +33,8 @@ import { Money } from 'src/app/models/money/money';
     FormsModule,
     IonButtons,
     FormOsComponent,
-    IonButton,
-    IonIcon,
-    RouterLink,
     IonSpinner,
+    IonBackButton
   ],
 })
 export class EditOsPage implements OnInit {

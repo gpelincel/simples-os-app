@@ -6,13 +6,10 @@ import {
   IonHeader,
   IonTitle,
   IonToolbar,
-  IonButton,
   IonButtons,
-  IonIcon
+  IonBackButton
 } from '@ionic/angular/standalone';
-import { Router, RouterLink } from '@angular/router';
-import { addIcons } from 'ionicons';
-import { arrowBackCircleOutline } from 'ionicons/icons';
+import { Router } from '@angular/router';
 import { ClienteService } from 'src/app/services/cliente/cliente.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { ClienteFormComponent } from 'src/app/components/cliente/cliente-form/cliente-form.component';
@@ -29,11 +26,9 @@ import { ClienteFormComponent } from 'src/app/components/cliente/cliente-form/cl
     IonToolbar,
     CommonModule,
     FormsModule,
-    IonButton,
-    IonIcon,
     IonButtons,
-    RouterLink,
-    ClienteFormComponent
+    ClienteFormComponent,
+    IonBackButton
   ],
 })
 export class EditClientePage implements OnInit {
@@ -42,7 +37,6 @@ export class EditClientePage implements OnInit {
     private toast: ToastService,
     private router: Router
   ) {
-    addIcons({ arrowBackCircleOutline });
   }
 
   ngOnInit() {}

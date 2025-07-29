@@ -6,18 +6,12 @@ import {
   IonHeader,
   IonTitle,
   IonToolbar,
-  IonButton,
-  IonIcon,
   IonButtons,
+  IonBackButton
 } from '@ionic/angular/standalone';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { ClienteService } from 'src/app/services/cliente/cliente.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
-import { Cliente } from 'src/app/models/cliente/cliente';
-import { addIcons } from 'ionicons';
-import { arrowBackCircleOutline } from 'ionicons/icons';
-import { CEP_MASK, CNPJ_MASK, TELEFONE_MASK } from 'src/app/utils/masks';
-import { MaskitoElementPredicate } from '@maskito/core';
 import { ClienteFormComponent } from 'src/app/components/cliente/cliente-form/cliente-form.component';
 
 @Component({
@@ -32,11 +26,9 @@ import { ClienteFormComponent } from 'src/app/components/cliente/cliente-form/cl
     IonToolbar,
     CommonModule,
     FormsModule,
-    IonButton,
-    IonIcon,
     IonButtons,
-    RouterLink,
-    ClienteFormComponent
+    ClienteFormComponent,
+    IonBackButton
   ],
 })
 export class CadastroClientesPage implements OnInit {
@@ -45,7 +37,6 @@ export class CadastroClientesPage implements OnInit {
     private toast: ToastService,
     private router: Router
   ) {
-    addIcons({ arrowBackCircleOutline });
   }
 
   ngOnInit() {}

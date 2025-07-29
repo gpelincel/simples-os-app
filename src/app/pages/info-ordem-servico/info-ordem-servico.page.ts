@@ -20,6 +20,7 @@ import {
   IonRow,
   IonCol,
   IonPopover,
+  IonBackButton
 } from '@ionic/angular/standalone';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { OrdemServico } from 'src/app/models/ordem-servico/ordem-servico';
@@ -56,6 +57,7 @@ import { ToastService } from 'src/app/services/toast/toast.service';
     IonRow,
     IonCol,
     IonPopover,
+    IonBackButton
   ],
 })
 export class InfoOrdemServicoPage implements OnInit {

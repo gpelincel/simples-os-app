@@ -18,6 +18,7 @@ import {
   IonSegmentView,
   IonSegmentContent,
   IonSpinner,
+  IonBackButton
 } from '@ionic/angular/standalone';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Cliente } from 'src/app/models/cliente/cliente';
@@ -67,6 +68,7 @@ import { ListEquipamentoComponent } from 'src/app/components/equipamento/list-eq
     IonSpinner,
     ListOsComponent,
     ListEquipamentoComponent,
+    IonBackButton
   ],
 })
 export class InfoClientePage implements OnInit {
