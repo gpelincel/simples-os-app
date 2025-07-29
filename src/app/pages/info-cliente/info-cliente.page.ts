@@ -37,6 +37,7 @@ import { AlertService } from 'src/app/services/alert/alert.service';
 import { ListOsComponent } from 'src/app/components/ordem-servico/list-os/list-os.component';
 import { Equipamento } from 'src/app/models/equipamento/equipamento';
 import { OrdemServicoDTO } from 'src/app/domain/OrdemServicoDTO';
+import { ListEquipamentoComponent } from 'src/app/components/equipamento/list-equipamento/list-equipamento.component';
 
 @Component({
   selector: 'app-info-cliente',
@@ -65,6 +66,7 @@ import { OrdemServicoDTO } from 'src/app/domain/OrdemServicoDTO';
     ClienteDadosComponent,
     IonSpinner,
     ListOsComponent,
+    ListEquipamentoComponent,
   ],
 })
 export class InfoClientePage implements OnInit {
@@ -95,11 +97,17 @@ export class InfoClientePage implements OnInit {
       case 'os':
         if (this.ordens.length <= 0) {
           const ordens = await this.clienteService.getOS(this.id_cliente);
-          this.ordens = ordens.map((ordem: OrdemServicoDTO) => new OrdemServico(ordem));
+          this.ordens = ordens.map(
+            (ordem: OrdemServicoDTO) => new OrdemServico(ordem)
+          );
         }
         break;
-      case 'equipamentos':
-        // this.equipamentos = await this.clienteService.getOS(this.id_cliente);
+      case 'equipamento':
+        if (this.equipamentos.length <= 0) {
+          this.equipamentos = await this.clienteService.getEquipamentos(
+            this.id_cliente
+          );
+        }
         break;
       default:
         break;
