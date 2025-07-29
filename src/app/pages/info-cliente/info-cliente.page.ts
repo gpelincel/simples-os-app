@@ -17,17 +17,26 @@ import {
   IonSegmentButton,
   IonSegmentView,
   IonSegmentContent,
-  IonSpinner
+  IonSpinner,
 } from '@ionic/angular/standalone';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Cliente } from 'src/app/models/cliente/cliente';
 import { addIcons } from 'ionicons';
-import { arrowBackCircleOutline, ellipsisVertical, ellipsisVerticalOutline, createOutline, trashOutline } from 'ionicons/icons';
+import {
+  arrowBackCircleOutline,
+  ellipsisVertical,
+  ellipsisVerticalOutline,
+  createOutline,
+  trashOutline,
+} from 'ionicons/icons';
 import { ClienteService } from 'src/app/services/cliente/cliente.service';
 import { ClienteDadosComponent } from 'src/app/components/cliente/cliente-dados/cliente-dados.component';
 import { OrdemServico } from 'src/app/models/ordem-servico/ordem-servico';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { AlertService } from 'src/app/services/alert/alert.service';
+import { ListOsComponent } from 'src/app/components/ordem-servico/list-os/list-os.component';
+import { Equipamento } from 'src/app/models/equipamento/equipamento';
+import { OrdemServicoDTO } from 'src/app/domain/OrdemServicoDTO';
 
 @Component({
   selector: 'app-info-cliente',
@@ -54,25 +63,43 @@ import { AlertService } from 'src/app/services/alert/alert.service';
     IonSegmentView,
     IonSegmentContent,
     ClienteDadosComponent,
-    IonSpinner
+    IonSpinner,
+    ListOsComponent,
   ],
 })
 export class InfoClientePage implements OnInit {
-  cliente!:Cliente;
+  cliente!: Cliente;
   id_cliente!: number | string;
   route = inject(ActivatedRoute);
   ordens: OrdemServico[] = [];
+  equipamentos: Equipamento[] = [];
+  segment_value: string | null = null;
 
-  constructor(private clienteService: ClienteService, private toastService: ToastService, private router: Router, private alertService: AlertService) {
-    addIcons({arrowBackCircleOutline,ellipsisVertical,createOutline,trashOutline});
+  constructor(
+    private clienteService: ClienteService,
+    private toastService: ToastService,
+    private router: Router,
+    private alertService: AlertService
+  ) {
+    addIcons({
+      arrowBackCircleOutline,
+      ellipsisVertical,
+      createOutline,
+      trashOutline,
+    });
   }
 
-  onChange(event:any){
-    const segment = event.detail.value;
-
-    switch (segment) {
-      case "os":
-        
+  async onChange(event: any) {
+    this.segment_value = event.detail.value;
+    switch (this.segment_value) {
+      case 'os':
+        if (this.ordens.length <= 0) {
+          const ordens = await this.clienteService.getOS(this.id_cliente);
+          this.ordens = ordens.map((ordem: OrdemServicoDTO) => new OrdemServico(ordem));
+        }
+        break;
+      case 'equipamentos':
+        // this.equipamentos = await this.clienteService.getOS(this.id_cliente);
         break;
       default:
         break;
@@ -84,12 +111,14 @@ export class InfoClientePage implements OnInit {
     this.cliente = await this.clienteService.getByID(this.id_cliente);
   }
 
-  async excluirCliente(){
+  async excluirCliente() {
     await this.alertService.presentAlert(
       'Deseja mesmo excluir esse cliente?',
       'Ao excluir o cliente, ele não poderá ser recuperado!',
       async () => {
-        const response = await this.clienteService.excluirCliente(this.id_cliente);
+        const response = await this.clienteService.excluirCliente(
+          this.id_cliente
+        );
 
         if (response.status == 'success') {
           this.toastService.presentToast(response.status, response.message);

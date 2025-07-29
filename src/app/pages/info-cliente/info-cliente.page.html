@@ -70,7 +70,9 @@
       }
     </ion-segment-content>
     <ion-segment-content id="os">
-      <h1>Ordens de serviço do cliente</h1>
+      @if(segment_value == "os"){
+        <app-list-os [ordens]="ordens"></app-list-os>
+      }
     </ion-segment-content>
     <ion-segment-content id="equipamento">
       <h1>Equipamentos do cliente</h1>

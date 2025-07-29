@@ -1,4 +1,5 @@
 import { Endereco } from '../endereco/endereco';
+import { OrdemServico } from '../ordem-servico/ordem-servico';
 
 export class Cliente {
   public id: number | null;
@@ -8,6 +9,7 @@ export class Cliente {
   public telefone: string | null;
   public email: string | null;
   public endereco: Endereco | null;
+  public ordens_servico!: OrdemServico[];
 
   constructor(
     nome: string | null = null,

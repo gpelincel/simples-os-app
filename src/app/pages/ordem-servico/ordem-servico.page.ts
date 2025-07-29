@@ -84,7 +84,7 @@ export class OrdemServicoPage implements OnInit {
   }
 
   onIonInfinite(event: any) {
-    if (this.ordens.length > 0) {
+    if (this.ordens.length > 0 && this.next_page) {
       this.loadOrdens(this.next_page);
     }
     setTimeout(() => {

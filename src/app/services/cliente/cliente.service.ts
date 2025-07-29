@@ -11,17 +11,8 @@ export class ClienteService {
 
   constructor() { }
 
-  getOS(next_page: string | null = null, params: any[] | null = null) {
-    let url_params = '';
-    if (params && params.length > 0) {
-      url_params = '?';
-      params.map((param) => {
-        url_params += `${param.label}=${param.value}&`;
-      });
-    }
-
-    const url = next_page ? next_page : this.api_url + url_params;
-    return fetch(url, {
+  getOS(id: string|number) {
+    return fetch(`${this.api_url}/ordem-servico/${id}`, {
       headers: {
         Accept: 'application/json',
         Authorization: `Bearer ${sessionStorage.getItem('token')}`,
