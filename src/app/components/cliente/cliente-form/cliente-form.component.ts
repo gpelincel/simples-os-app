@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -51,7 +51,8 @@ export class ClienteFormComponent implements OnInit {
 
   constructor(
     private clienteService: ClienteService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private location: Location
   ) {
     addIcons({ arrowBackCircleOutline });
   }
@@ -120,5 +121,9 @@ export class ClienteFormComponent implements OnInit {
         'Não foi possível encontrar registros desse CNPJ'
       );
     }
+  }
+
+  cancelar(){
+    this.location.back();
   }
 }

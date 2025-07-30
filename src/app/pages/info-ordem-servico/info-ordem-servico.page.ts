@@ -107,7 +107,7 @@ export class InfoOrdemServicoPage implements OnInit {
 
   async editOS(id_os:any){
     this.popoverOpen = false;
-    this.router.navigate(['/ordem-servico/update/'+id_os]);
+    this.router.navigate(['/ordem-servico/update/', id_os]);
   }
 
   async excluirOS() {

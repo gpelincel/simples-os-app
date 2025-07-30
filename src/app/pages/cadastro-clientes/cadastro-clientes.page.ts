@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, inject, OnInit } from '@angular/core';
+import { CommonModule, Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
   IonContent,
@@ -9,7 +9,6 @@ import {
   IonButtons,
   IonBackButton
 } from '@ionic/angular/standalone';
-import { Router } from '@angular/router';
 import { ClienteService } from 'src/app/services/cliente/cliente.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { ClienteFormComponent } from 'src/app/components/cliente/cliente-form/cliente-form.component';
@@ -28,14 +27,14 @@ import { ClienteFormComponent } from 'src/app/components/cliente/cliente-form/cl
     FormsModule,
     IonButtons,
     ClienteFormComponent,
-    IonBackButton
+    IonBackButton,
   ],
 })
 export class CadastroClientesPage implements OnInit {
   constructor(
     private clienteService: ClienteService,
     private toast: ToastService,
-    private router: Router
+    private location: Location
   ) {
   }
 
@@ -51,7 +50,7 @@ export class CadastroClientesPage implements OnInit {
       this.toast.presentToast('error', primeiraMensagem);
     } else {
       this.toast.presentToast('success', response.message);
-      this.router.navigate(['/clientes']);
+      this.location.back();
     }
   }
 }

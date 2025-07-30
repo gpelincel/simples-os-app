@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit,  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -18,7 +18,7 @@ import {
   IonSegmentView,
   IonSegmentContent,
   IonSpinner,
-  IonBackButton
+  IonBackButton,
 } from '@ionic/angular/standalone';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Cliente } from 'src/app/models/cliente/cliente';
@@ -68,7 +68,7 @@ import { ListEquipamentoComponent } from 'src/app/components/equipamento/list-eq
     IonSpinner,
     ListOsComponent,
     ListEquipamentoComponent,
-    IonBackButton
+    IonBackButton,
   ],
 })
 export class InfoClientePage implements OnInit {
@@ -141,5 +141,10 @@ export class InfoClientePage implements OnInit {
         }
       }
     );
+  }
+
+  onIonInfinite(event: any) {
+    console.log('hello');
+    event.target.complete();
   }
 }

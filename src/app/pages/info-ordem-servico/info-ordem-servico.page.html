@@ -14,7 +14,7 @@
         <ng-template>
           <ion-content>
             <ion-list>
-              <ion-item id="popover-trigger" button [routerLink]="['/ordem-servico/update/'+id_os]">
+              <ion-item id="popover-trigger" button [routerLink]="['/ordem-servico/update/',id_os]">
                 <ion-icon
                   aria-hidden="true"
                   slot="start"
@@ -265,7 +265,7 @@
     <!-- <div class="ion-padding">
       <ion-button
         color="primary"
-        [routerLink]="['/ordem-servico/update/'+id_os]"
+        [routerLink]="['/ordem-servico/update/',id_os]"
         expand="block"
         >Editar</ion-button
       >

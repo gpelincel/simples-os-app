@@ -51,7 +51,9 @@
     ></ion-textarea>
   </ion-item>
 
-  <ion-item> Cliente </ion-item>
+  <ion-item> Cliente
+    <ion-button [routerLink]="['/clientes/cadastro']" slot="end">+ novo cliente</ion-button>
+  </ion-item>
 
   <app-clientes-select
     [selected]="os_form.value.id_cliente"
