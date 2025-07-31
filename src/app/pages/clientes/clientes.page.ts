@@ -84,7 +84,6 @@ export class ClientesPage implements OnInit {
     } else {
       this.clientes = [...this.clientes, ...response.data];
     }
-
     this.next_page = response.next_page_url;
   }
 
