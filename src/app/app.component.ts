@@ -19,6 +19,7 @@ export class AppComponent {
     { title: 'Agenda', url: '/agenda', icon: 'calendar' },
     { title: 'Equipamentos', url: '/equipamentos', icon: 'briefcase' },
     { title: 'Configurações', url: '/config', icon: 'cog' },
+    { title: 'Logout', url: '/login', icon: 'log-out' },
   ];
   constructor(private router: Router) {
     addIcons({ peopleOutline, constructOutline, calendarOutline, briefcaseOutline, logOutOutline, people, construct, calendar, briefcase, logOut, checkmarkCircle, closeCircle, cog, downloadOutline });

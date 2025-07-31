@@ -78,6 +78,7 @@ export class InfoClientePage implements OnInit {
   ordens: OrdemServico[] = [];
   equipamentos: Equipamento[] = [];
   segment_value: string | null = null;
+  loading = true;
 
   constructor(
     private clienteService: ClienteService,
@@ -98,17 +99,21 @@ export class InfoClientePage implements OnInit {
     switch (this.segment_value) {
       case 'os':
         if (this.ordens.length <= 0) {
+          this.loading = true;
           const ordens = await this.clienteService.getOS(this.id_cliente);
           this.ordens = ordens.map(
             (ordem: OrdemServicoDTO) => new OrdemServico(ordem)
           );
+          this.loading = false;
         }
         break;
       case 'equipamento':
         if (this.equipamentos.length <= 0) {
+          this.loading = true;
           this.equipamentos = await this.clienteService.getEquipamentos(
             this.id_cliente
           );
+          this.loading = false;
         }
         break;
       default:

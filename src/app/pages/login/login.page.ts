@@ -43,7 +43,9 @@ export class LoginPage implements OnInit {
     addIcons({ personOutline, lockClosed });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    sessionStorage.clear();
+  }
 
   async onSubmit() {
     const response = await this.userService.login(this.user);

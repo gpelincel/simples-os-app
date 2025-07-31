@@ -65,13 +65,11 @@ export class EquipamentosPage implements OnInit {
     this.loadEquipamentos(this.next_page, query == '' ? null : query);
   }
 
-  onIonInfinite(event: any) {
+  async onIonInfinite(event: any) {
     if (this.equipamentos.length > 0) {
-      this.loadEquipamentos(this.next_page);
-    }
-    setTimeout(() => {
+      await this.loadEquipamentos(this.next_page);
       event.target.complete();
-    }, 500);
+    }
   }
 
   async loadEquipamentos(next_page: any = null, query: string | null = null) {
@@ -91,11 +89,6 @@ export class EquipamentosPage implements OnInit {
     }
 
     this.next_page = response.next_page_url;
-  }
-
-  async ionViewWillEnter(){
-    await this.loadEquipamentos();
-    this.loaded = true;
   }
 
   ngOnInit() {

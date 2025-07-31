@@ -74,14 +74,24 @@
       }
     </ion-segment-content>
     <ion-segment-content id="os">
-      @if(segment_value == "os"){
+      @if(!loading){
       <app-list-os [ordens]="ordens"></app-list-os>
+      } @else {
+      <div style="display: flex; justify-content: center" class="ion-padding">
+        <ion-spinner></ion-spinner>
+      </div>
       }
     </ion-segment-content>
     <ion-segment-content id="equipamento">
+      @if(!loading){
       <app-list-equipamento
         [equipamentos]="equipamentos"
       ></app-list-equipamento>
+      } @else {
+      <div style="display: flex; justify-content: center" class="ion-padding">
+        <ion-spinner></ion-spinner>
+      </div>
+      }
     </ion-segment-content>
     <ion-segment-content id="agenda">
       <h1>Agenda do cliente</h1>

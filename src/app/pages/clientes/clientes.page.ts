@@ -14,6 +14,7 @@ import {
   IonInfiniteScrollContent,
   IonFab,
   IonFabButton,
+  InfiniteScrollCustomEvent
 } from '@ionic/angular/standalone';
 import { ClienteCardComponent } from 'src/app/components/cliente/cliente-card/cliente-card.component';
 import { add } from 'ionicons/icons';
@@ -42,7 +43,7 @@ import { RouterLink } from '@angular/router';
     IonInfiniteScrollContent,
     IonFab,
     IonFabButton,
-    RouterLink
+    RouterLink,
   ],
 })
 export class ClientesPage implements OnInit {
@@ -50,7 +51,6 @@ export class ClientesPage implements OnInit {
   next_page: String | null = null;
   stopLoading = false;
   loaded = false;
-  
 
   constructor(private clienteService: ClienteService) {
     addIcons({ add });
@@ -65,13 +65,11 @@ export class ClientesPage implements OnInit {
     this.loadClientes(this.next_page, query == '' ? null : query);
   }
 
-  onIonInfinite(event: any) {
+  async onIonInfinite(event: InfiniteScrollCustomEvent) {
     if (this.clientes.length > 0) {
-      this.loadClientes(this.next_page);
-    }
-    setTimeout(() => {
+      await this.loadClientes(this.next_page);
       event.target.complete();
-    }, 500);
+    }
   }
 
   async loadClientes(next_page: any = null, query: string | null = null) {
@@ -82,17 +80,12 @@ export class ClientesPage implements OnInit {
         this.clientes = response.data;
       } else {
         this.stopLoading = true;
-      }1
+      }
     } else {
       this.clientes = [...this.clientes, ...response.data];
     }
 
     this.next_page = response.next_page_url;
-  }
-
-  async ionViewWillEnter() {
-    await this.loadClientes();
-    this.loaded = true;
   }
 
   ngOnInit() {
