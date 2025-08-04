@@ -1,0 +1,53 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title> Agenda </ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar
+      debounce="1000"
+      (ionInput)="searchAgenda($event)"
+      show-clear-button="focus"
+      placeholder="Buscar"
+    ></ion-searchbar>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-item lines="none">
+      <ion-label>Data de agendamento</ion-label>
+      <ion-datetime-button datetime="data"></ion-datetime-button>
+    </ion-item>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  @if(!loading){
+  <app-list-os [ordens]="ordens"></app-list-os>
+  } @else {
+  <div style="display: flex; justify-content: center" class="ion-padding">
+    <ion-spinner></ion-spinner>
+  </div>
+  }
+</ion-content>
+
+<ion-modal [keepContentsMounted]="true">
+  <ng-template>
+    <ion-datetime
+      (ionChange)="filterByDate($event)"
+      id="data"
+      [showDefaultButtons]="true"
+      doneText="OK"
+      cancelText="Cancelar"
+      presentation="date"
+      locale="pt-BR"
+      [formatOptions]="{
+        date: {
+          month: '2-digit',
+          day: '2-digit',
+          year: 'numeric'
+        }
+      }"
+    ></ion-datetime>
+  </ng-template>
+</ion-modal>

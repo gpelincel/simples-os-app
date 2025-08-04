@@ -50,6 +50,7 @@ export class CadastroOsPage implements OnInit {
       nota_fiscal: [''],
       data_inicio: [null],
       data_conclusao: [null],
+      data_agendamento: [null],
       valor_total: [''],
       id_classificacao: [0],
       id_cliente: [0],

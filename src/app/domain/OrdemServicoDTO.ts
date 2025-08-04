@@ -8,6 +8,7 @@ export interface OrdemServicoDTO{
     nota_fiscal?:string;
     data_inicio:Date;
     data_conclusao?:Date;
+    data_agendamento?:Date;
     valor_total:number;
     classificacao?:any;
     cliente:any;

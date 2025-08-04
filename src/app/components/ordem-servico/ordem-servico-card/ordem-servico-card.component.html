@@ -1,19 +1,27 @@
-<ion-card [href]="'/ordem-servico/'+os.id">
+<ion-card [href]="'/ordem-servico/' + os.id">
   <ion-card-header>
-    <ion-card-title>{{os.titulo}}</ion-card-title>
+    <ion-card-title>{{ os.titulo }}</ion-card-title>
     @if(os.cliente){
-      <ion-card-subtitle>{{os.cliente!.nome}}</ion-card-subtitle>
+    <ion-card-subtitle>{{ os.cliente!.nome }}</ion-card-subtitle>
     }
   </ion-card-header>
   <ion-card-content>
     <ion-chip>
-      <ion-label>{{os.status ? os.status.descricao : "N/A"}}</ion-label>
+      <ion-label>{{ os.status ? os.status.descricao : "N/A" }}</ion-label>
     </ion-chip>
     <ion-chip>
-      <ion-label>{{os.classificacao ? os.classificacao.descricao : "N/A"}}</ion-label>
+      <ion-label>{{
+        os.classificacao ? os.classificacao.descricao : "N/A"
+      }}</ion-label>
     </ion-chip>
     <ion-chip>
-      <ion-label>{{os.data_inicio_formated}}</ion-label>
+      <ion-label>{{ os.data_inicio_formated }}</ion-label>
     </ion-chip>
+    @if(os.data_agendamento){
+    <ion-chip>
+      <ion-icon name="calendar-outline"></ion-icon>
+      <ion-label>{{ os.data_agendamento_formated }}</ion-label>
+    </ion-chip>
+    }
   </ion-card-content>
 </ion-card>

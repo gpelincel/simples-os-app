@@ -87,11 +87,13 @@ export class EquipamentosPage implements OnInit {
     } else {
       this.equipamentos = [...this.equipamentos, ...response.data];
     }
-
+    this.loaded = true;
     this.next_page = response.next_page_url;
   }
 
   ngOnInit() {
     this.loadEquipamentos();
+    console.log(this.equipamentos);
+    console.log(this.loaded);
   }
 }

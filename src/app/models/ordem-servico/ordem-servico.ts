@@ -11,6 +11,7 @@ export class OrdemServico {
   nota_fiscal?: string;
   data_inicio: Date;
   data_conclusao?: Date;
+  data_agendamento?: Date;
   valor_total: Money;
 
   cliente: any;
@@ -24,8 +25,15 @@ export class OrdemServico {
     this.titulo = ordemDTO.titulo;
     this.codigo_compra = ordemDTO.codigo_compra;
     this.nota_fiscal = ordemDTO.nota_fiscal;
-    this.data_inicio = new Date(ordemDTO.data_inicio);
-    this.data_conclusao = ordemDTO.data_conclusao ? new Date(ordemDTO.data_conclusao) : undefined;
+
+    this.data_inicio = this.addOneDay(ordemDTO.data_inicio);
+    this.data_conclusao = ordemDTO.data_conclusao
+      ? this.addOneDay(ordemDTO.data_conclusao)
+      : undefined;
+    this.data_agendamento = ordemDTO.data_agendamento
+      ? this.addOneDay(ordemDTO.data_agendamento)
+      : undefined;
+
     this.descricao = ordemDTO.descricao;
     this.valor_total = new Money(ordemDTO.valor_total);
 
@@ -34,15 +42,32 @@ export class OrdemServico {
     this.status = ordemDTO.status;
     this.classificacao = ordemDTO.classificacao;
 
-    this.itens = ordemDTO.itens.map((item) => new Item(item));
+    this.itens = ordemDTO.itens
+      ? ordemDTO.itens.map((item) => new Item(item))
+      : [];
   }
 
-  get data_inicio_formated():string{
-    return this.data_inicio.toLocaleDateString("pt-br");
+  // Função auxiliar para somar 1 dia
+  private addOneDay(dateStr: Date): Date {
+    const date = new Date(dateStr);
+    date.setDate(date.getDate() + 1);
+    return date;
   }
 
-  get data_conclusao_formated():string{
-    return this.data_conclusao ? this.data_conclusao.toLocaleDateString("pt-br") : "N/A";
+  get data_inicio_formated(): string {
+    return this.data_inicio.toLocaleDateString('pt-br');
+  }
+
+  get data_conclusao_formated(): string {
+    return this.data_conclusao
+      ? this.data_conclusao.toLocaleDateString('pt-br')
+      : 'N/A';
+  }
+
+  get data_agendamento_formated(): string {
+    return this.data_agendamento
+      ? this.data_agendamento.toLocaleDateString('pt-br')
+      : 'N/A';
   }
 
   get id_cliente(): number | null {
@@ -113,6 +138,7 @@ export class OrdemServico {
       codigo_compra: this.codigo_compra,
       nota_fiscal: this.nota_fiscal,
       data_inicio: this.data_inicio,
+      data_agendamento: this.data_agendamento,
       data_conclusao: this.data_conclusao,
       valor_total: this.valor_total.valorRaw,
       cliente: this.cliente,
@@ -123,4 +149,3 @@ export class OrdemServico {
     };
   }
 }
-

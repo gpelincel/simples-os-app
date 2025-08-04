@@ -36,6 +36,10 @@
   </ion-item>
 
   <ion-item>
+    <ion-label>Data Agendamento</ion-label>
+    <ion-datetime-button datetime="data-agendamento"></ion-datetime-button>
+  </ion-item>
+  <ion-item>
     <ion-label>Data Início</ion-label>
     <ion-datetime-button datetime="datetime"></ion-datetime-button>
   </ion-item>
@@ -154,6 +158,27 @@
       [value]="os_form.value.data_conclusao"
       (ionChange)="setDataConclusao($event)"
       id="data-conclusao"
+      [showDefaultButtons]="true"
+      doneText="OK"
+      cancelText="Cancelar"
+      presentation="date"
+      locale="pt-BR"
+      [formatOptions]="{
+        date: {
+          month: '2-digit',
+          day: '2-digit',
+          year: 'numeric'
+        }
+      }"
+    ></ion-datetime>
+  </ng-template>
+</ion-modal>
+<ion-modal [keepContentsMounted]="true">
+  <ng-template>
+    <ion-datetime
+      [value]="os_form.value.data_agendamento"
+      (ionChange)="setDataAgendamento($event)"
+      id="data-agendamento"
       [showDefaultButtons]="true"
       doneText="OK"
       cancelText="Cancelar"

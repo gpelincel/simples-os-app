@@ -50,4 +50,8 @@ export const routes: Routes = [
     path: 'clientes/:id',
     loadComponent: () => import('./pages/info-cliente/info-cliente.page').then( m => m.InfoClientePage)
   },
+  {
+    path: 'agenda',
+    loadComponent: () => import('./pages/agenda/agenda.page').then( m => m.AgendaPage)
+  },
 ];

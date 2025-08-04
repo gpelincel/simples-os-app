@@ -153,14 +153,25 @@ export class FormOsComponent implements OnInit {
     });
   }
 
+  setDataAgendamento(event: Event) {
+    let target = event.target as HTMLIonDatetimeElement;
+    let date = new Date(String(target.value));
+    this.os_form.patchValue({
+      data_agendamento: date.toLocaleDateString('pt-BR'),
+    });
+  }
+
   async onSubmit() {
     const ordem_servico = this.os_form.value;
-    console.log(this.os_form.value);
 
     ordem_servico.data_inicio = ordem_servico.data_inicio.split('T')[0];
 
     if (ordem_servico.data_conclusao) {
       ordem_servico.data_conclusao = ordem_servico.data_conclusao.split('T')[0];
+    }
+
+    if (ordem_servico.data_agendamento) {
+      ordem_servico.data_agendamento = ordem_servico.data_agendamento.split('T')[0];
     }
 
     ordem_servico.valor_total = new Money(ordem_servico.valor_total).valorRaw;
