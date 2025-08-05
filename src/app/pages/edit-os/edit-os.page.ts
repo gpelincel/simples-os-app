@@ -68,6 +68,7 @@ export class EditOsPage implements OnInit {
       codigo_compra: [this.ordem_servico.codigo_compra],
       nota_fiscal: [this.ordem_servico.nota_fiscal],
       data_inicio: [new Date(this.ordem_servico.data_inicio).toISOString()],
+      data_agendamento: [this.ordem_servico.data_agendamento?.toISOString()],
       data_conclusao: [this.ordem_servico.data_conclusao?.toISOString()],
       valor_total: [this.ordem_servico.valor_total.valorFormated],
       id_classificacao: [this.ordem_servico.id_classificacao],

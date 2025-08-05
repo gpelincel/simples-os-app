@@ -164,7 +164,9 @@ export class FormOsComponent implements OnInit {
   async onSubmit() {
     const ordem_servico = this.os_form.value;
 
-    ordem_servico.data_inicio = ordem_servico.data_inicio.split('T')[0];
+    if (ordem_servico.data_inicio) {
+      ordem_servico.data_inicio = ordem_servico.data_inicio.split('T')[0];
+    }
 
     if (ordem_servico.data_conclusao) {
       ordem_servico.data_conclusao = ordem_servico.data_conclusao.split('T')[0];
