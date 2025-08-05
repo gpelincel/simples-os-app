@@ -75,7 +75,7 @@
     </ion-segment-content>
     <ion-segment-content id="os">
       @if(!loading){
-      <app-list-os [ordens]="ordens"></app-list-os>
+      <app-list-os [ordens]="ordens" empty_text="O cliente não tem OSs cadastradas"></app-list-os>
       } @else {
       <div style="display: flex; justify-content: center" class="ion-padding">
         <ion-spinner></ion-spinner>
@@ -94,7 +94,13 @@
       }
     </ion-segment-content>
     <ion-segment-content id="agenda">
-      <h1>Agenda do cliente</h1>
+      @if(!loading){
+      <app-list-os [ordens]="ordens_agendadas" empty_text="O cliente não tem OSs agendadas"></app-list-os>
+      } @else {
+      <div style="display: flex; justify-content: center" class="ion-padding">
+        <ion-spinner></ion-spinner>
+      </div>
+      }
     </ion-segment-content>
   </ion-segment-view>
 </ion-content>

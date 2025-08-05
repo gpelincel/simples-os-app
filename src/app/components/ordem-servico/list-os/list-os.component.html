@@ -2,6 +2,6 @@
   @if(ordens.length > 0){ @for(ordem of ordens; track ordem){
   <app-ordem-servico-card [os]="ordem"></app-ordem-servico-card>
   } }@else {
-  <h1 style="text-align: center;">Não há OSs cadastradas</h1>
+  <h1 style="text-align: center;">{{empty_text}}</h1>
   }
 </div>

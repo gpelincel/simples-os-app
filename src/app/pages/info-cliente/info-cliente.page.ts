@@ -76,6 +76,7 @@ export class InfoClientePage implements OnInit {
   id_cliente!: number | string;
   route = inject(ActivatedRoute);
   ordens: OrdemServico[] = [];
+  ordens_agendadas: OrdemServico[] = [];
   equipamentos: Equipamento[] = [];
   segment_value: string | null = null;
   loading = true;
@@ -102,6 +103,16 @@ export class InfoClientePage implements OnInit {
           this.loading = true;
           const ordens = await this.clienteService.getOS(this.id_cliente);
           this.ordens = ordens.map(
+            (ordem: OrdemServicoDTO) => new OrdemServico(ordem)
+          );
+          this.loading = false;
+        }
+        break;
+      case 'agenda':
+        if (this.ordens_agendadas.length <= 0) {
+          this.loading = true;
+          const ordens = await this.clienteService.getAgenda(this.id_cliente);
+          this.ordens_agendadas = ordens.map(
             (ordem: OrdemServicoDTO) => new OrdemServico(ordem)
           );
           this.loading = false;

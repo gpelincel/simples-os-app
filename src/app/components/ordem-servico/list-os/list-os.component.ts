@@ -10,7 +10,7 @@ import { OrdemServicoService } from 'src/app/services/ordem-servico/ordem-servic
   styleUrls: ['./list-os.component.scss'],
 })
 export class ListOsComponent  implements OnInit {
-
+  @Input() empty_text = 'Não há OSs cadastradas';
   @Input() ordens:any[] = [];
 
   constructor(private osService: OrdemServicoService) { }

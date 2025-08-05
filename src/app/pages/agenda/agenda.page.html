@@ -23,7 +23,7 @@
 
 <ion-content [fullscreen]="true">
   @if(!loading){
-  <app-list-os [ordens]="ordens"></app-list-os>
+  <app-list-os [ordens]="ordens" empty_text="Não exitem OSs agendadas para esse dia"></app-list-os>
   } @else {
   <div style="display: flex; justify-content: center" class="ion-padding">
     <ion-spinner></ion-spinner>

@@ -25,6 +25,20 @@ export class ClienteService {
       .catch((error) => console.error('Error', error));
   }
 
+  getAgenda(id: string|number) {
+    return fetch(`${this.api_url}/agenda/${id}`, {
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        return response;
+      })
+      .catch((error) => console.error('Error', error));
+  }
+
   getEquipamentos(id: string|number){
     return fetch(`${this.api_url}/equipamento/${id}`, {
       headers: {
