@@ -262,6 +262,25 @@
         >
       </ion-item>
     </ion-item-group>
+    <ion-item-group>
+      <ion-item-divider>Campos de assinatura</ion-item-divider>
+      <ion-item>
+        <ion-checkbox
+          [checked]="true"
+          [(ngModel)]="impressao_fields.assinatura_tecnico"
+          labelPlacement="end"
+          >Campo de assinatura do técnico</ion-checkbox
+        >
+      </ion-item>
+      <ion-item>
+        <ion-checkbox
+          [checked]="true"
+          [(ngModel)]="impressao_fields.assinatura_cliente"
+          labelPlacement="end"
+          >Campo de assinatura do cliente</ion-checkbox
+        >
+      </ion-item>
+    </ion-item-group>
     <!-- <div class="ion-padding">
       <ion-button
         color="primary"

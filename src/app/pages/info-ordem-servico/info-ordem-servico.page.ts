@@ -78,6 +78,8 @@ export class InfoOrdemServicoPage implements OnInit {
     nota_fiscal: true,
     items: true,
     valor: true,
+    assinatura_tecnico: true,
+    assinatura_cliente: true,
   };
   id_os: any;
   private route = inject(ActivatedRoute);
