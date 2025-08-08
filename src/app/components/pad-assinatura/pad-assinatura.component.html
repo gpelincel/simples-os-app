@@ -1,0 +1,9 @@
+<div #signatureContainer class="signature-container">
+  <signature-pad
+    #signature
+    [options]="options"
+    (drawStart)="onDrawStart()"
+    (drawEnd)="onDrawEnd()"
+  ></signature-pad>
+  <ion-button (click)="clear()" color="danger">Limpar</ion-button>
+</div>

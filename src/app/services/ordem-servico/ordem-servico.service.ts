@@ -3,14 +3,17 @@ import { OrdemServico } from 'src/app/models/ordem-servico/ordem-servico';
 import { environment } from 'src/environments/environment';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import { FileViewer } from '@capacitor/file-viewer';
-import {ToastController} from '@ionic/angular/standalone';
+import { ToastController } from '@ionic/angular/standalone';
 import { ToastService } from '../toast/toast.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OrdemServicoService {
-  constructor(private toastController: ToastController, private toastService: ToastService) {}
+  constructor(
+    private toastController: ToastController,
+    private toastService: ToastService
+  ) {}
 
   api_url = environment.api_url + 'ordem-servico';
 
@@ -70,7 +73,7 @@ export class OrdemServicoService {
       .catch((error) => console.error('Error', error));
   }
 
-  editOS(os: any, id:any) {
+  editOS(os: any, id: any) {
     return fetch(`${this.api_url}/${id}`, {
       headers: {
         Accept: 'application/json',
@@ -111,6 +114,10 @@ export class OrdemServicoService {
     })
       .then((response) => response.blob())
       .then(async (response) => {
+
+        const url = window.URL.createObjectURL(response);
+        window.open(url);
+        
         const arrayBuffer = await response.arrayBuffer();
         const base64 = this.arrayBufferToBase64(arrayBuffer);
 
@@ -128,11 +135,13 @@ export class OrdemServicoService {
           path: writeResponse.uri,
         });
       })
-      .catch((error) => this.toastService.presentToast('error', `Erro: ${error}`));
+      .catch((error) =>
+        this.toastService.presentToast('error', `Erro: ${error}`)
+      );
   }
 
-  async excluirOS(id:number){
-    return fetch(this.api_url+'/'+id, {
+  async excluirOS(id: number) {
+    return fetch(this.api_url + '/' + id, {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',

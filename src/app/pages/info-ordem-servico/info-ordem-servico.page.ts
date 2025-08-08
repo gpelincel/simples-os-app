@@ -20,7 +20,9 @@ import {
   IonRow,
   IonCol,
   IonPopover,
-  IonBackButton
+  IonBackButton,
+  IonModal,
+  ModalController
 } from '@ionic/angular/standalone';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { OrdemServico } from 'src/app/models/ordem-servico/ordem-servico';
@@ -29,6 +31,8 @@ import { addIcons } from 'ionicons';
 import { arrowBackCircleOutline, createOutline, ellipsisVertical, pencilOutline, printOutline, trashBinOutline, trashOutline } from 'ionicons/icons';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
+import { PadAssinaturaComponent } from 'src/app/components/pad-assinatura/pad-assinatura.component';
+import { ModalAssinaturaComponent } from 'src/app/components/ordem-servico/modal-assinatura/modal-assinatura-cliente.component';
 
 @Component({
   selector: 'app-info-ordem-servico',
@@ -57,7 +61,9 @@ import { ToastService } from 'src/app/services/toast/toast.service';
     IonRow,
     IonCol,
     IonPopover,
-    IonBackButton
+    IonBackButton,
+    PadAssinaturaComponent,
+    IonModal
   ],
 })
 export class InfoOrdemServicoPage implements OnInit {
@@ -79,7 +85,9 @@ export class InfoOrdemServicoPage implements OnInit {
     items: true,
     valor: true,
     assinatura_tecnico: true,
+    assinatura_tecnico_img: null,
     assinatura_cliente: true,
+    assinatura_cliente_img: null,
   };
   id_os: any;
   private route = inject(ActivatedRoute);
@@ -91,7 +99,8 @@ export class InfoOrdemServicoPage implements OnInit {
     private osService: OrdemServicoService,
     private alertService: AlertService,
     private toastService: ToastService,
-    private router: Router
+    private router: Router,
+    private modalController: ModalController
   ) {
     this.id_os = this.route.snapshot.paramMap.get('id');
     addIcons({ arrowBackCircleOutline, ellipsisVertical, createOutline, printOutline, trashOutline });
@@ -103,7 +112,36 @@ export class InfoOrdemServicoPage implements OnInit {
     this.loaded = true;
   }
 
+  async getAssinatura(assinatura:string){
+
+    const modal_assinatura = await this.modalController.create({
+      component: ModalAssinaturaComponent,
+      componentProps: {
+        ['cargo']: assinatura
+      }
+    });
+  
+    modal_assinatura.present();
+  
+    const { data, role } = await modal_assinatura.onWillDismiss();
+  
+    if (role === 'confirm') {
+      if (assinatura == 'cliente') {
+        this.impressao_fields.assinatura_cliente_img = data;
+      } else {
+        this.impressao_fields.assinatura_tecnico_img = data;
+      }
+    }
+  }
+
   async imprimirOS() {
+    if (this.impressao_fields.assinatura_cliente) {
+      await this.getAssinatura('cliente')
+    }
+
+    if (this.impressao_fields.assinatura_tecnico) {
+      await this.getAssinatura('tecnico')
+    }
     await this.osService.imprimirOS(this.impressao_fields, this.id_os);
   }
 

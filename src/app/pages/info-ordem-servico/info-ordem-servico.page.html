@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button  default-href="/ordem-servico"></ion-back-button>
+      <ion-back-button default-href="/ordem-servico"></ion-back-button>
     </ion-buttons>
     <ion-title *ngIf="ordem_servico">
       {{ordem_servico.classificacao.descricao ?? "Carregando..."}}
@@ -14,7 +14,11 @@
         <ng-template>
           <ion-content>
             <ion-list>
-              <ion-item id="popover-trigger" button [routerLink]="['/ordem-servico/update/',id_os]">
+              <ion-item
+                id="popover-trigger"
+                button
+                [routerLink]="['/ordem-servico/update/',id_os]"
+              >
                 <ion-icon
                   aria-hidden="true"
                   slot="start"
