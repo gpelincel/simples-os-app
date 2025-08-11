@@ -121,6 +121,11 @@ export class InfoOrdemServicoPage implements OnInit {
   }
 
   async ngOnInit() {
+    await this.getOS();
+  }
+
+  async getOS(){
+    this.loaded = false;
     const response = await this.osService.getOSByID(this.id_os);
     this.ordem_servico = response!;
     this.loaded = true;
@@ -139,32 +144,36 @@ export class InfoOrdemServicoPage implements OnInit {
     const { data, role } = await modal_assinatura.onWillDismiss();
 
     if (role === 'confirm') {
-      if (assinatura == 'cliente') {
-        this.impressao_fields.assinatura_cliente_img = data;
-      } else {
-        this.impressao_fields.assinatura_tecnico_img = data;
+      if (!data) {
+        this.toastService.presentToast(
+          'error',
+          'Preencha a assinatura para confirmar!'
+        );
+        return;
       }
+
+      const response = await this.osService.assinarOS(
+        assinatura,
+        data,
+        this.id_os
+      );
+      let message = response.message;
+
+      if (response.errors) {
+        const primeiroCampo = Object.keys(response.errors)[0];
+        message = response.errors[primeiroCampo][0];
+      }
+
+      this.toastService.presentToast(response.status, message);
+
+      await this.getOS();
     } else {
       modal_assinatura.dismiss();
-      this.impressao_fields.assinatura_cliente_img = null;
-      this.impressao_fields.assinatura_tecnico_img = null;
     }
   }
 
   async imprimirOS() {
-    if (this.impressao_fields.assinatura_cliente) {
-      await this.getAssinatura('cliente');
-    }
-
-    if (this.impressao_fields.assinatura_tecnico) {
-      await this.getAssinatura('tecnico');
-    }
-
-    if (this.impressao_fields.assinatura_cliente_img && this.impressao_fields.assinatura_cliente_img) {
-      await this.osService.imprimirOS(this.impressao_fields, this.id_os);
-    } else {
-      this.toastService.presentToast("error", "Preencha todas as assinaturas!")
-    }
+    await this.osService.imprimirOS(this.impressao_fields, this.id_os);
   }
 
   async editOS(id_os: any) {

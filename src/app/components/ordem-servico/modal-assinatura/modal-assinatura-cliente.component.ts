@@ -10,6 +10,7 @@ import {
   ModalController
 } from '@ionic/angular/standalone';
 import { PadAssinaturaComponent } from '../../pad-assinatura/pad-assinatura.component';
+import { ToastService } from 'src/app/services/toast/toast.service';
 
 @Component({
   standalone: true,
@@ -22,7 +23,7 @@ export class ModalAssinaturaComponent {
   @ViewChild(PadAssinaturaComponent) padAssinatura!: PadAssinaturaComponent;
   @Input() cargo!:string;
 
-  constructor(private modalController: ModalController) {}
+  constructor(private modalController: ModalController, private toast: ToastService) {}
 
   cancel() {
     return this.modalController.dismiss(null, 'cancel');

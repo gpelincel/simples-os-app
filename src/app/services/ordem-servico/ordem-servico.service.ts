@@ -94,6 +94,27 @@ export class OrdemServicoService {
     return btoa(String.fromCharCode(...new Uint8Array(buffer)));
   }
 
+  async assinarOS(cargo: any, assinatura: any, id: any) {
+    const request_body = {
+      ['assinatura_' + cargo]: assinatura
+    };
+
+    return fetch(`${this.api_url}/assinar/${id}`, {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+      },
+      method: 'POST',
+      body: JSON.stringify(request_body),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        return response;
+      })
+      .catch((error) => console.error('Error', error));
+  }
+
   async imprimirOS(fields: any, id: any) {
     const toast = await this.toastController.create({
       message: 'Baixando PDF...',
@@ -114,10 +135,9 @@ export class OrdemServicoService {
     })
       .then((response) => response.blob())
       .then(async (response) => {
-
         const url = window.URL.createObjectURL(response);
         window.open(url);
-        
+
         const arrayBuffer = await response.arrayBuffer();
         const base64 = this.arrayBufferToBase64(arrayBuffer);
 

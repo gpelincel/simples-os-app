@@ -15,4 +15,6 @@ export interface OrdemServicoDTO{
     status?:any;
     equipamento?:any;
     itens: ItemDTO[];
+    is_assinado_cliente?:boolean;
+    is_assinado_tecnico?:boolean;
 }

@@ -20,6 +20,9 @@ export class OrdemServico {
   classificacao?: any;
   itens: Item[];
 
+  is_assinado_cliente?:boolean;
+  is_assinado_tecnico?:boolean;
+
   constructor(ordemDTO: OrdemServicoDTO) {
     this.id = ordemDTO.id;
     this.titulo = ordemDTO.titulo;
@@ -41,6 +44,8 @@ export class OrdemServico {
     this.equipamento = ordemDTO.equipamento;
     this.status = ordemDTO.status;
     this.classificacao = ordemDTO.classificacao;
+    this.is_assinado_cliente = ordemDTO.is_assinado_cliente;
+    this.is_assinado_tecnico = ordemDTO.is_assinado_tecnico;
 
     this.itens = ordemDTO.itens
       ? ordemDTO.itens.map((item) => new Item(item))

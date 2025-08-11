@@ -273,7 +273,13 @@
           [checked]="true"
           [(ngModel)]="impressao_fields.assinatura_tecnico"
           labelPlacement="end"
-          >Campo de assinatura do técnico</ion-checkbox
+          >Assinatura do técnico</ion-checkbox
+        >
+        <ion-button
+          color="primary"
+          (click)="getAssinatura('tecnico')"
+          expand="block"
+          >{{ordem_servico.is_assinado_tecnico ? 'Reassinar' : 'Assinar'}}</ion-button
         >
       </ion-item>
       <ion-item>
@@ -281,7 +287,13 @@
           [checked]="true"
           [(ngModel)]="impressao_fields.assinatura_cliente"
           labelPlacement="end"
-          >Campo de assinatura do cliente</ion-checkbox
+          >Assinatura do cliente</ion-checkbox
+        >
+        <ion-button
+          color="primary"
+          (click)="getAssinatura('cliente')"
+          expand="block"
+          >{{ordem_servico.is_assinado_cliente ? 'Reassinar' : 'Assinar'}}</ion-button
         >
       </ion-item>
     </ion-item-group>
