@@ -81,10 +81,12 @@
       <div
         style="
           display: grid;
-          grid-template-columns: 0.5fr 1fr 1.5fr 1fr;
+          grid-template-columns: 1fr 1fr 1fr;
           width: 100%;
         "
       >
+      
+        <ion-textarea style="grid-column: span 3;" placeholder="Nome Item" formControlName="nome"></ion-textarea>
         <ion-input
           (ionChange)="recalculateValor()"
           placeholder="0"
@@ -103,7 +105,7 @@
           }}</ion-select-option>
           }
         </ion-select>
-        <ion-input placeholder="Nome Item" formControlName="nome"></ion-input>
+        
         <ion-input
           (ionChange)="recalculateValor()"
           [maskito]="mask"

@@ -8,6 +8,7 @@ import {
   IonButton,
   IonIcon,
   IonList,
+  IonInputPasswordToggle
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { lockClosed, personOutline } from 'ionicons/icons';
@@ -30,6 +31,7 @@ import { ToastService } from 'src/app/services/toast/toast.service';
     IonButton,
     IonIcon,
     IonList,
+    IonInputPasswordToggle
   ],
 })
 export class LoginPage implements OnInit {

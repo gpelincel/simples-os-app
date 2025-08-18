@@ -76,6 +76,7 @@ export class FormOsComponent implements OnInit {
 
     itens.map((item: any) => {
       let valor_unitario = new Money(item.valor_unitario);
+      console.log(valor_unitario);
       total += item.quantidade * valor_unitario.valorRaw;
     });
 

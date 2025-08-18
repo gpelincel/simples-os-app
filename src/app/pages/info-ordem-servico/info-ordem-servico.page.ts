@@ -23,6 +23,7 @@ import {
   IonBackButton,
   IonModal,
   ModalController,
+  IonText
 } from '@ionic/angular/standalone';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { OrdemServico } from 'src/app/models/ordem-servico/ordem-servico';
@@ -72,6 +73,7 @@ import { ModalAssinaturaComponent } from 'src/app/components/ordem-servico/modal
     IonBackButton,
     PadAssinaturaComponent,
     IonModal,
+    IonText
   ],
 })
 export class InfoOrdemServicoPage implements OnInit {

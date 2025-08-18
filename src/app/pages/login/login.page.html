@@ -1,16 +1,30 @@
 <ion-content [fullscreen]="true">
   <div class="wrapper">
-    <img src="./../../../assets/logo.png" alt="">
+    <img src="./../../../assets/logo.png" alt="" />
     <form>
       <ion-list lines="full">
         <ion-item>
-          <ion-input labelPlacement="stacked" label="Usuário" placeholder="username" name="usuario" [(ngModel)]="user.usuario">
+          <ion-input
+            labelPlacement="stacked"
+            label="Usuário"
+            placeholder="username"
+            name="usuario"
+            [(ngModel)]="user.usuario"
+          >
             <ion-icon slot="start" name="person-outline"></ion-icon>
           </ion-input>
         </ion-item>
         <ion-item>
-          <ion-input labelPlacement="stacked" label="Senha" placeholder="•••••••" type="password" name="senha" [(ngModel)]="user.senha">
+          <ion-input
+            labelPlacement="stacked"
+            label="Senha"
+            placeholder="•••••••"
+            type="password"
+            name="senha"
+            [(ngModel)]="user.senha"
+          >
             <ion-icon slot="start" name="lock-closed"></ion-icon>
+            <ion-input-password-toggle slot="end"></ion-input-password-toggle>
           </ion-input>
         </ion-item>
         <ion-button (click)="onSubmit()" color="primary">Entrar</ion-button>

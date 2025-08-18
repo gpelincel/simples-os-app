@@ -236,24 +236,16 @@
           >Itens</ion-checkbox
         >
       </ion-item>
-      <ion-item>
-        <ion-grid>
-          <ion-row>
-            <ion-col size="2">Qtd.</ion-col>
-            <ion-col size="2.5">Unidade</ion-col>
-            <ion-col size="4">Nome</ion-col>
-            <ion-col>Valor</ion-col>
-          </ion-row>
-          <ion-row *ngFor="let item of ordem_servico.itens">
-            <ion-col size="2"> {{item.quantidade}} </ion-col>
-            <ion-col size="2.5"
-              >{{item.unidade ? item.unidade.descricao : "N/A"}}
-            </ion-col>
-            <ion-col size="4"> {{item.nome}} </ion-col>
-            <ion-col> {{item.valor_unitario.valorFormated}} </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-item>
+       <ion-item *ngFor="let item of ordem_servico.itens" lines="full">
+    <ion-label>
+      <h2>{{ item.nome }}</h2>
+      <p>
+        {{ item.quantidade }} {{ item.unidade ? item.unidade.descricao+'(s)' : 'N/A' }}
+      </p>
+    </ion-label>
+
+    <span slot="end">{{ item.valor_unitario.valorFormated }}</span>
+  </ion-item>
       <ion-item>
         <ion-checkbox
           [checked]="true"
