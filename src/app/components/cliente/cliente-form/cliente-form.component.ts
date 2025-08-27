@@ -1,7 +1,7 @@
 import { CommonModule, Location } from '@angular/common';
 import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { MaskitoDirective } from '@maskito/angular';
 import { MaskitoElementPredicate } from '@maskito/core';
 import { addIcons } from 'ionicons';
@@ -27,7 +27,6 @@ import { ToastService } from 'src/app/services/toast/toast.service';
     IonItem,
     IonInput,
     IonButton,
-    RouterLink,
     IonItemDivider,
     IonLabel,
     MaskitoDirective,

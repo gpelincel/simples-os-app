@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { Route, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { App } from '@capacitor/app';
 import {
@@ -78,7 +78,8 @@ export class AppComponent {
     private router: Router,
     private platform: Platform,
     private location: Location,
-    private toast: ToastService
+    private toast: ToastService,
+    private zone: NgZone
   ) {
     addIcons({
       peopleOutline,
@@ -112,11 +113,25 @@ export class AppComponent {
             App.exitApp();
           } else {
             this.lastTimeBackPress = currentTime;
-            this.toast.presentToast('success', "Pressione novamente para sair");
+            this.toast.presentToast('success', 'Pressione novamente para sair');
           }
         } else {
           this.location.back(); // Volta para a tela anterior
         }
+      });
+
+      App.addListener('appUrlOpen', (event) => {
+        this.zone.run(() => {
+          const url = new URL(event.url);
+          const path = url.pathname;
+
+          if (path.startsWith('/ordem-servico/')) {
+            const osId = path.split('/')[2];
+            if (osId) {
+              this.router.navigate(['/ordem-servico', osId]);
+            }
+          }
+        });
       });
     });
   }

@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button default-href="/clientes"></ion-back-button>
     </ion-buttons>
-    <ion-title *ngIf="cliente"> {{cliente.nome ?? "Carregando..."}} </ion-title>
+    <ion-title *ngIf="cliente"> {{cliente.nome}} </ion-title>
     <ion-buttons slot="end">
       <ion-button id="popover-trigger">
         <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>

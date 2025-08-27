@@ -64,7 +64,7 @@ export class EditOsPage implements OnInit {
     await this.getOS();
     this.os_form = this.fb.group({
       titulo: [this.ordem_servico.titulo],
-      observacao: [this.ordem_servico.descricao],
+      descricao: [this.ordem_servico.descricao],
       codigo_compra: [this.ordem_servico.codigo_compra],
       nota_fiscal: [this.ordem_servico.nota_fiscal],
       data_inicio: [new Date(this.ordem_servico.data_inicio).toISOString()],

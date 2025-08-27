@@ -16,15 +16,9 @@ import {
   IonButton,
   IonSpinner,
   IonIcon,
-  IonGrid,
-  IonRow,
-  IonCol,
   IonPopover,
   IonBackButton,
-  IonModal,
-  ModalController,
-  IonText
-} from '@ionic/angular/standalone';
+  ModalController} from '@ionic/angular/standalone';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { OrdemServico } from 'src/app/models/ordem-servico/ordem-servico';
 import { OrdemServicoService } from 'src/app/services/ordem-servico/ordem-servico.service';
@@ -33,14 +27,11 @@ import {
   arrowBackCircleOutline,
   createOutline,
   ellipsisVertical,
-  pencilOutline,
   printOutline,
-  trashBinOutline,
   trashOutline,
 } from 'ionicons/icons';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
-import { PadAssinaturaComponent } from 'src/app/components/pad-assinatura/pad-assinatura.component';
 import { ModalAssinaturaComponent } from 'src/app/components/ordem-servico/modal-assinatura/modal-assinatura-cliente.component';
 
 @Component({
@@ -66,14 +57,8 @@ import { ModalAssinaturaComponent } from 'src/app/components/ordem-servico/modal
     IonSpinner,
     RouterLink,
     IonIcon,
-    IonGrid,
-    IonRow,
-    IonCol,
     IonPopover,
     IonBackButton,
-    PadAssinaturaComponent,
-    IonModal,
-    IonText
   ],
 })
 export class InfoOrdemServicoPage implements OnInit {

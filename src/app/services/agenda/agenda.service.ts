@@ -11,8 +11,15 @@ export class AgendaService {
 
   constructor() {}
 
-  getAgendamentos(data_filter:string|null = null) {
-    let url = data_filter ? this.api_url+`?data=${data_filter}`:this.api_url;
+  getAgendamentos(params:any[]) {
+    let url = this.api_url;
+
+    if (params.length > 0) {
+      url += '?';
+      params.map((param) => {
+        url += `${param.label}=${param.value}&`;
+      });
+    }
 
     return fetch(url, {
       headers: {

@@ -45,7 +45,7 @@ export class CadastroOsPage implements OnInit {
   ngOnInit() {
     this.os_form = this.fb.group({
       titulo: [''],
-      observacao: [''],
+      descricao: [''],
       codigo_compra: [''],
       nota_fiscal: [''],
       data_inicio: [null],
